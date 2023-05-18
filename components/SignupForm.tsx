@@ -18,7 +18,10 @@ const SignupForm = () => {
       password: password,
       name: name,
     };
-
+    if (password !== passwordCheck) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
     const res = await fetch(`${backendUrl}/member/signup`, {
       method: "post",
       headers: {
