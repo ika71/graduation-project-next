@@ -1,6 +1,25 @@
+"use client";
+
+import { isLogin, signout } from "@/auth/LoginService";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    setLogin(isLogin());
+  }, [pathname]);
+
+  const logout = () => {
+    signout();
+    setLogin(isLogin());
+    router.push("/");
+  };
+
   return (
     <div>
       <div className="bg-white">
@@ -57,17 +76,29 @@ const Header = () => {
                 <span className="text-sm font-medium">기기 검색</span>
               </div>
 
-              <Link href={"/signin"}>
-                <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                  <span className="text-sm font-medium">로그인</span>
-                </div>
-              </Link>
+              {!login && (
+                <Link href={"/signin"}>
+                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                    <span className="text-sm font-medium">로그인</span>
+                  </div>
+                </Link>
+              )}
 
-              <Link href={"/signup"}>
-                <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                  <span className="text-sm font-medium">회원가입</span>
-                </div>
-              </Link>
+              {!login && (
+                <Link href={"/signup"}>
+                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                    <span className="text-sm font-medium">회원가입</span>
+                  </div>
+                </Link>
+              )}
+
+              {login && (
+                <button onClick={logout}>
+                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                    <span className="text-sm font-medium">로그아웃</span>
+                  </div>
+                </button>
+              )}
             </div>
           </div>
         </div>

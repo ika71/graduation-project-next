@@ -48,3 +48,13 @@ export const authReqeust = (url: string, method: string, json: object) => {
   };
   return fetch(url, http);
 };
+export const signout = () => {
+  localStorage.removeItem("token");
+};
+export const isLogin = () => {
+  if (localStorage.getItem("token")) {
+    return true;
+  } else {
+    return false;
+  }
+};
