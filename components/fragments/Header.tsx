@@ -57,14 +57,17 @@ const Header = () => {
                 <span className="text-sm font-medium">기기 검색</span>
               </div>
 
-              <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                <span className="text-sm font-medium">로그인</span>
-              </div>
-              <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                <Link href={"/signup"} className="text-sm font-medium">
-                  회원가입
-                </Link>
-              </div>
+              <Link href={"/signin"}>
+                <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                  <span className="text-sm font-medium">로그인</span>
+                </div>
+              </Link>
+
+              <Link href={"/signup"}>
+                <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                  <span className="text-sm font-medium">회원가입</span>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
