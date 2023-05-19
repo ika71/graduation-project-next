@@ -10,6 +10,11 @@ const SigninForm = () => {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
+  /**
+   * 로그인 성공 시 홈 디렉토리로 라우트
+   * 실패 시 alert 창을 띄움
+   * @returns
+   */
   const login = async () => {
     if (emailInput.current === null || passwordInput.current === null) {
       return;

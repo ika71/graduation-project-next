@@ -13,6 +13,11 @@ const SignupForm = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
 
+  /**
+   * 회원 가입 성공 시 alert창 띄운 후 홈 디렉토리로 라우트
+   * 실패 시 alert창을 띄움
+   * @returns
+   */
   const createMember = async () => {
     const member = {
       email: email,

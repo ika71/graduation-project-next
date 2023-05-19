@@ -48,9 +48,15 @@ export const authReqeust = (url: string, method: string, json: object) => {
   };
   return fetch(url, http);
 };
+/**
+ * 로컬스토리지에서 토큰 제거
+ */
 export const signout = () => {
   localStorage.removeItem("token");
 };
+/**
+ * @returns 로그인 토큰 존재 시 true 토큰 없으면 false
+ */
 export const isLogin = () => {
   if (localStorage.getItem("token")) {
     return true;
