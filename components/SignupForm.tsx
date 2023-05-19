@@ -1,5 +1,6 @@
 "use client";
 
+import { authReqeust } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,13 +23,11 @@ const SignupForm = () => {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    const res = await fetch(`${backendUrl}/member/signup`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(member),
-    });
+    const res = await authReqeust(
+      `${backendUrl}/member/signup`,
+      "post",
+      member
+    );
     if (res.ok) {
       alert("회원 가입에 성공 하였습니다.");
       router.push("/");
