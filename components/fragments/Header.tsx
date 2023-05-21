@@ -91,17 +91,21 @@ const Header = () => {
 
               {!login && (
                 <Link href={"/signin"}>
-                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                    <span className="text-sm font-medium">로그인</span>
-                  </div>
+                  <button>
+                    <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                      <span className="text-sm font-medium">로그인</span>
+                    </div>
+                  </button>
                 </Link>
               )}
 
               {!login && (
                 <Link href={"/signup"}>
-                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                    <span className="text-sm font-medium">회원가입</span>
-                  </div>
+                  <button>
+                    <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                      <span className="text-sm font-medium">회원가입</span>
+                    </div>
+                  </button>
                 </Link>
               )}
 
@@ -111,6 +115,16 @@ const Header = () => {
                     <span className="text-sm font-medium">로그아웃</span>
                   </div>
                 </button>
+              )}
+
+              {login && (
+                <Link href={"/admin"}>
+                  <button>
+                    <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                      <span className="text-sm font-medium">관리자 페이지</span>
+                    </div>
+                  </button>
+                </Link>
               )}
             </div>
           </div>
