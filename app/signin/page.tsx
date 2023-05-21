@@ -1,10 +1,10 @@
 import SigninForm from "@/components/SigninForm";
 
-const Signin = () => {
+const SigninPage = () => {
   return (
     <main>
       <SigninForm />
     </main>
   );
 };
-export default Signin;
+export default SigninPage;
