@@ -15,13 +15,17 @@ interface FetchData {
 }
 
 const CategoryPage = ({ params }: { params: { page: number } }) => {
+  const currentPage = params.page; //현재 페이지
+  const size = 10; //페이지에 보여줄 카테고리 크기
+
   const [categoryViewDtoList, setCategoryViewDtoList] =
-    useState<CategoryViewDto[]>();
-  const [totalCount, setTotalCount] = useState<number>();
+    useState<CategoryViewDto[]>(); //카테고리 목록
+  const [totalCount, setTotalCount] = useState<number>(); //모든 카테고리 크기
 
-  const currentPage = params.page;
-  const size = 10;
-
+  /**
+   * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
+   * 따라서 useEffect안에서 authRequest 실행
+   */
   useEffect(() => {
     const fetch = async () => {
       const res = await authReqeustWithOutBody(
@@ -36,12 +40,12 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
     fetch();
   }, [currentPage]);
 
+  /**
+   * useEffect 실행 전에 보여줄 화면
+   */
   if (categoryViewDtoList === undefined || totalCount === undefined) {
     return <div>로딩 중</div>;
   }
-
-  console.log(totalCount);
-  console.log(categoryViewDtoList);
 
   return (
     <div>
@@ -58,7 +62,6 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
         </thead>
         <tbody className="block md:table-row-group">
           {categoryViewDtoList.map((category) => (
-            // eslint-disable-next-line react/jsx-key
             <tr
               key={category.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"

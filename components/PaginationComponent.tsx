@@ -8,9 +8,21 @@ interface Props {
 }
 
 const PaginationComponent: React.FC<Props> = (props) => {
+  /**
+   * 페이징 할 url
+   */
   const url = props.url;
+  /**
+   * 현재 페이지
+   */
   const currentPage = props.currentPage;
+  /**
+   * 모든 게시글들의 수
+   */
   const totalCount = props.totalCount;
+  /**
+   * 한번에 보여줄 게시글의 수
+   */
   const size = props.size;
 
   /**
@@ -27,7 +39,6 @@ const PaginationComponent: React.FC<Props> = (props) => {
    */
   const start =
     1 + Math.floor((currentPage - 1) / showPageNumber) * showPageNumber;
-
   /**
    * 보여줄 페이지 칸 리스트
    */
