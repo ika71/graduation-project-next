@@ -11,7 +11,7 @@ const AdminMainPage = () => {
                 <h2 className="text-gray-900 text-lg font-bold">
                   카테고리 관리
                 </h2>
-                <Link href={"/admin/category"}>
+                <Link href={"/admin/category/1"}>
                   <button className="text-sm mt-6 px-4 py-2 bg-yellow-400 text-white rounded-lg  tracking-wider hover:bg-yellow-300 outline-none">
                     이동
                   </button>
