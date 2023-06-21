@@ -57,7 +57,7 @@ const PaginationComponent: React.FC<Props> = (props) => {
         <ul className="flex list-style-none">
           <li className="page-item">
             <Link
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href={`${url}${pages[0] - 1 > 0 ? pages[0] - 1 : 1}`}
             >
               Previous
@@ -69,8 +69,8 @@ const PaginationComponent: React.FC<Props> = (props) => {
               <Link
                 className={
                   p == currentPage
-                    ? "page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-                    : "page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    ? "page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
+                    : "page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
                 }
                 href={`${url}${p}`}
               >
@@ -80,7 +80,7 @@ const PaginationComponent: React.FC<Props> = (props) => {
           ))}
           <li className="page-item">
             <Link
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href={`${url}${
                 pages[pages.length - 1] + 1 <= totalPageCount
                   ? pages[pages.length - 1] + 1
