@@ -14,7 +14,7 @@ export const signin = async (email: string, password: string) => {
     email: email,
     password: password,
   };
-  const res = await authReqeust(`${backendUrl}/member/signin`, "post", member);
+  const res = await authReqeust(`${backendUrl}/member/signin`, "POST", member);
   if (res.ok) {
     const loginData: LoginSuccess = await res.json();
     if (loginData.token) {

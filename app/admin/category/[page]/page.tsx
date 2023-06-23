@@ -31,7 +31,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
     const fetch = async () => {
       const res = await authReqeustWithOutBody(
         `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
-        "get"
+        "GET"
       );
       const fetchData: FetchData = await res.json();
       setCategoryViewDtoList(fetchData.categoryViewDtoList);
@@ -82,9 +82,11 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Actions
                 </span>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-                  Edit
-                </button>
+                <Link href={`/admin/category/edit/${category.id}`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+                    Edit
+                  </button>
+                </Link>
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">
                   Delete
                 </button>

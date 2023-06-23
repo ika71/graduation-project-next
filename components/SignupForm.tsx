@@ -30,7 +30,7 @@ const SignupForm = () => {
     }
     const res = await authReqeust(
       `${backendUrl}/member/signup`,
-      "post",
+      "POST",
       member
     );
     if (res.ok) {

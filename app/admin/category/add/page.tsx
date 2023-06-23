@@ -18,7 +18,7 @@ const CategoryAddPage = () => {
     };
     const res = await authReqeust(
       `${backendUrl}/admin/category`,
-      "post",
+      "POST",
       categoryDto
     );
     if (res.ok) {
