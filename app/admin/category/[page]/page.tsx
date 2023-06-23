@@ -2,6 +2,7 @@
 import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
 import { backendUrl } from "@/url/backendUrl";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface CategoryViewDto {
@@ -49,11 +50,16 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
 
   return (
     <div>
+      <Link href="/admin/category/add">
+        <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+          카테고리 추가
+        </button>
+      </Link>
       <table className="min-w-full border-collapse block md:table">
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-              Name
+              Category Name
             </th>
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
               Actions
@@ -76,7 +82,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Actions
                 </span>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
                   Edit
                 </button>
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">

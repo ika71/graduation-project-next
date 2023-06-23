@@ -60,7 +60,7 @@ const PaginationComponent: React.FC<Props> = (props) => {
               className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href={`${url}${pages[0] - 1 > 0 ? pages[0] - 1 : 1}`}
             >
-              Previous
+              &laquo;
             </Link>
           </li>
 
@@ -87,7 +87,7 @@ const PaginationComponent: React.FC<Props> = (props) => {
                   : pages[pages.length - 1] || 1
               }`}
             >
-              Next
+              &raquo;
             </Link>
           </li>
         </ul>
