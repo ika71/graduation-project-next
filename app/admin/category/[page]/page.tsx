@@ -3,6 +3,7 @@ import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
 import { backendUrl } from "@/url/backendUrl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface CategoryViewDto {
@@ -19,9 +20,11 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
   const currentPage = params.page; //현재 페이지
   const size = 10; //페이지에 보여줄 카테고리 크기
 
+  const router = useRouter();
+
   const [categoryViewDtoList, setCategoryViewDtoList] =
     useState<CategoryViewDto[]>(); //카테고리 목록
-  const [totalCount, setTotalCount] = useState<number>(); //모든 카테고리 크기
+  const [totalCount, setTotalCount] = useState<number>(0); //모든 카테고리 크기
 
   /**
    * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
@@ -39,7 +42,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
     };
 
     fetch();
-  }, [currentPage]);
+  }, [currentPage, params]);
 
   /**
    * useEffect 실행 전에 보여줄 화면
@@ -47,6 +50,25 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
   if (categoryViewDtoList === undefined || totalCount === undefined) {
     return <div>로딩 중</div>;
   }
+
+  const deleteCategory = async (id: number) => {
+    const res = await authReqeustWithOutBody(
+      `${backendUrl}/admin/category?id=${id}`,
+      "DELETE"
+    );
+    if (res.ok) {
+      // 카테고리 삭제 후, categoryViewDtoList와 totalCount 상태를 갱신
+      const updatedCategoryList = categoryViewDtoList.filter(
+        (category) => category.id !== id
+      );
+      setCategoryViewDtoList(updatedCategoryList);
+
+      setTotalCount((prevTotalCount) => prevTotalCount - 1); // totalCount를 1 감소
+      router.push("/admin/category/1");
+    } else {
+      alert("카테고리 삭제에 실패하였습니다.");
+    }
+  };
 
   return (
     <div>
@@ -87,7 +109,10 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
                     Edit
                   </button>
                 </Link>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">
+                <button
+                  onClick={() => deleteCategory(category.id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                >
                   Delete
                 </button>
               </td>
