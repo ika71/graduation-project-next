@@ -8,13 +8,13 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  /**
+  /*
    * login=true면 로그인 상황
    * login=false면 로그아웃 상황
    */
   const [login, setLogin] = useState(false);
 
-  /**
+  /*
    * 최초 페이지 로딩 시 setLogin호출
    * 경로 변경 시 setLogin호출
    */

@@ -8,41 +8,16 @@ interface Props {
 }
 
 const PaginationComponent: React.FC<Props> = (props) => {
-  /**
-   * 페이징 할 url
-   */
-  const url = props.url;
-  /**
-   * 현재 페이지
-   */
-  const currentPage = props.currentPage;
-  /**
-   * 모든 게시글들의 수
-   */
-  const totalCount = props.totalCount;
-  /**
-   * 한번에 보여줄 게시글의 수
-   */
-  const size = props.size;
+  const url = props.url; //페이징 할 url
+  const currentPage = props.currentPage; //현재 페이지
+  const totalCount = props.totalCount; //모든 게시글들의 수
+  const size = props.size; //한번에 보여줄 게시글의 수
 
-  /**
-   * 총 페이지의 수
-   */
-  const totalPageCount = Math.ceil(totalCount / size);
-  /**
-   * 보여줄 페이지 칸의 수
-   */
-  const showPageNumber = 5;
-
-  /**
-   * 페이지 칸의 첫번째 칸 번호
-   */
-  const start =
+  const totalPageCount = Math.ceil(totalCount / size); //총 페이지의 수
+  const showPageNumber = 5; //보여줄 페이지 칸의 수
+  const start = //페이지 칸의 첫번째 칸 번호
     1 + Math.floor((currentPage - 1) / showPageNumber) * showPageNumber;
-  /**
-   * 보여줄 페이지 칸 리스트
-   */
-  const pages: number[] = [];
+  const pages: number[] = []; //보여줄 페이지 칸 리스트
 
   for (let i = start; i < start + showPageNumber; i++) {
     if (i > totalPageCount) {

@@ -26,7 +26,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
     useState<CategoryViewDto[]>(); //카테고리 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 카테고리 크기
 
-  /**
+  /*
    * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
    * 따라서 useEffect안에서 authRequest 실행
    */
@@ -42,9 +42,9 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
     };
 
     fetch();
-  }, [currentPage, params]);
+  }, [currentPage]);
 
-  /**
+  /*
    * useEffect 실행 전에 보여줄 화면
    */
   if (categoryViewDtoList === undefined || totalCount === undefined) {
