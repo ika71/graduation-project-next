@@ -10,14 +10,14 @@ interface CategoryDto {
   id: number;
   name: string;
 }
-interface DeviceViewDto {
+interface DevicePagingDto {
   id: number;
   name: string;
   categoryDto: CategoryDto;
 }
 
 interface FetchData {
-  deviceViewDtoList: DeviceViewDto[];
+  devicePagingDtoList: DevicePagingDto[];
   totalCount: number;
 }
 
@@ -27,7 +27,8 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
 
   const router = useRouter();
 
-  const [deviceViewDtoList, setDeviceViewDtoList] = useState<DeviceViewDto[]>(); //전자제품 목록
+  const [devicePagingDtoList, setDevicePagingDtoList] =
+    useState<DevicePagingDto[]>(); //전자제품 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 전자제품 크기
 
   /*
@@ -41,7 +42,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
         "GET"
       );
       const fetchData: FetchData = await res.json();
-      setDeviceViewDtoList(fetchData.deviceViewDtoList);
+      setDevicePagingDtoList(fetchData.devicePagingDtoList);
       setTotalCount(fetchData.totalCount);
     };
 
@@ -51,7 +52,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
   /*
    * useEffect 실행 전에 보여줄 화면
    */
-  if (deviceViewDtoList === undefined) {
+  if (devicePagingDtoList === undefined) {
     return <div>로딩 중</div>;
   }
 
@@ -61,11 +62,11 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
       "DELETE"
     );
     if (res.ok) {
-      // 전자제품 삭제 후, deviceViewDtoList와 totalCount 상태를 갱신
-      const updatedDeviceList = deviceViewDtoList.filter(
+      // 전자제품 삭제 후, devicePagingDtoList와 totalCount 상태를 갱신
+      const updatedDeviceList = devicePagingDtoList.filter(
         (device) => device.id !== id
       );
-      setDeviceViewDtoList(updatedDeviceList);
+      setDevicePagingDtoList(updatedDeviceList);
 
       setTotalCount((prevTotalCount) => prevTotalCount - 1); // totalCount를 1 감소
       router.push("/admin/device/1");
@@ -96,7 +97,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {deviceViewDtoList.map((device) => (
+          {devicePagingDtoList.map((device) => (
             <tr
               key={device.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"

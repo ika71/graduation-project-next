@@ -6,13 +6,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface CategoryViewDto {
+interface CategoryPagingDto {
   id: number;
   name: string;
 }
 
 interface FetchData {
-  categoryViewDtoList: CategoryViewDto[];
+  categoryPagingDtoList: CategoryPagingDto[];
   totalCount: number;
 }
 
@@ -23,7 +23,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
   const router = useRouter();
 
   const [categoryViewDtoList, setCategoryViewDtoList] =
-    useState<CategoryViewDto[]>(); //카테고리 목록
+    useState<CategoryPagingDto[]>(); //카테고리 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 카테고리 크기
 
   /*
@@ -37,7 +37,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
         "GET"
       );
       const fetchData: FetchData = await res.json();
-      setCategoryViewDtoList(fetchData.categoryViewDtoList);
+      setCategoryViewDtoList(fetchData.categoryPagingDtoList);
       setTotalCount(fetchData.totalCount);
     };
 
