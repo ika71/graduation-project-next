@@ -30,9 +30,11 @@ const AdminMainPage = () => {
                 <h2 className="text-gray-900 text-lg font-bold">
                   전자제품 관리
                 </h2>
-                <button className="text-sm mt-6 px-4 py-2 bg-orange-400  text-white rounded-lg  tracking-wider hover:bg-orange-500 outline-none">
-                  이동
-                </button>
+                <Link href={"/admin/device/1"}>
+                  <button className="text-sm mt-6 px-4 py-2 bg-orange-400  text-white rounded-lg  tracking-wider hover:bg-orange-500 outline-none">
+                    이동
+                  </button>
+                </Link>
               </div>
               <div className="bg-gradient-to-tr from-orange-500 to-orange-400 w-32 h-32  rounded-full shadow-2xl shadow-orange-400 border-white  border-dashed border-2  flex justify-center items-center ">
                 <div>
