@@ -52,6 +52,9 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
   }
 
   const deleteCategory = async (id: number) => {
+    if (!confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/category?id=${id}`,
       "DELETE"
