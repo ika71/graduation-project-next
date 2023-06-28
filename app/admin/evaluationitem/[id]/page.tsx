@@ -2,6 +2,7 @@
 
 import { authReqeustWithOutBody } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface EvaluationItem {
@@ -14,14 +15,14 @@ interface FetchData {
 }
 
 const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
-  const evaluationItemId = params.id;
+  const deviceId = params.id;
   const [evaluationItemList, setEvaluationItemList] =
     useState<EvaluationItem[]>();
 
   useEffect(() => {
     const fetch = async () => {
       const res = await authReqeustWithOutBody(
-        `${backendUrl}/admin/evaluationitem?deviceId=${evaluationItemId}`,
+        `${backendUrl}/admin/evaluationitem?deviceId=${deviceId}`,
         "GET"
       );
       const fetchData: FetchData = await res.json();
@@ -29,7 +30,7 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
     };
 
     fetch();
-  }, [evaluationItemId]);
+  }, [deviceId]);
 
   if (evaluationItemList === undefined) {
     return <div>로딩 중</div>;
@@ -37,9 +38,11 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
 
   return (
     <div>
-      <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-        평가항목 추가
-      </button>
+      <Link href={`/admin/evaluationitem/add/${deviceId}`}>
+        <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+          평가항목 추가
+        </button>
+      </Link>
       <table className="min-w-full border-collapse block md:table">
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
