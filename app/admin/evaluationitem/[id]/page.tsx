@@ -3,6 +3,7 @@
 import { authReqeustWithOutBody } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface EvaluationItem {
@@ -18,6 +19,7 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
   const deviceId = params.id;
   const [evaluationItemList, setEvaluationItemList] =
     useState<EvaluationItem[]>();
+  const router = useRouter();
 
   useEffect(() => {
     const fetch = async () => {
@@ -35,6 +37,27 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
   if (evaluationItemList === undefined) {
     return <div>로딩 중</div>;
   }
+
+  const deleteEvaluationItem = async (id: number) => {
+    if (!confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
+    const res = await authReqeustWithOutBody(
+      `${backendUrl}/admin/evaluationitem?id=${id}`,
+      "DELETE"
+    );
+    if (res.ok) {
+      // 전자제품 삭제 후, devicePagingDtoList와 totalCount 상태를 갱신
+      const updatedEvaluationItemList = evaluationItemList.filter(
+        (evaluationItem) => evaluationItem.id !== id
+      );
+      setEvaluationItemList(updatedEvaluationItemList);
+
+      router.push(`/admin/evaluationitem/${deviceId}`);
+    } else {
+      alert("평가항목 삭제에 실패하였습니다.");
+    }
+  };
 
   return (
     <div>
@@ -70,10 +93,17 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Actions
                 </span>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-                  Edit
-                </button>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">
+                <Link
+                  href={`/admin/evaluationitem/edit/${evaluationItem.id}?deviceId=${deviceId}`}
+                >
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  onClick={() => deleteEvaluationItem(evaluationItem.id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                >
                   Delete
                 </button>
               </td>
