@@ -131,6 +131,11 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
                     평가항목 관리
                   </button>
                 </Link>
+                <Link href={`/admin/device/image/${device.id}`}>
+                  <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 border border-orange-500 rounded mr-3">
+                    이미지 관리
+                  </button>
+                </Link>
                 <button
                   onClick={() => deleteDevice(device.id)}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"

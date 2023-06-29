@@ -77,6 +77,32 @@ export const signout = () => {
   localStorage.removeItem("token");
 };
 /**
+ * 헤더에 토큰을 담아서 url에 요청을 보냄
+ * @param url
+ * @param method
+ * @param files
+ * @returns
+ */
+export const authReqeustFile = (
+  url: string,
+  method: string,
+  files: FormData
+) => {
+  let headers = new Headers({});
+
+  const accessToken = localStorage.getItem("token");
+  if (accessToken) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+  let http = {
+    headers: headers,
+    method: method,
+    body: files,
+  };
+  return fetch(url, http);
+};
+
+/**
  * @returns 로그인 토큰 존재 시 true 토큰 없으면 false
  */
 export const isLogin = () => {
