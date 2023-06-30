@@ -2,6 +2,7 @@
 import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
 import { backendUrl } from "@/url/backendUrl";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ interface DevicePagingDto {
   id: number;
   name: string;
   categoryDto: CategoryDto;
+  imageId: number;
 }
 
 interface FetchData {
@@ -89,6 +91,9 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+              Device Image
+            </th>
+            <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
               Device Name
             </th>
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
@@ -105,6 +110,20 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
               key={device.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
             >
+              <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span className="inline-block w-1/3 md:hidden font-bold">
+                  Device Name
+                </span>
+                {device.imageId && (
+                  <Image
+                    src={`${backendUrl}/image/${device.imageId}`}
+                    width={300}
+                    height={300}
+                    alt={`${device.imageId}`}
+                    className="w-72, h-72"
+                  />
+                )}
+              </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Device Name
