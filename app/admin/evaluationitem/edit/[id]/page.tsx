@@ -22,11 +22,10 @@ const EvaluationItemEditPage = ({
       return;
     }
     const evaluationItemDto = {
-      id: evaluationItemId,
       name: evaluationItemName.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/evaluationitem`,
+      `${backendUrl}/admin/evaluationitem/${evaluationItemId}`,
       "PATCH",
       evaluationItemDto
     );

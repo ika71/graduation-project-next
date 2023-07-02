@@ -15,11 +15,10 @@ const CategoryEditPage = ({ params }: { params: { id: number } }) => {
       return;
     }
     const categoryDto = {
-      id: id,
       name: categoryName.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/category`,
+      `${backendUrl}/admin/category/${id}`,
       "PATCH",
       categoryDto
     );

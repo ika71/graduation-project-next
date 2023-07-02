@@ -63,7 +63,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
       return;
     }
     const res = await authReqeustWithOutBody(
-      `${backendUrl}/admin/device?id=${id}`,
+      `${backendUrl}/admin/device/${id}`,
       "DELETE"
     );
     if (res.ok) {

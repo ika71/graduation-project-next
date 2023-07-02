@@ -56,7 +56,7 @@ const CategoryPage = ({ params }: { params: { page: number } }) => {
       return;
     }
     const res = await authReqeustWithOutBody(
-      `${backendUrl}/admin/category?id=${id}`,
+      `${backendUrl}/admin/category/${id}`,
       "DELETE"
     );
     if (res.ok) {

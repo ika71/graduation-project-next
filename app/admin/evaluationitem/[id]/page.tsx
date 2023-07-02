@@ -43,7 +43,7 @@ const EvaluationitemPage = ({ params }: { params: { id: number } }) => {
       return;
     }
     const res = await authReqeustWithOutBody(
-      `${backendUrl}/admin/evaluationitem?id=${id}`,
+      `${backendUrl}/admin/evaluationitem/${id}`,
       "DELETE"
     );
     if (res.ok) {

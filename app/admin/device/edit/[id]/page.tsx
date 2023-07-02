@@ -48,12 +48,11 @@ const DeviceEditPage = ({ params }: { params: { id: number } }) => {
       return;
     }
     const deviceDto = {
-      id: id,
       name: deviceName.current.value,
       categoryId: selectCategoryId.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/device`,
+      `${backendUrl}/admin/device/${id}`,
       "PATCH",
       deviceDto
     );
