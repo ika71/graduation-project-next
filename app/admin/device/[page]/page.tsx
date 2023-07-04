@@ -120,7 +120,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
                     width={300}
                     height={300}
                     alt={`${device.imageId}`}
-                    className="w-72, h-72"
+                    className="w-auto, h-auto"
                   />
                 )}
               </td>
