@@ -6,12 +6,19 @@ interface Props {
   totalCount: number;
   size: number;
 }
-
+/**
+ *
+ * @param url 페이징 할 url("url페이지번호" 형식으로 페이징됨)
+ * @param currentPage 현재 페이지
+ * @param totalCount 모든 원소들의 수
+ * @param size 한 페이지에 보여줄 원소의 수
+ * @returns
+ */
 const PaginationComponent: React.FC<Props> = (props) => {
   const url = props.url; //페이징 할 url
   const currentPage = props.currentPage; //현재 페이지
-  const totalCount = props.totalCount; //모든 게시글들의 수
-  const size = props.size; //한번에 보여줄 게시글의 수
+  const totalCount = props.totalCount; //모든 원소들의 수
+  const size = props.size; //한 페이지에 보여줄 원소의 수
 
   const totalPageCount = Math.ceil(totalCount / size); //총 페이지의 수
   const showPageNumber = 5; //보여줄 페이지 칸의 수
