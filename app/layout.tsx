@@ -9,6 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <title>전자제품 리뷰 사이트</title>
       <body>
         <Header />
         {children}
