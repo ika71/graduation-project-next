@@ -42,11 +42,10 @@ const DeviceImageSetPage = ({ params }: { params: { id: number } }) => {
   };
   const deviceImageSet = async () => {
     const json = {
-      deviceId: deviceId,
       imageId: imageId,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/device/image`,
+      `${backendUrl}/admin/device/${deviceId}/image`,
       "POST",
       json
     );
