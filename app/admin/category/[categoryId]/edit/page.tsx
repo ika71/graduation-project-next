@@ -5,8 +5,8 @@ import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
-const CategoryEditPage = ({ params }: { params: { id: number } }) => {
-  const id = params.id;
+const CategoryEditPage = ({ params }: { params: { categoryId: number } }) => {
+  const categoryId = params.categoryId;
   const categoryName = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -18,12 +18,12 @@ const CategoryEditPage = ({ params }: { params: { id: number } }) => {
       name: categoryName.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/category/${id}`,
+      `${backendUrl}/admin/category/${categoryId}`,
       "PATCH",
       categoryDto
     );
     if (res.ok) {
-      router.push("/admin/category/1");
+      router.push("/admin/category");
     } else {
       alert("카테고리 수정을 실패하였습니다.");
     }

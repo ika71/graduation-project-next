@@ -22,7 +22,7 @@ const CategoryAddPage = () => {
       categoryDto
     );
     if (res.ok) {
-      router.push("/admin/category/1");
+      router.push("/admin/category");
     } else {
       alert("카테고리 추가를 실패하였습니다.");
     }

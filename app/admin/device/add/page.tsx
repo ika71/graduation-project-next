@@ -56,7 +56,7 @@ const DeviceAddPage = () => {
       deviceDto
     );
     if (res.ok) {
-      router.push("/admin/device/1");
+      router.push("/admin/device");
     } else {
       alert("전자제품 추가를 실패하였습니다.");
     }

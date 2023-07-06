@@ -14,8 +14,8 @@ interface FetchData {
   categoryAllDtoList: CategoryAllDto[];
 }
 
-const DeviceEditPage = ({ params }: { params: { id: number } }) => {
-  const id = params.id;
+const DeviceEditPage = ({ params }: { params: { deviceId: number } }) => {
+  const deviceId = params.deviceId;
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);
 
@@ -52,12 +52,12 @@ const DeviceEditPage = ({ params }: { params: { id: number } }) => {
       categoryId: selectCategoryId.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/device/${id}`,
+      `${backendUrl}/admin/device/${deviceId}`,
       "PATCH",
       deviceDto
     );
     if (res.ok) {
-      router.push("/admin/device/1");
+      router.push("/admin/device");
     } else {
       alert("전자제품 수정을 실패하였습니다.");
     }

@@ -10,8 +10,8 @@ interface UploadSuccess {
   originName: string;
 }
 
-const DeviceImageSetPage = ({ params }: { params: { id: number } }) => {
-  const deviceId = params.id;
+const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
+  const deviceId = params.deviceId;
 
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadFile, setUploadFile] = useState<File>();
@@ -51,7 +51,7 @@ const DeviceImageSetPage = ({ params }: { params: { id: number } }) => {
     );
     if (res.ok) {
       alert("이미지 저장에 성공하였습니다.");
-      router.push("/admin/device/1");
+      router.push("/admin/device");
     } else {
       alert("이미지 저장에 실패하였습니다.");
     }

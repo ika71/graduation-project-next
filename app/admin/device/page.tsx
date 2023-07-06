@@ -23,8 +23,8 @@ interface FetchData {
   totalCount: number;
 }
 
-const DevicePage = ({ params }: { params: { page: number } }) => {
-  const currentPage = params.page; //현재 페이지
+const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
+  const currentPage = searchParams.page || 1; //현재 페이지
   const size = 10; //페이지에 보여줄 전자제품 크기
 
   const router = useRouter();
@@ -74,7 +74,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
       setDevicePagingDtoList(updatedDeviceList);
 
       setTotalCount((prevTotalCount) => prevTotalCount - 1); // totalCount를 1 감소
-      router.push("/admin/device/1");
+      router.push("/admin/device");
     } else {
       alert("전자제품 삭제에 실패하였습니다.");
     }
@@ -140,17 +140,17 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Actions
                 </span>
-                <Link href={`/admin/device/edit/${device.id}`}>
+                <Link href={`/admin/device/${device.id}/edit`}>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
                     Edit
                   </button>
                 </Link>
-                <Link href={`/admin/evaluationitem/${device.id}`}>
+                <Link href={`/admin/device/${device.id}/evaluationitem`}>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
                     평가항목 관리
                   </button>
                 </Link>
-                <Link href={`/admin/device/image/${device.id}`}>
+                <Link href={`/admin/device/${device.id}/image`}>
                   <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 border border-orange-500 rounded mr-3">
                     이미지 관리
                   </button>
@@ -168,7 +168,7 @@ const DevicePage = ({ params }: { params: { page: number } }) => {
       </table>
       <div className="my-8">
         <PaginationComponent
-          url={"/admin/device/"}
+          url={"/admin/device?page="}
           size={size}
           currentPage={currentPage}
           totalCount={totalCount}

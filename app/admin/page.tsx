@@ -11,7 +11,7 @@ const AdminMainPage = () => {
                 <h2 className="text-gray-900 text-lg font-bold">
                   카테고리 관리
                 </h2>
-                <Link href={"/admin/category/1"}>
+                <Link href={"/admin/category"}>
                   <button className="text-sm mt-6 px-4 py-2 bg-yellow-400 text-white rounded-lg  tracking-wider hover:bg-yellow-300 outline-none">
                     이동
                   </button>
@@ -30,7 +30,7 @@ const AdminMainPage = () => {
                 <h2 className="text-gray-900 text-lg font-bold">
                   전자제품 관리
                 </h2>
-                <Link href={"/admin/device/1"}>
+                <Link href={"/admin/device"}>
                   <button className="text-sm mt-6 px-4 py-2 bg-orange-400  text-white rounded-lg  tracking-wider hover:bg-orange-500 outline-none">
                     이동
                   </button>
