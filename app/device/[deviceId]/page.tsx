@@ -34,21 +34,40 @@ const DeviceDetailPage = async ({
     return year + "-" + month + "-" + day;
   };
   return (
-    <div>
-      <h1>{deviceDetail.name}</h1>
-      <h1>{deviceDetail.categoryName}</h1>
-      <div>
-        {deviceDetail.imageId && (
-          <Image
-            src={`${backendUrl}/image/${deviceDetail.imageId}`}
-            alt={`${deviceDetail.imageId}`}
-            width={240}
-            height={240}
-            className="w-auto h-auto"
-          />
-        )}
+    <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+      {deviceDetail.imageId && (
+        <Image
+          src={`${backendUrl}/image/${deviceDetail.imageId}`}
+          alt={`${deviceDetail.imageId}`}
+          width={240}
+          height={240}
+          className="w-auto h-auto"
+        />
+      )}
+      <div className="p-4">
+        <h3 className="text-xl font-medium text-gray-900">
+          {deviceDetail.name}
+        </h3>
+        <p className="mt-1 text-gray-500">{deviceDetail.categoryName}</p>
+        <p className="mb-1 text-sm text-primary-500">
+          등록 날짜 <time>{formatDate(deviceDetail.createdTime)}</time>
+        </p>
+        <div className="mt-4 flex gap-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
+            Design
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600">
+            Product
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600">
+            Develop
+          </span>
+          <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+            평가하기
+          </button>
+        </div>
       </div>
-      <h1>{formatDate(deviceDetail.createdTime)}</h1>
+
       <table className="min-w-full border-collapse block md:table">
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
