@@ -23,7 +23,7 @@ const DeviceDetailPage = async ({
   const deviceId = params.deviceId;
 
   const res = await fetch(`${backendUrl}/device/${deviceId}`, {
-    cache: "no-cache",
+    cache: "no-store",
   });
   const deviceDetail: FetchData = await res.json();
 
