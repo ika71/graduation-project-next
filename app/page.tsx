@@ -28,9 +28,7 @@ const HomePage = async ({
 
   const res = await fetch(
     `${backendUrl}/device?page=${currentPage}&size=${size}`,
-    {
-      cache: "no-store",
-    }
+    { next: { revalidate: 1 } }
   );
   const fetchData: FetchData = await res.json();
   const devicePagingDtoList: DevicePagingDto[] = fetchData.devicePagingDtoList;
