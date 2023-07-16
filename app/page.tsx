@@ -41,10 +41,7 @@ const HomePage = async ({
     return year + "-" + month;
   };
   return (
-    //     <!-- component -->
-    // <!-- Create By Joker Banny -->
     <main className="bg-white">
-      {/* <!-- Tab Menu --> */}
       <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
         <a
           rel="noopener noreferrer"
@@ -128,7 +125,6 @@ const HomePage = async ({
         </a>
       </div>
 
-      {/* <!-- Product List --> */}
       <section className="py-10 bg-gray-100">
         <div className="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {devicePagingDtoList.map((device) => (
