@@ -17,7 +17,7 @@ interface FetchData {
 }
 
 /**
- * 카테고리 추가 기능이 있는 모달
+ * 전자제품 추가 기능이 있는 모달
  * @param closeModal:()=>void close버튼을 눌렀을 때 실행될 함수
  * @param afterAdd:()=>void 카테고리 추가 후 실행될 함수
  * @returns
