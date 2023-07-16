@@ -3,22 +3,28 @@ import { backendUrl } from "@/url/backendUrl";
 import { useRef } from "react";
 
 interface Props {
+  categoryId: number;
+  prevName: string;
   closeModal: () => void;
-  afterAdd: () => void;
+  afterEdit: () => void;
 }
 /**
- * 카테고리 추가 기능이 있는 모달
- * @param closeModal:()=>void close버튼을 눌렀을 때 실행될 함수
- * @param afterAdd:()=>void 카테고리 추가 후 실행될 함수
+ *
+ * @param categoryId:number 수정할 카테고리 id 값
+ * @param prevName:string 수정할 카테고리의 기존 이름
+ * @param closeModal:()=>void 모달의 close 버튼을 눌렀을 때 실행될 함수
+ * @param afterEdit:()=>void 수정 후에 실행될 함수
  * @returns
  */
-const CategoryAddModal: React.FC<Props> = (props) => {
+const CategoryEditModal: React.FC<Props> = (props) => {
+  const categoryId = props.categoryId;
+  const prevName = props.prevName;
   const closeModal = props.closeModal;
-  const afterAdd = props.afterAdd;
+  const afterEdit = props.afterEdit;
 
   const categoryName = useRef<HTMLInputElement>(null);
 
-  const createCategory = async () => {
+  const editCategory = async () => {
     if (!categoryName.current) {
       return;
     }
@@ -26,14 +32,14 @@ const CategoryAddModal: React.FC<Props> = (props) => {
       name: categoryName.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/category`,
-      "POST",
+      `${backendUrl}/admin/category/${categoryId}`,
+      "PATCH",
       categoryDto
     );
     if (res.ok) {
-      afterAdd();
+      afterEdit();
     } else {
-      alert("카테고리 추가를 실패하였습니다.");
+      alert("카테고리 수정을 실패하였습니다.");
     }
   };
 
@@ -60,15 +66,16 @@ const CategoryAddModal: React.FC<Props> = (props) => {
                 </label>
                 <input
                   type="text"
+                  defaultValue={prevName}
                   ref={categoryName}
                   className="border rounded-lg pr-64 px-3 py-2 mt-1 mb-5 text-sm w-full"
                 />
                 <button
                   type="button"
-                  onClick={createCategory}
+                  onClick={editCategory}
                   className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                 >
-                  <span className="inline-block mr-2">추가</span>
+                  <span className="inline-block mr-2">수정하기</span>
                 </button>
               </div>
             </div>
@@ -87,4 +94,4 @@ const CategoryAddModal: React.FC<Props> = (props) => {
   );
 };
 
-export default CategoryAddModal;
+export default CategoryEditModal;
