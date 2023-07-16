@@ -1,6 +1,7 @@
 "use client";
 import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
+import CategoryAddModal from "@/components/category/CategoryAddModal";
 import { backendUrl } from "@/url/backendUrl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,6 +22,8 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   const size = 10; //페이지에 보여줄 카테고리 크기
 
   const router = useRouter();
+
+  const [addModal, setAddModal] = useState(false);
 
   const [categoryViewDtoList, setCategoryViewDtoList] =
     useState<CategoryPagingDto[]>(); //카테고리 목록
@@ -51,6 +54,13 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     return <div>로딩 중</div>;
   }
 
+  const openAddModal = () => {
+    setAddModal(true);
+  };
+  const closeAddModal = () => {
+    setAddModal(false);
+  };
+
   const deleteCategory = async (id: number) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
       return;
@@ -75,11 +85,13 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
 
   return (
     <div>
-      <Link href="/admin/category/add">
-        <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-          카테고리 추가
-        </button>
-      </Link>
+      <CategoryAddModal view={addModal} closeModal={closeAddModal} />
+      <button
+        onClick={openAddModal}
+        className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+      >
+        카테고리 추가
+      </button>
       <table className="min-w-full border-collapse block md:table">
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
