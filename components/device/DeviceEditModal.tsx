@@ -1,45 +1,83 @@
-import { authReqeust } from "@/auth/LoginService";
+import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
-  categoryId: number;
+  deviceId: number;
+  prevCategoryId: number;
   prevName: string;
   closeModal: () => void;
   afterEdit: () => void;
 }
+
+interface CategoryAllDto {
+  id: number;
+  name: string;
+}
+
+interface FetchData {
+  categoryAllDtoList: CategoryAllDto[];
+}
+
 /**
  * 전자제품 수정 기능이 있는 모달
- * @param categoryId:number 수정할 카테고리 id 값
- * @param prevName:string 수정할 카테고리의 기존 이름
+ * @param deviceId:number 수정할 전자제품 id 값
+ * @param prevCategoryId:number 수정할 전자제품의 기존 카테고리 id
+ * @param prevName:string 수정할 전자제품의 기존 이름
  * @param closeModal:()=>void 모달의 close 버튼을 눌렀을 때 실행될 함수
  * @param afterEdit:()=>void 수정 후에 실행될 함수
  * @returns
  */
-const CategoryEditModal: React.FC<Props> = (props) => {
-  const categoryId = props.categoryId;
+const DeviceEditModal: React.FC<Props> = (props) => {
+  const deviceId = props.deviceId;
   const prevName = props.prevName;
+  const prevCategoryId = props.prevCategoryId;
   const closeModal = props.closeModal;
   const afterEdit = props.afterEdit;
 
-  const categoryName = useRef<HTMLInputElement>(null);
+  const deviceName = useRef<HTMLInputElement>(null);
+  const selectCategoryId = useRef<HTMLSelectElement>(null);
 
-  const editCategory = async () => {
-    if (!categoryName.current) {
+  const [categoryAllDtoList, setCategoryViewDtoList] =
+    useState<CategoryAllDto[]>();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await authReqeustWithOutBody(
+        `${backendUrl}/admin/category/all`,
+        "GET"
+      );
+      const fetchData: FetchData = await res.json();
+      setCategoryViewDtoList(fetchData.categoryAllDtoList);
+    };
+
+    fetch();
+  }, []);
+
+  /*
+   * useEffect 실행 전에 보여줄 화면
+   */
+  if (categoryAllDtoList === undefined) {
+    return <div>로딩 중</div>;
+  }
+
+  const editDevice = async () => {
+    if (!deviceName.current || !selectCategoryId.current) {
       return;
     }
-    const categoryDto = {
-      name: categoryName.current.value,
+    const deviceDto = {
+      name: deviceName.current.value,
+      categoryId: selectCategoryId.current.value,
     };
     const res = await authReqeust(
-      `${backendUrl}/admin/category/${categoryId}`,
+      `${backendUrl}/admin/device/${deviceId}`,
       "PATCH",
-      categoryDto
+      deviceDto
     );
     if (res.ok) {
       afterEdit();
     } else {
-      alert("카테고리 수정을 실패하였습니다.");
+      alert("전자제품 수정을 실패하였습니다.");
     }
   };
 
@@ -62,20 +100,36 @@ const CategoryEditModal: React.FC<Props> = (props) => {
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:text-left">
                 <label className="font-semibold text-sm text-gray-600 pb-1 block">
-                  카테고리 이름
+                  전자제품의 카테고리
+                </label>
+                <div className="mt-1 mb-5">
+                  <select
+                    ref={selectCategoryId}
+                    defaultValue={prevCategoryId}
+                    className="border-2 border-black"
+                  >
+                    {categoryAllDtoList.map((category) => (
+                      <option value={category.id} key={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <label className="font-semibold text-sm text-gray-600 pb-1 block">
+                  전자제품 이름
                 </label>
                 <input
                   type="text"
                   defaultValue={prevName}
-                  ref={categoryName}
+                  ref={deviceName}
                   className="border rounded-lg pr-64 px-3 py-2 mt-1 mb-5 text-sm w-full"
                 />
                 <button
                   type="button"
-                  onClick={editCategory}
+                  onClick={editDevice}
                   className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                 >
-                  <span className="inline-block mr-2">수정하기</span>
+                  <span className="inline-block mr-2">수정</span>
                 </button>
               </div>
             </div>
@@ -94,4 +148,4 @@ const CategoryEditModal: React.FC<Props> = (props) => {
   );
 };
 
-export default CategoryEditModal;
+export default DeviceEditModal;
