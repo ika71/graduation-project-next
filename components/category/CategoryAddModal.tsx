@@ -1,19 +1,19 @@
 import { authReqeust } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
-import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 interface Props {
   view: boolean;
   closeModal: () => void;
+  reload: () => void;
 }
 
 const CategoryAddModal: React.FC<Props> = (props) => {
   const view = props.view;
   const closeModal = props.closeModal;
+  const reload = props.reload;
 
   const categoryName = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
   const createCategory = async () => {
     if (!categoryName.current) {
@@ -28,9 +28,8 @@ const CategoryAddModal: React.FC<Props> = (props) => {
       categoryDto
     );
     if (res.ok) {
-      alert("추가 완료되었습니다.");
       closeModal();
-      router.refresh();
+      reload();
     } else {
       alert("카테고리 추가를 실패하였습니다.");
     }

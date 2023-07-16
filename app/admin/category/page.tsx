@@ -29,22 +29,23 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     useState<CategoryPagingDto[]>(); //카테고리 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 카테고리 크기
 
+  const fetch = async () => {
+    const res = await authReqeustWithOutBody(
+      `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
+      "GET"
+    );
+    const fetchData: FetchData = await res.json();
+    setCategoryViewDtoList(fetchData.categoryPagingDtoList);
+    setTotalCount(fetchData.totalCount);
+  };
+
   /*
    * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
    * 따라서 useEffect안에서 authRequest 실행
    */
   useEffect(() => {
-    const fetch = async () => {
-      const res = await authReqeustWithOutBody(
-        `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
-        "GET"
-      );
-      const fetchData: FetchData = await res.json();
-      setCategoryViewDtoList(fetchData.categoryPagingDtoList);
-      setTotalCount(fetchData.totalCount);
-    };
-
     fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   /*
@@ -85,7 +86,11 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
 
   return (
     <div>
-      <CategoryAddModal view={addModal} closeModal={closeAddModal} />
+      <CategoryAddModal
+        view={addModal}
+        closeModal={closeAddModal}
+        reload={fetch}
+      />
       <button
         onClick={openAddModal}
         className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
