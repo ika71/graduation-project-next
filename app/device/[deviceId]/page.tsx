@@ -5,7 +5,7 @@ const DeviceDetailPage = ({ params }: { params: { deviceId: number } }) => {
   const deviceId = params.deviceId;
 
   return (
-    <DeviceDetailClient>
+    <DeviceDetailClient deviceId={deviceId}>
       <DeviceDetailServer deviceId={deviceId} />
     </DeviceDetailClient>
   );
