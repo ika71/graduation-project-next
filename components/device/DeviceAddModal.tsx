@@ -22,7 +22,7 @@ interface FetchData {
  * @param afterAdd:()=>void 카테고리 추가 후 실행될 함수
  * @returns
  */
-const DeviceAddModal: React.FC<Props> = (props) => {
+const DeviceAddModal = (props: Props) => {
   const closeModal = props.closeModal;
   const afterAdd = props.afterAdd;
 

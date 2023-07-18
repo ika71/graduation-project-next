@@ -16,7 +16,7 @@ interface Props {
  * @param afterEdit:()=>void 수정 후에 실행될 함수
  * @returns
  */
-const CategoryEditModal: React.FC<Props> = (props) => {
+const CategoryEditModal = (props: Props) => {
   const categoryId = props.categoryId;
   const prevName = props.prevName;
   const closeModal = props.closeModal;

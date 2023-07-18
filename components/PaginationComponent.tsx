@@ -14,7 +14,7 @@ interface Props {
  * @param size 한 페이지에 보여줄 원소의 수
  * @returns
  */
-const PaginationComponent: React.FC<Props> = (props) => {
+const PaginationComponent = (props: Props) => {
   const url = props.url; //페이징 할 url
   const currentPage = props.currentPage; //현재 페이지
   const totalCount = props.totalCount; //모든 원소들의 수

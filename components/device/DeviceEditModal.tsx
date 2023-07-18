@@ -28,7 +28,7 @@ interface FetchData {
  * @param afterEdit:()=>void 수정 후에 실행될 함수
  * @returns
  */
-const DeviceEditModal: React.FC<Props> = (props) => {
+const DeviceEditModal = (props: Props) => {
   const deviceId = props.deviceId;
   const prevName = props.prevName;
   const prevCategoryId = props.prevCategoryId;

@@ -14,7 +14,7 @@ interface Props {
  * @param afterAdd:()=>void 카테고리 추가 후 실행될 함수
  * @returns
  */
-const EvaluationItemAddModal: React.FC<Props> = (props) => {
+const EvaluationItemAddModal = (props: Props) => {
   const closeModal = props.closeModal;
   const afterAdd = props.afterAdd;
 

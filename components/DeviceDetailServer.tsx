@@ -19,7 +19,7 @@ interface EvalItemAvgDto {
   avg: number | null;
 }
 
-const DeviceDetailServer: React.FC<Props> = async (props) => {
+const DeviceDetailServer = async (props: Props) => {
   const deviceId = props.deviceId;
 
   const res = await fetch(`${backendUrl}/device/${deviceId}`, {

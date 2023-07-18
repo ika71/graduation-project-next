@@ -16,7 +16,7 @@ interface Props {
  * @param afterAdd:()=>void 평가항목 수정 후 실행될 함수
  * @returns
  */
-const EvaluationItemEditModal: React.FC<Props> = (props) => {
+const EvaluationItemEditModal = (props: Props) => {
   const closeModal = props.closeModal;
   const afterEdit = props.afterEdit;
 
