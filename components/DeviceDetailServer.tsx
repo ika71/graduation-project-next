@@ -11,9 +11,9 @@ interface FetchData {
   categoryName: string;
   imageId: number | null;
   createdTime: string;
-  evalItemAvgDtoList: evalItemAvgDto[];
+  evalItemAvgDtoList: EvalItemAvgDto[];
 }
-interface evalItemAvgDto {
+interface EvalItemAvgDto {
   id: number;
   name: string;
   avg: number | null;
