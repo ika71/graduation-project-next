@@ -90,7 +90,11 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
                       이미지 업로드
                     </h3>
                     <div className="mt-2">
-                      <input type="file" onChange={uploadFileChange} />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={uploadFileChange}
+                      />
                     </div>
                     <button
                       onClick={uploadFileRequest}
