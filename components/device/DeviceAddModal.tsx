@@ -66,7 +66,7 @@ const DeviceAddModal = (props: Props) => {
     if (res.ok) {
       afterAdd();
     } else {
-      alert("전자제품 추가를 실패하였습니다.");
+      alert(await res.text());
     }
   };
 

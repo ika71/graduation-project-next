@@ -1,3 +1,5 @@
+"use client";
+
 import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -90,10 +92,10 @@ const EvaluationPutModal = (props: Props) => {
       "PUT",
       evaluationPutRequestDto
     );
-    if (res) {
+    if (res.ok) {
       afterput();
     } else {
-      alert("평가 저장에 실패하였습니다.");
+      alert(await res.text());
     }
   };
   return (

@@ -39,7 +39,7 @@ const CategoryEditModal = (props: Props) => {
     if (res.ok) {
       afterEdit();
     } else {
-      alert("카테고리 수정을 실패하였습니다.");
+      alert(await res.text());
     }
   };
 

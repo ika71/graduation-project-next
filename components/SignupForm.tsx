@@ -37,7 +37,7 @@ const SignupForm = () => {
       alert("회원 가입에 성공 하였습니다.");
       router.push("/");
     } else {
-      alert("실패");
+      alert(await res.text());
     }
   };
 

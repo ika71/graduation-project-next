@@ -77,7 +77,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     if (res.ok) {
       fetch();
     } else {
-      alert("평가항목 삭제에 실패하였습니다.");
+      alert(await res.text());
     }
   };
 

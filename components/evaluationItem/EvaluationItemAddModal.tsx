@@ -37,7 +37,7 @@ const EvaluationItemAddModal = (props: Props) => {
     if (res.ok) {
       afterAdd();
     } else {
-      alert(" 추가를 실패하였습니다.");
+      alert(await res.text());
     }
   };
 

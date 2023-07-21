@@ -91,7 +91,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     if (res.ok) {
       fetch();
     } else {
-      alert("카테고리 삭제에 실패하였습니다.");
+      alert(await res.text());
     }
   };
 
