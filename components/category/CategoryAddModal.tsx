@@ -22,13 +22,13 @@ const CategoryAddModal = (props: Props) => {
     if (!categoryName.current) {
       return;
     }
-    const categoryDto = {
+    const createCategory = {
       name: categoryName.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/category`,
       "POST",
-      categoryDto
+      createCategory
     );
     if (res.ok) {
       afterAdd();

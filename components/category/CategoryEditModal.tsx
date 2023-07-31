@@ -28,13 +28,13 @@ const CategoryEditModal = (props: Props) => {
     if (!categoryName.current) {
       return;
     }
-    const categoryDto = {
+    const editCategory = {
       name: categoryName.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/category/${categoryId}`,
       "PATCH",
-      categoryDto
+      editCategory
     );
     if (res.ok) {
       afterEdit();
