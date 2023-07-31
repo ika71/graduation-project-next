@@ -8,19 +8,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface CategoryDto {
+interface Category {
   id: number;
   name: string;
 }
-interface DevicePagingDto {
+interface Device {
   id: number;
   name: string;
-  categoryDto: CategoryDto;
+  category: Category;
   imageId: number;
 }
 
 interface FetchData {
-  devicePagingDtoList: DevicePagingDto[];
+  deviceList: Device[];
   totalCount: number;
 }
 
@@ -34,8 +34,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   const [prevCategoryId, setPrevCategoryId] = useState(-1);
   const [prevName, setPrevName] = useState("");
 
-  const [devicePagingDtoList, setDevicePagingDtoList] =
-    useState<DevicePagingDto[]>(); //전자제품 목록
+  const [deviceList, setDeviceList] = useState<Device[]>(); //전자제품 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 전자제품 크기
 
   const fetch = async () => {
@@ -44,7 +43,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       "GET"
     );
     const fetchData: FetchData = await res.json();
-    setDevicePagingDtoList(fetchData.devicePagingDtoList);
+    setDeviceList(fetchData.deviceList);
     setTotalCount(fetchData.totalCount);
   };
   /*
@@ -59,7 +58,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   /*
    * useEffect 실행 전에 보여줄 화면
    */
-  if (devicePagingDtoList === undefined) {
+  if (deviceList === undefined) {
     return <div>로딩 중</div>;
   }
 
@@ -143,7 +142,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {devicePagingDtoList.map((device) => (
+          {deviceList.map((device) => (
             <tr
               key={device.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
@@ -172,7 +171,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Category Name
                 </span>
-                {device.categoryDto.name}
+                {device.category.name}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 <span className="inline-block w-1/3 md:hidden font-bold">
@@ -180,7 +179,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
                 </span>
                 <button
                   onClick={() =>
-                    openEditModal(device.id, device.categoryDto.id, device.name)
+                    openEditModal(device.id, device.category.id, device.name)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
                 >

@@ -53,14 +53,14 @@ const DeviceAddModal = (props: Props) => {
     if (!deviceName.current || !selectCategoryId.current) {
       return;
     }
-    const deviceDto = {
+    const createDevice = {
       categoryId: selectCategoryId.current.value,
       name: deviceName.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/device`,
       "POST",
-      deviceDto
+      createDevice
     );
     if (res.ok) {
       afterAdd();

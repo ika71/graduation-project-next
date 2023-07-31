@@ -64,14 +64,14 @@ const DeviceEditModal = (props: Props) => {
     if (!deviceName.current || !selectCategoryId.current) {
       return;
     }
-    const deviceDto = {
+    const editDevice = {
       name: deviceName.current.value,
       categoryId: selectCategoryId.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/device/${deviceId}`,
       "PATCH",
-      deviceDto
+      editDevice
     );
     if (res.ok) {
       afterEdit();
