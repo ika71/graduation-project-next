@@ -6,13 +6,13 @@ import CategoryEditModal from "@/components/category/CategoryEditModal";
 import { backendUrl } from "@/url/backendUrl";
 import { useEffect, useState } from "react";
 
-interface CategoryPagingDto {
+interface Category {
   id: number;
   name: string;
 }
 
 interface FetchData {
-  categoryPagingDtoList: CategoryPagingDto[];
+  categoryList: Category[];
   totalCount: number;
 }
 
@@ -25,8 +25,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   const [editCategoryId, setEditCategoryId] = useState(-1); //수정 모달에 전달할 카테고리 id
   const [editPrevName, setEditPrevName] = useState(""); //수정 모달에 전달할 카테고리 이름
 
-  const [categoryViewDtoList, setCategoryViewDtoList] =
-    useState<CategoryPagingDto[]>(); //카테고리 목록
+  const [categoryList, setCategoryList] = useState<Category[]>(); //카테고리 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 카테고리 크기
 
   /**
@@ -38,7 +37,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       "GET"
     );
     const fetchData: FetchData = await res.json();
-    setCategoryViewDtoList(fetchData.categoryPagingDtoList);
+    setCategoryList(fetchData.categoryList);
     setTotalCount(fetchData.totalCount);
   };
 
@@ -54,7 +53,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   /*
    * useEffect 실행 전에 보여줄 화면
    */
-  if (categoryViewDtoList === undefined) {
+  if (categoryList === undefined) {
     return <div>로딩 중</div>;
   }
 
@@ -126,7 +125,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {categoryViewDtoList.map((category) => (
+          {categoryList.map((category) => (
             <tr
               key={category.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"

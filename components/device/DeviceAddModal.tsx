@@ -7,13 +7,13 @@ interface Props {
   afterAdd: () => void;
 }
 
-interface CategoryAllDto {
+interface Category {
   id: number;
   name: string;
 }
 
 interface FetchData {
-  categoryAllDtoList: CategoryAllDto[];
+  categoryList: Category[];
 }
 
 /**
@@ -28,8 +28,7 @@ const DeviceAddModal = (props: Props) => {
 
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);
-  const [categoryAllDtoList, setCategoryViewDtoList] =
-    useState<CategoryAllDto[]>();
+  const [categoryList, setCategoryList] = useState<Category[]>();
 
   useEffect(() => {
     const fetch = async () => {
@@ -38,7 +37,7 @@ const DeviceAddModal = (props: Props) => {
         "GET"
       );
       const fetchData: FetchData = await res.json();
-      setCategoryViewDtoList(fetchData.categoryAllDtoList);
+      setCategoryList(fetchData.categoryList);
     };
 
     fetch();
@@ -46,7 +45,7 @@ const DeviceAddModal = (props: Props) => {
   /*
    * useEffect 실행 전에 보여줄 화면
    */
-  if (categoryAllDtoList === undefined) {
+  if (categoryList === undefined) {
     return <div>로딩 중</div>;
   }
 
@@ -96,7 +95,7 @@ const DeviceAddModal = (props: Props) => {
                     ref={selectCategoryId}
                     className="border-2 border-black"
                   >
-                    {categoryAllDtoList.map((category) => (
+                    {categoryList.map((category) => (
                       <option value={category.id} key={category.id}>
                         {category.name}
                       </option>
