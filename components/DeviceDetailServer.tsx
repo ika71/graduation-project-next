@@ -11,9 +11,9 @@ interface FetchData {
   categoryName: string;
   imageId: number | null;
   createdTime: string;
-  evalItemAvgDtoList: EvalItemAvgDto[];
+  evalItemAvgList: EvalItemAvg[];
 }
-interface EvalItemAvgDto {
+interface EvalItemAvg {
   id: number;
   name: string;
   avg: number | null;
@@ -77,7 +77,7 @@ const DeviceDetailServer = async (props: Props) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {deviceDetail.evalItemAvgDtoList.map((evalItemAvg) => (
+          {deviceDetail.evalItemAvgList.map((evalItemAvg) => (
             <tr
               key={evalItemAvg.id}
               className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"

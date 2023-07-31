@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface FetchData {
-  devicePagingDtoList: DevicePagingDto[];
+  deviceList: Device[];
   totalCount: number;
 }
 
-interface DevicePagingDto {
+interface Device {
   id: number;
   name: string;
   categoryName: string;
@@ -31,7 +31,7 @@ const HomePage = async ({
     { next: { revalidate: 1 } }
   );
   const fetchData: FetchData = await res.json();
-  const devicePagingDtoList: DevicePagingDto[] = fetchData.devicePagingDtoList;
+  const deviceList: Device[] = fetchData.deviceList;
 
   const totalCount = fetchData.totalCount;
 
@@ -127,7 +127,7 @@ const HomePage = async ({
 
       <section className="py-10 bg-gray-100">
         <div className="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {devicePagingDtoList.map((device) => (
+          {deviceList.map((device) => (
             <article
               key={device.id}
               className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 "
