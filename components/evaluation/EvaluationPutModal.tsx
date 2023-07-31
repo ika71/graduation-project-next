@@ -11,19 +11,19 @@ interface Props {
 }
 
 interface FetchData {
-  evaluationFindDtoList: EvaluationFindDto[];
+  evaluationFindList: EvaluationFind[];
 }
-interface EvaluationFindDto {
+interface EvaluationFind {
   evalItemId: number;
   evalItemName: string;
   evalScore: number | null;
 }
 
-interface EvaluationPutRequestDto {
-  evaluationPutDtoList: EvaluationPutDto[];
+interface EvaluationPutRequest {
+  evaluationPutList: EvaluationPut[];
 }
 
-interface EvaluationPutDto {
+interface EvaluationPut {
   evalItemId: number;
   evaluationScore: number;
 }
@@ -39,7 +39,7 @@ const EvaluationPutModal = (props: Props) => {
   const closeModal = props.closeModal;
   const afterput = props.afterPut;
 
-  const [evalList, setEvalList] = useState<EvaluationFindDto[]>();
+  const [evalList, setEvalList] = useState<EvaluationFind[]>();
   const scoreOption = [5, 4, 3, 2, 1, "아직 평가 하지 않았습니다."];
 
   const fetch = async () => {
@@ -48,7 +48,7 @@ const EvaluationPutModal = (props: Props) => {
       "GET"
     );
     const fetchData: FetchData = await res.json();
-    setEvalList(fetchData.evaluationFindDtoList);
+    setEvalList(fetchData.evaluationFindList);
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const EvaluationPutModal = (props: Props) => {
    */
   const selectChange = (
     event: ChangeEvent<HTMLSelectElement>,
-    evaluation: EvaluationFindDto
+    evaluation: EvaluationFind
   ) => {
     if (isNaN(parseInt(event.target.value))) {
       evaluation.evalScore = null;
@@ -75,22 +75,22 @@ const EvaluationPutModal = (props: Props) => {
     return <div>로딩중</div>;
   }
   const put = async () => {
-    const evaluationPutDtoList: EvaluationPutDto[] = [];
+    const evaluationPutList: EvaluationPut[] = [];
     evalList.map((evaluation) => {
       if (evaluation.evalScore) {
-        evaluationPutDtoList.push({
+        evaluationPutList.push({
           evalItemId: evaluation.evalItemId,
           evaluationScore: evaluation.evalScore,
         });
       }
     });
-    const evaluationPutRequestDto: EvaluationPutRequestDto = {
-      evaluationPutDtoList: evaluationPutDtoList,
+    const evaluationPutRequest: EvaluationPutRequest = {
+      evaluationPutList: evaluationPutList,
     };
     const res = await authReqeust(
       `${backendUrl}/evaluation`,
       "PUT",
-      evaluationPutRequestDto
+      evaluationPutRequest
     );
     if (res.ok) {
       afterput();

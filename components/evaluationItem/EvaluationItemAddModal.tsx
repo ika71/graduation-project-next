@@ -25,14 +25,14 @@ const EvaluationItemAddModal = (props: Props) => {
     if (!evaluationItemName.current) {
       return;
     }
-    const evaluationItemDto = {
+    const evaluationItem = {
       electronicDeviceId: deviceId,
       name: evaluationItemName.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/evaluationitem`,
       "POST",
-      evaluationItemDto
+      evaluationItem
     );
     if (res.ok) {
       afterAdd();

@@ -28,13 +28,13 @@ const EvaluationItemEditModal = (props: Props) => {
     if (!evaluationItemName.current) {
       return;
     }
-    const evaluationItemDto = {
+    const evaluationItem = {
       name: evaluationItemName.current.value,
     };
     const res = await authReqeust(
       `${backendUrl}/admin/evaluationitem/${evaluationItemId}`,
       "PATCH",
-      evaluationItemDto
+      evaluationItem
     );
     if (res.ok) {
       afterEdit();
