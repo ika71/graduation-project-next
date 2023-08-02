@@ -15,13 +15,6 @@ const BoardDetailPage = async ({ params }: { params: { boardId: number } }) => {
   });
   const boardDetail: BoardDetail = await res.json();
 
-  const formatDate = (date: string) => {
-    const year = date.slice(0, 4);
-    const month = date.slice(5, 7);
-    const day = date.slice(8, 10);
-    const time = date.slice(11, 16);
-    return year + "-" + month + "-" + day + "-" + time;
-  };
   return (
     <>
       <form>
@@ -42,7 +35,7 @@ const BoardDetailPage = async ({ params }: { params: { boardId: number } }) => {
               </div>
               <div>
                 <label htmlFor="name" className="text-lx font-serif">
-                  Name:
+                  작성자
                 </label>
                 <input
                   value={boardDetail.createdBy}
@@ -57,7 +50,7 @@ const BoardDetailPage = async ({ params }: { params: { boardId: number } }) => {
                   작성일
                 </label>
                 <input
-                  value={formatDate(boardDetail.createdTime)}
+                  value={boardDetail.createdTime}
                   type="text"
                   placeholder="name"
                   id="email"

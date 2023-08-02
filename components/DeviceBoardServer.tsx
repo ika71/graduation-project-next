@@ -36,13 +36,6 @@ const DeviceBoardServer = async (props: Props) => {
   const totalCount = fetchData.totalCount;
   const boardList = fetchData.boardList;
 
-  const formatDate = (date: string) => {
-    const year = date.slice(0, 4);
-    const month = date.slice(5, 7);
-    const day = date.slice(8, 10);
-    return year + "-" + month + "-" + day;
-  };
-
   return (
     <>
       <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
@@ -93,7 +86,7 @@ const DeviceBoardServer = async (props: Props) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   작성시간
                 </span>
-                {formatDate(board.createdTime)}
+                {board.createdTime}
               </td>
             </tr>
           ))}

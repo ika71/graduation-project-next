@@ -35,11 +35,6 @@ const HomePage = async ({
 
   const totalCount = fetchData.totalCount;
 
-  const formatDate = (date: string) => {
-    const year = date.slice(0, 4);
-    const month = date.slice(5, 7);
-    return year + "-" + month;
-  };
   return (
     <main className="bg-white">
       <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
@@ -178,7 +173,7 @@ const HomePage = async ({
                   </Link>
                 </div>
                 <p className="text-sm font-bold text-blue-500">
-                  등록일: {formatDate(device.createdTime)}
+                  등록일: {device.createdTime}
                 </p>
               </div>
             </article>

@@ -27,12 +27,6 @@ const DeviceDetailServer = async (props: Props) => {
   });
   const deviceDetail: FetchData = await res.json();
 
-  const formatDate = (date: string) => {
-    const year = date.slice(0, 4);
-    const month = date.slice(5, 7);
-    const day = date.slice(8, 10);
-    return year + "-" + month + "-" + day;
-  };
   return (
     <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
       {deviceDetail.imageId && (
@@ -50,7 +44,7 @@ const DeviceDetailServer = async (props: Props) => {
         </h3>
         <p className="mt-1 text-gray-500">{deviceDetail.categoryName}</p>
         <p className="mb-1 text-sm text-primary-500">
-          등록 날짜 <time>{formatDate(deviceDetail.createdTime)}</time>
+          등록 날짜 <time>{deviceDetail.createdTime}</time>
         </p>
         <div className="mt-4 flex gap-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
