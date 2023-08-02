@@ -46,17 +46,6 @@ const DeviceDetailServer = async (props: Props) => {
         <p className="mb-1 text-sm text-primary-500">
           등록 날짜 <time>{deviceDetail.createdTime}</time>
         </p>
-        <div className="mt-4 flex gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
-            Design
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600">
-            Product
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600">
-            Develop
-          </span>
-        </div>
       </div>
 
       <table className="min-w-full border-collapse block md:table">

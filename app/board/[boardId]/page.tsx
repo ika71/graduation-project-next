@@ -11,7 +11,7 @@ interface BoardDetail {
 const BoardDetailPage = async ({ params }: { params: { boardId: number } }) => {
   const boardId = params.boardId;
   const res = await fetch(`${backendUrl}/board/${boardId}`, {
-    next: { revalidate: 1 },
+    cache: "no-store",
   });
   const boardDetail: BoardDetail = await res.json();
 
@@ -57,9 +57,6 @@ const BoardDetailPage = async ({ params }: { params: { boardId: number } }) => {
                   className="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
                 />
               </div>
-              <button className=" px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600  ">
-                ADD POST
-              </button>
             </div>
           </div>
         </div>
