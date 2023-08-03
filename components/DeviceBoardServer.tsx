@@ -39,9 +39,11 @@ const DeviceBoardServer = async (props: Props) => {
   return (
     <>
       <div className="w-2/3 mx-auto">
-        <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-          글쓰기
-        </button>
+        <Link href={`/board/add?deviceId=${deviceId}`}>
+          <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+            글쓰기
+          </button>
+        </Link>
         <table className="min-w-full border-collapse block md:table">
           <thead className="block md:table-header-group">
             <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
@@ -94,12 +96,14 @@ const DeviceBoardServer = async (props: Props) => {
           </tbody>
         </table>
       </div>
-      <PaginationComponent
-        url={`/device/${deviceId}?page=`}
-        currentPage={currentPage}
-        totalCount={totalCount}
-        size={10}
-      />
+      <div className="my-5">
+        <PaginationComponent
+          url={`/device/${deviceId}?boardPage=`}
+          currentPage={currentPage}
+          totalCount={totalCount}
+          size={10}
+        />
+      </div>
     </>
   );
 };
