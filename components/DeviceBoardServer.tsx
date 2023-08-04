@@ -67,11 +67,13 @@ const DeviceBoardServer = async (props: Props) => {
                 key={board.id}
                 className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
               >
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell hover:underline hover:cursor-pointer">
+                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                   <span className="inline-block w-1/4 md:hidden font-bold">
                     제목
                   </span>
-                  <Link href={`/board/${board.id}`}>{board.title}</Link>
+                  <span className="hover:underline hover:cursor-pointer">
+                    <Link href={`/board/${board.id}`}>{board.title}</Link>
+                  </span>
                 </td>
                 <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                   <span className="inline-block w-1/4 md:hidden font-bold">
