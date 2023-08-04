@@ -1,6 +1,11 @@
 import Header from "@/components/fragments/Header";
 import "./globals.css";
 import Footer from "@/components/fragments/Footer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "전자제품 리뷰사이트",
+};
 
 export default function RootLayout({
   children,
@@ -9,7 +14,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <title>전자제품 리뷰 사이트</title>
       <body>
         <Header />
         {children}
