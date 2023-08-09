@@ -103,6 +103,7 @@ export const authReqeustFile = (
 };
 
 /**
+ * @deprecated userContext 상태 변수로 대체
  * @returns 로그인 토큰 존재 시 true 토큰 없으면 false
  */
 export const isLogin = () => {
