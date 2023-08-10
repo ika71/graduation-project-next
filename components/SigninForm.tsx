@@ -1,14 +1,19 @@
 "use client";
 
-import { signin } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 const SigninForm = () => {
+  const userContext = useContext(UserContext);
   const router = useRouter();
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
+
+  if (!userContext) {
+    return <></>;
+  }
 
   /**
    * 로그인 성공 시 홈 디렉토리로 라우트
@@ -22,7 +27,7 @@ const SigninForm = () => {
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
-    const success = await signin(email, password);
+    const success = await userContext.signin(email, password);
 
     if (!success) {
       alert("로그인 실패");

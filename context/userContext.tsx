@@ -59,6 +59,7 @@ export function UserContextProvider({
       const loginData: LoginSuccess = await res.json();
       if (loginData.token) {
         localStorage.setItem("token", loginData.token);
+        await fetchMember();
         return true;
       }
     }

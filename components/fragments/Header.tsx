@@ -1,27 +1,18 @@
 "use client";
 
-import { isLogin, signout } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 const Header = () => {
+  const userContext = useContext(UserContext);
   const router = useRouter();
-  const pathname = usePathname();
-  /*
-   * login=true면 로그인 상황
-   * login=false면 로그아웃 상황
-   */
-  const [login, setLogin] = useState(false);
 
-  /*
-   * 최초 페이지 로딩 시 setLogin호출
-   * 경로 변경 시 setLogin호출
-   */
-  useEffect(() => {
-    setLogin(isLogin());
-  }, [pathname]);
-
+  if (!userContext) {
+    return <></>;
+  }
+  const { userName, role, isLogin, signin, signout } = userContext;
   /**
    * @ 로컬 스토리지에서 토큰 제거
    * @ login 변수 false로 변경
@@ -29,7 +20,6 @@ const Header = () => {
    */
   const logout = () => {
     signout();
-    setLogin(isLogin());
     router.push("/");
   };
 
@@ -98,7 +88,7 @@ const Header = () => {
                 <span className="text-sm font-medium">검색</span>
               </div>
 
-              {!login && (
+              {!isLogin && (
                 <Link href={"/signin"}>
                   <button>
                     <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
@@ -108,7 +98,7 @@ const Header = () => {
                 </Link>
               )}
 
-              {!login && (
+              {!isLogin && (
                 <Link href={"/signup"}>
                   <button>
                     <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
@@ -118,15 +108,18 @@ const Header = () => {
                 </Link>
               )}
 
-              {login && (
-                <button onClick={logout}>
-                  <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
-                    <span className="text-sm font-medium">로그아웃</span>
-                  </div>
-                </button>
+              {isLogin && (
+                <div>
+                  <span className="mx-1">{`${userName}님`}</span>
+                  <button onClick={logout}>
+                    <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                      <span className="text-sm font-medium">로그아웃</span>
+                    </div>
+                  </button>
+                </div>
               )}
 
-              {login && (
+              {role === "ADMIN" && (
                 <Link href={"/admin"}>
                   <button>
                     <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">

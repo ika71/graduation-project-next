@@ -1,9 +1,10 @@
 "use client";
 
-import { authReqeust, isLogin } from "@/auth/LoginService";
+import { authReqeust } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 const BoardAddPage = ({
   searchParams,
@@ -12,14 +13,19 @@ const BoardAddPage = ({
 }) => {
   const deviceId = searchParams.deviceId;
   const router = useRouter();
-
-  if (isLogin() === false) {
-    alert("로그인이 필요합니다.");
-    router.push("/signin");
-  }
+  const userContext = useContext(UserContext);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+  if (!userContext) {
+    return <></>;
+  }
+  const isLogin = userContext.isLogin;
+
+  if (isLogin === false) {
+    alert("로그인이 필요합니다.");
+    router.push("/signin");
+  }
 
   const createBoard = async (event: React.FormEvent) => {
     event.preventDefault();
