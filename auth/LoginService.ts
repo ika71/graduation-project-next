@@ -5,6 +5,7 @@ interface LoginSuccess {
 }
 /**
  * 로그인 성공 시 로컬 스토리지 토큰 저장
+ * @deprecated userContext에 있는 함수로 변경
  * @param email
  * @param password
  * @returns 로그인 성공 true, 로그인 실패 false
@@ -72,6 +73,7 @@ export const authReqeustWithOutBody = (url: string, method: string) => {
 };
 /**
  * 로컬스토리지에서 토큰 제거
+ * @deprecated userContext에 있는 함수로 변경
  */
 export const signout = () => {
   localStorage.removeItem("token");
