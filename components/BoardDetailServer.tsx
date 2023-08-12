@@ -10,6 +10,10 @@ interface BoardDetail {
   createdBy: string;
   createdTime: string;
 }
+/**
+ * @param boardId: 읽을 게시글의 id
+ * @returns
+ */
 const BoardDetailServer = async (props: Props) => {
   const boardId = props.boardId;
 

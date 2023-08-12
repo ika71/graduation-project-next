@@ -5,7 +5,10 @@ import { PropsWithChildren } from "react";
 interface Props {
   boardId: number;
 }
-
+/**
+ * @param boardId: 읽을 게시글의 id
+ * @returns
+ */
 const BoardDetailClient = ({ boardId, children }: PropsWithChildren<Props>) => {
   return (
     <div className="bg-indigo-50 min-h-screen md:px-20 pt-6">

@@ -18,7 +18,10 @@ interface EvalItemAvg {
   name: string;
   avg: number | null;
 }
-
+/**
+ * @param deviceId: 정보를 볼 전자제품의 id
+ * @returns
+ */
 const DeviceDetailServer = async (props: Props) => {
   const deviceId = props.deviceId;
 

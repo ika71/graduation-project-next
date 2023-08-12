@@ -37,6 +37,9 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   const [deviceList, setDeviceList] = useState<Device[]>(); //전자제품 목록
   const [totalCount, setTotalCount] = useState<number>(0); //모든 전자제품 크기
 
+  /**
+   * 전자제품 페이징 요청
+   */
   const fetch = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/device?page=${currentPage}&size=${size}`,
@@ -46,19 +49,13 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
     setDeviceList(fetchData.deviceList);
     setTotalCount(fetchData.totalCount);
   };
-  /*
-   * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
-   * 따라서 useEffect안에서 authRequest 실행
-   */
+
   useEffect(() => {
     fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  /*
-   * useEffect 실행 전에 보여줄 화면
-   */
-  if (deviceList === undefined) {
+  if (!deviceList) {
     return <div>로딩 중</div>;
   }
 

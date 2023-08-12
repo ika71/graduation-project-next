@@ -41,19 +41,12 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     setTotalCount(fetchData.totalCount);
   };
 
-  /*
-   * 클라이언트 window 객체가 정의되어야만 로컬스토리지에 접근 가능
-   * 따라서 useEffect안에서 authRequest 실행
-   */
   useEffect(() => {
     fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  /*
-   * useEffect 실행 전에 보여줄 화면
-   */
-  if (categoryList === undefined) {
+  if (!categoryList) {
     return <div>로딩 중</div>;
   }
 

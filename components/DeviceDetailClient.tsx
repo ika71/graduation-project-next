@@ -6,7 +6,10 @@ import EvaluationPutModal from "./evaluation/EvaluationPutModal";
 interface Props {
   deviceId: number;
 }
-
+/**
+ * @param deviceId: 정보를 볼 전자제품의 id
+ * @returns
+ */
 const DeviceDetailClient = ({
   deviceId,
   children,

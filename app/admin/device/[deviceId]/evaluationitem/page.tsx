@@ -25,6 +25,9 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   const [editEvalItemId, setEditEvalItemId] = useState(-1);
   const [prevName, setPrevName] = useState("");
 
+  /**
+   * 평가항목 요청
+   */
   const fetch = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/evaluationitem?deviceId=${deviceId}`,
@@ -33,12 +36,13 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     const fetchData: FetchData = await res.json();
     setEvaluationItemList(fetchData.evaluationItemList);
   };
+
   useEffect(() => {
     fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceId]);
 
-  if (evaluationItemList === undefined) {
+  if (!evaluationItemList) {
     return <div>로딩 중</div>;
   }
 

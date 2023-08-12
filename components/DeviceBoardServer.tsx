@@ -19,7 +19,11 @@ interface Board {
   view: number;
   createdTime: string;
 }
-
+/**
+ * @param deviceId: 가져올 게시글과 연관된 전자제품의 id
+ * @param currentPage: 게시글 페이징에 사용할 현재 페이지 위치
+ * @returns
+ */
 const DeviceBoardServer = async (props: Props) => {
   const deviceId = props.deviceId;
   const currentPage = props.currentPage;
