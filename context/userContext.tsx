@@ -2,6 +2,7 @@
 
 import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
 import { backendUrl } from "@/url/backendUrl";
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
 interface Context {
@@ -33,9 +34,20 @@ export function UserContextProvider({
     role: "anonymous",
     isLogin: false,
   });
+  const router = useRouter();
 
   const fetchMember = async () => {
     const res = await authReqeustWithOutBody(`${backendUrl}/member`, "GET");
+    /**
+     * @todo 토큰으로 정보를 가져오는 api 실패가 단순 실패인지
+     * 토큰이 유효하지 않은건지 구분하는 로직을 추가해야함
+     */
+    if (!res.ok) {
+      signout();
+      alert("로그인이 만료되었습니다.");
+      router.push("/signin");
+      return;
+    }
     const memberInfo: FetchData = await res.json();
 
     setUserContext({
@@ -79,6 +91,7 @@ export function UserContextProvider({
     if (localStorage.getItem("token")) {
       fetchMember();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const context: Context = {

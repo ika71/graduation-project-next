@@ -12,7 +12,7 @@ const Header = () => {
   if (!userContext) {
     return <></>;
   }
-  const { userName, role, isLogin, signin, signout } = userContext;
+  const { userName, role, isLogin, signout } = userContext;
   /**
    * @ 로컬 스토리지에서 토큰 제거
    * @ login 변수 false로 변경
