@@ -1,8 +1,9 @@
 "use client";
 
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PaginationComponent from "./PaginationComponent";
+import { authReqeust } from "@/auth/LoginService";
 
 interface Props {
   boardId: number;
@@ -30,6 +31,7 @@ const BoardCommentClient = (props: Props) => {
   const { boardId, currentPage } = props;
   const [boardCommentList, setBoardCommentList] = useState<BoardComment[]>();
   const [totalCount, setTotalCount] = useState<number>();
+  const commentInput = useRef<HTMLInputElement>(null);
   const size = 20;
 
   const fetchData = async () => {
@@ -39,6 +41,24 @@ const BoardCommentClient = (props: Props) => {
     const fetchData: FetchData = await res.json();
     setBoardCommentList(fetchData.boardCommentList);
     setTotalCount(fetchData.totalCount);
+  };
+
+  const createComment = async () => {
+    if (!commentInput.current) {
+      return;
+    }
+    const comment = commentInput.current.value;
+    const res = await authReqeust(
+      `${backendUrl}/board/${boardId}/comment`,
+      "POST",
+      { comment: comment }
+    );
+    if (res.ok) {
+      fetchData();
+      commentInput.current.value = "";
+    } else {
+      alert("댓글 작성에 실패하였습니다");
+    }
   };
 
   useEffect(() => {
@@ -72,11 +92,29 @@ const BoardCommentClient = (props: Props) => {
                 </td>
               </tr>
             ))}
+            <tr className="bg-white">
+              <td className="py-2 px-4" colSpan={3}>
+                <div className="flex space-x-4">
+                  <input
+                    ref={commentInput}
+                    type="text"
+                    placeholder="댓글을 입력하세요"
+                    className="w-full p-2 rounded-l-md border border-gray-300"
+                  />
+                  <button
+                    onClick={createComment}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
+                  >
+                    작성
+                  </button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
 
         <PaginationComponent
-          url="?page="
+          url="?commentPage="
           currentPage={currentPage}
           totalCount={totalCount}
           size={size}
