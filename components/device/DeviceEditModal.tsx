@@ -29,11 +29,7 @@ interface FetchData {
  * @returns
  */
 const DeviceEditModal = (props: Props) => {
-  const deviceId = props.deviceId;
-  const prevName = props.prevName;
-  const prevCategoryId = props.prevCategoryId;
-  const closeModal = props.closeModal;
-  const afterEdit = props.afterEdit;
+  const { deviceId, prevCategoryId, prevName, closeModal, afterEdit } = props;
 
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);

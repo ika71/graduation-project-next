@@ -15,10 +15,7 @@ interface Props {
  * @returns
  */
 const EvaluationItemAddModal = (props: Props) => {
-  const closeModal = props.closeModal;
-  const afterAdd = props.afterAdd;
-
-  const deviceId = props.deviceId;
+  const { deviceId, closeModal, afterAdd } = props;
   const evaluationItemName = useRef<HTMLInputElement>(null);
 
   const createEvaluationItem = async () => {

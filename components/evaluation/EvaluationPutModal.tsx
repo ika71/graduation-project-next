@@ -30,14 +30,13 @@ interface EvaluationPut {
 
 /**
  * 평점 put 기능이 있는 모달
+ * @param deviceId: number 평점을 put할 전자제품의 id
  * @param closeModal:()=>void close버튼을 눌렀을 때 실행될 함수
  * @param afterPut:()=>void put 실행 후 실행될 함수
  * @returns
  */
 const EvaluationPutModal = (props: Props) => {
-  const deviceId = props.deviceId;
-  const closeModal = props.closeModal;
-  const afterput = props.afterPut;
+  const { deviceId, closeModal, afterPut } = props;
 
   const [evalList, setEvalList] = useState<EvaluationFind[]>();
   const scoreOption = [5, 4, 3, 2, 1, "아직 평가 하지 않았습니다."];
@@ -93,7 +92,7 @@ const EvaluationPutModal = (props: Props) => {
       evaluationPutRequest
     );
     if (res.ok) {
-      afterput();
+      afterPut();
     } else {
       alert(await res.text());
     }

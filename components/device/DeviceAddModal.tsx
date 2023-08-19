@@ -23,8 +23,7 @@ interface FetchData {
  * @returns
  */
 const DeviceAddModal = (props: Props) => {
-  const closeModal = props.closeModal;
-  const afterAdd = props.afterAdd;
+  const { closeModal, afterAdd } = props;
 
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);

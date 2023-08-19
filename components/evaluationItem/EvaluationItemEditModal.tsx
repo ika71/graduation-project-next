@@ -17,11 +17,7 @@ interface Props {
  * @returns
  */
 const EvaluationItemEditModal = (props: Props) => {
-  const closeModal = props.closeModal;
-  const afterEdit = props.afterEdit;
-
-  const evaluationItemId = props.evaluationItemId;
-  const prevName = props.prevName;
+  const { evaluationItemId, prevName, closeModal, afterEdit } = props;
   const evaluationItemName = useRef<HTMLInputElement>(null);
 
   const editEvaluationItem = async () => {

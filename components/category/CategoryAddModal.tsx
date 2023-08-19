@@ -13,8 +13,7 @@ interface Props {
  * @returns
  */
 const CategoryAddModal = (props: Props) => {
-  const closeModal = props.closeModal;
-  const afterAdd = props.afterAdd;
+  const { closeModal, afterAdd } = props;
 
   const categoryName = useRef<HTMLInputElement>(null);
 

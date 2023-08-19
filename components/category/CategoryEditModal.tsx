@@ -17,10 +17,7 @@ interface Props {
  * @returns
  */
 const CategoryEditModal = (props: Props) => {
-  const categoryId = props.categoryId;
-  const prevName = props.prevName;
-  const closeModal = props.closeModal;
-  const afterEdit = props.afterEdit;
+  const { categoryId, prevName, closeModal, afterEdit } = props;
 
   const categoryName = useRef<HTMLInputElement>(null);
 

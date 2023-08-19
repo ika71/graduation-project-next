@@ -25,8 +25,7 @@ interface Board {
  * @returns
  */
 const DeviceBoardServer = async (props: Props) => {
-  const deviceId = props.deviceId;
-  const currentPage = props.currentPage;
+  const { deviceId, currentPage } = props;
 
   const size = 10;
 
