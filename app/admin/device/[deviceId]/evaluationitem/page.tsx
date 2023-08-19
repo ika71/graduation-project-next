@@ -22,7 +22,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
 
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
-  const [editEvalItemId, setEditEvalItemId] = useState(-1);
+  const [editEvalItemId, setEditEvalItemId] = useState<number>();
   const [prevName, setPrevName] = useState("");
 
   /**
@@ -42,7 +42,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceId]);
 
-  if (!evaluationItemList) {
+  if (!evaluationItemList || !editEvalItemId) {
     return <div>로딩 중</div>;
   }
 

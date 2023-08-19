@@ -22,7 +22,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
 
   const [addModalShow, setAddModalShow] = useState(false); //추가모달 제어 변수
   const [editModalShow, setEditModalShow] = useState(false); //수정모달 제어 변수
-  const [editCategoryId, setEditCategoryId] = useState(-1); //수정 모달에 전달할 카테고리 id
+  const [editCategoryId, setEditCategoryId] = useState<number>(); //수정 모달에 전달할 카테고리 id
   const [editPrevName, setEditPrevName] = useState(""); //수정 모달에 전달할 카테고리 이름
 
   const [categoryList, setCategoryList] = useState<Category[]>(); //카테고리 목록
@@ -46,7 +46,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  if (!categoryList) {
+  if (!categoryList || !editCategoryId) {
     return <div>로딩 중</div>;
   }
 

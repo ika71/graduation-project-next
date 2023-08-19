@@ -30,8 +30,8 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
 
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
-  const [editDeviceId, setEditDeviceId] = useState(-1);
-  const [prevCategoryId, setPrevCategoryId] = useState(-1);
+  const [editDeviceId, setEditDeviceId] = useState<number>();
+  const [prevCategoryId, setPrevCategoryId] = useState<number>();
   const [prevName, setPrevName] = useState("");
 
   const [deviceList, setDeviceList] = useState<Device[]>(); //전자제품 목록
@@ -40,7 +40,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   /**
    * 전자제품 페이징 요청
    */
-  const fetchData = async () => {
+  const fetch = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/device?page=${currentPage}&size=${size}`,
       "GET"
@@ -51,11 +51,11 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  if (!deviceList) {
+  if (!deviceList || !editDeviceId || !prevCategoryId) {
     return <div>로딩 중</div>;
   }
 
@@ -67,7 +67,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
   const afterAdd = () => {
     closeAddModal();
-    fetchData();
+    fetch();
   };
   const openEditModal = (
     deviceId: number,
@@ -84,7 +84,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
   const afterEdit = () => {
     closeEditModal();
-    fetchData();
+    fetch();
   };
   const deleteDevice = async (id: number) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
@@ -95,7 +95,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       "DELETE"
     );
     if (res.ok) {
-      fetchData();
+      fetch();
     } else {
       alert(await res.text());
     }
