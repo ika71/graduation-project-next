@@ -33,7 +33,8 @@ const BoardDetailServer = async (props: Props) => {
             id="content"
             cols={30}
             rows={10}
-            value={boardDetail.content}
+            defaultValue={boardDetail.content}
+            readOnly={true}
             className="w-full font-serif  p-4 text-gray-600 bg-indigo-50 outline-none rounded-md"
           ></textarea>
         </div>
@@ -42,7 +43,8 @@ const BoardDetailServer = async (props: Props) => {
             작성자
           </label>
           <input
-            value={boardDetail.createdBy}
+            defaultValue={boardDetail.createdBy}
+            readOnly={true}
             type="text"
             placeholder="name"
             id="name"
@@ -54,7 +56,8 @@ const BoardDetailServer = async (props: Props) => {
             작성일
           </label>
           <input
-            value={boardDetail.createdTime}
+            defaultValue={boardDetail.createdTime}
+            readOnly={true}
             type="text"
             placeholder="name"
             id="email"
