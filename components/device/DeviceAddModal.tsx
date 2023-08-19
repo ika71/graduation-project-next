@@ -30,7 +30,7 @@ const DeviceAddModal = (props: Props) => {
   const [categoryList, setCategoryList] = useState<Category[]>();
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       const res = await authReqeustWithOutBody(
         `${backendUrl}/admin/category/all`,
         "GET"
@@ -39,7 +39,7 @@ const DeviceAddModal = (props: Props) => {
       setCategoryList(fetchData.categoryList);
     };
 
-    fetch();
+    fetchData();
   }, []);
   /*
    * useEffect 실행 전에 보여줄 화면

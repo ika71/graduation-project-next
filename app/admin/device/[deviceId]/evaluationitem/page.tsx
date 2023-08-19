@@ -28,7 +28,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   /**
    * 평가항목 요청
    */
-  const fetch = async () => {
+  const fetchData = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/evaluationitem?deviceId=${deviceId}`,
       "GET"
@@ -38,7 +38,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   };
 
   useEffect(() => {
-    fetch();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceId]);
 
@@ -54,7 +54,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   };
   const afterAdd = () => {
     closeAddModal();
-    fetch();
+    fetchData();
   };
 
   const openEditModal = (editEvalItemId: number, prevName: string) => {
@@ -67,7 +67,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   };
   const afterEdit = () => {
     setEditModalShow(false);
-    fetch();
+    fetchData();
   };
 
   const deleteEvaluationItem = async (id: number) => {
@@ -79,7 +79,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
       "DELETE"
     );
     if (res.ok) {
-      fetch();
+      fetchData();
     } else {
       alert(await res.text());
     }

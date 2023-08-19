@@ -31,7 +31,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   /**
    * 카테고리 페이징 요청
    */
-  const fetch = async () => {
+  const fetchData = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
       "GET"
@@ -42,7 +42,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
 
   useEffect(() => {
-    fetch();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
@@ -58,7 +58,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
   const afterAdd = () => {
     closeAddModal();
-    fetch();
+    fetchData();
   };
   const openEditModal = (categoryId: number, prevName: string) => {
     setEditCategoryId(categoryId);
@@ -70,7 +70,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
   const afterEdit = () => {
     setEditModalShow(false);
-    fetch();
+    fetchData();
   };
   const deleteCategory = async (id: number) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
@@ -81,7 +81,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       "DELETE"
     );
     if (res.ok) {
-      fetch();
+      fetchData();
     } else {
       alert(await res.text());
     }

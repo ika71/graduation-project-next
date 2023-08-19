@@ -37,7 +37,7 @@ const DeviceEditModal = (props: Props) => {
   const [categoryList, setCategoryList] = useState<Category[]>();
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       const res = await authReqeustWithOutBody(
         `${backendUrl}/admin/category/all`,
         "GET"
@@ -46,7 +46,7 @@ const DeviceEditModal = (props: Props) => {
       setCategoryList(fetchData.categoryList);
     };
 
-    fetch();
+    fetchData();
   }, []);
 
   /*

@@ -41,7 +41,7 @@ const EvaluationPutModal = (props: Props) => {
   const [evalList, setEvalList] = useState<EvaluationFind[]>();
   const scoreOption = [5, 4, 3, 2, 1, "아직 평가 하지 않았습니다."];
 
-  const fetch = async () => {
+  const fetchData = async () => {
     const res = await authReqeustWithOutBody(
       `${backendUrl}/evaluation?deviceId=${deviceId}`,
       "GET"
@@ -51,7 +51,7 @@ const EvaluationPutModal = (props: Props) => {
   };
 
   useEffect(() => {
-    fetch();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   /**
