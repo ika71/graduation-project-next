@@ -1,9 +1,10 @@
 "use client";
 
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import PaginationComponent from "./PaginationComponent";
-import { authReqeust } from "@/auth/LoginService";
+import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 
 interface Props {
   boardId: number;
@@ -32,6 +33,7 @@ const BoardCommentClient = (props: Props) => {
   const [boardCommentList, setBoardCommentList] = useState<BoardComment[]>();
   const [totalCount, setTotalCount] = useState<number>();
   const commentInput = useRef<HTMLInputElement>(null);
+  const userContext = useContext(UserContext);
   const size = 20;
 
   const fetchData = async () => {
@@ -61,6 +63,21 @@ const BoardCommentClient = (props: Props) => {
     }
   };
 
+  const deleteComment = async (commentId: number) => {
+    if (!confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
+    const res = await authReqeustWithOutBody(
+      `${backendUrl}/board/${boardId}/comment/${commentId}`,
+      "DELETE"
+    );
+    if (res.ok) {
+      fetchData();
+    } else {
+      alert("삭제 실패");
+    }
+  };
+
   useEffect(() => {
     fetchData();
 
@@ -70,6 +87,11 @@ const BoardCommentClient = (props: Props) => {
   if (!boardCommentList || !totalCount) {
     return <div>Loading...</div>;
   }
+
+  if (!userContext) {
+    return <></>;
+  }
+  const { userName, isLogin } = userContext;
 
   return (
     <>
@@ -88,28 +110,50 @@ const BoardCommentClient = (props: Props) => {
                   </span>
                 </td>
                 <td className="py-2 px-4">
-                  <span className="text-gray-500">{comment.createdTime}</span>
+                  <div className="flex items-center space-x-1">
+                    <span className="text-gray-500">{comment.createdTime}</span>
+                    {isLogin && userName === comment.createdBy && (
+                      <button onClick={() => deleteComment(comment.id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6 cursor-pointer"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
-            <tr className="bg-white">
-              <td className="py-2 px-4" colSpan={3}>
-                <div className="flex space-x-4">
-                  <input
-                    ref={commentInput}
-                    type="text"
-                    placeholder="댓글을 입력하세요"
-                    className="w-full p-2 rounded-l-md border border-gray-300"
-                  />
-                  <button
-                    onClick={createComment}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
-                  >
-                    작성
-                  </button>
-                </div>
-              </td>
-            </tr>
+            {isLogin && (
+              <tr className="bg-white">
+                <td className="py-2 px-4" colSpan={3}>
+                  <div className="flex space-x-4">
+                    <input
+                      ref={commentInput}
+                      type="text"
+                      placeholder="댓글을 입력하세요"
+                      className="w-full p-2 rounded-l-md border border-gray-300"
+                    />
+                    <button
+                      onClick={createComment}
+                      className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
+                    >
+                      작성
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 
