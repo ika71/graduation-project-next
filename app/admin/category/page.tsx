@@ -46,7 +46,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  if (!categoryList || !editCategoryId) {
+  if (!categoryList) {
     return <div>로딩 중</div>;
   }
 
@@ -92,7 +92,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       {addModalShow && (
         <CategoryAddModal closeModal={closeAddModal} afterAdd={afterAdd} />
       )}
-      {editModalShow && (
+      {editModalShow && editCategoryId && (
         <CategoryEditModal
           categoryId={editCategoryId}
           prevName={editPrevName}

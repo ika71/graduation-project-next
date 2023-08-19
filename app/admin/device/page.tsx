@@ -55,7 +55,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  if (!deviceList || !editDeviceId || !prevCategoryId) {
+  if (!deviceList) {
     return <div>로딩 중</div>;
   }
 
@@ -106,7 +106,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       {addModalShow && (
         <DeviceAddModal closeModal={closeAddModal} afterAdd={afterAdd} />
       )}
-      {editModalShow && (
+      {editModalShow && editDeviceId && prevCategoryId && (
         <DeviceEditModal
           deviceId={editDeviceId}
           prevCategoryId={prevCategoryId}

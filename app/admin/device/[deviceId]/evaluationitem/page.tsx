@@ -42,7 +42,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceId]);
 
-  if (!evaluationItemList || !editEvalItemId) {
+  if (!evaluationItemList) {
     return <div>로딩 중</div>;
   }
 
@@ -94,7 +94,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
           afterAdd={afterAdd}
         />
       )}
-      {editModalShow && (
+      {editModalShow && editEvalItemId && (
         <EvaluationItemEditModal
           evaluationItemId={editEvalItemId}
           prevName={prevName}
