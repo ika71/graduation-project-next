@@ -23,7 +23,6 @@ const HomePage = async ({
   searchParams: { page: number };
 }) => {
   const currentPage = searchParams.page || 1;
-  const url = "/?page=";
   const size = 8;
 
   const res = await fetch(
@@ -182,7 +181,7 @@ const HomePage = async ({
       </section>
       <div className="my-8">
         <PaginationComponent
-          url={url}
+          url={"?page="}
           size={size}
           currentPage={currentPage}
           totalCount={totalCount}

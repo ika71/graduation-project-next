@@ -205,7 +205,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       </table>
       <div className="my-8">
         <PaginationComponent
-          url={"/admin/device?page="}
+          url={"?page="}
           size={size}
           currentPage={currentPage}
           totalCount={totalCount}

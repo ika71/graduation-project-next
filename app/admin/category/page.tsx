@@ -152,7 +152,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       </table>
       <div className="my-8">
         <PaginationComponent
-          url={"/admin/category?page="}
+          url={"?page="}
           size={size}
           currentPage={currentPage}
           totalCount={totalCount}

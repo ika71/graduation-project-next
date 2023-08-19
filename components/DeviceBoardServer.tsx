@@ -103,7 +103,7 @@ const DeviceBoardServer = async (props: Props) => {
       </div>
       <div className="my-5">
         <PaginationComponent
-          url={`/device/${deviceId}?boardPage=`}
+          url={`?boardPage=`}
           currentPage={currentPage}
           totalCount={totalCount}
           size={10}
