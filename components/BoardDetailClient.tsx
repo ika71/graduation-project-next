@@ -1,6 +1,9 @@
 "use client";
 
+import { authReqeustWithOutBody } from "@/auth/LoginService";
+import { backendUrl } from "@/url/backendUrl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { PropsWithChildren } from "react";
 
 interface Props {
@@ -11,6 +14,24 @@ interface Props {
  * @returns
  */
 const BoardDetailClient = ({ boardId, children }: PropsWithChildren<Props>) => {
+  const router = useRouter();
+
+  const deleteBoard = async () => {
+    const res = await authReqeustWithOutBody(
+      `${backendUrl}/board/${boardId}`,
+      "DELETE"
+    );
+    if (res.ok) {
+      alert("삭제하였습니다.");
+      router.back();
+      router.refresh();
+    } else if (res.status === 403) {
+      alert("본인이 작성한 글만 삭제할 수 있습니다.");
+    } else {
+      alert("삭제에 실패하였습니다");
+    }
+  };
+
   return (
     <>
       {children}
@@ -19,7 +40,10 @@ const BoardDetailClient = ({ boardId, children }: PropsWithChildren<Props>) => {
           수정
         </button>
       </Link>
-      <button className="my-5 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-3">
+      <button
+        onClick={deleteBoard}
+        className="my-5 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-3"
+      >
         삭제
       </button>
     </>
