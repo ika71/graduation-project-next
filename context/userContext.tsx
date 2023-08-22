@@ -19,7 +19,8 @@ interface FetchData {
 }
 
 interface LoginSuccess {
-  token: string;
+  refreshToken: string;
+  accessToken: string;
 }
 
 const UserContext = createContext<Context | null>(null);
@@ -69,8 +70,8 @@ export function UserContextProvider({
     );
     if (res.ok) {
       const loginData: LoginSuccess = await res.json();
-      if (loginData.token) {
-        localStorage.setItem("token", loginData.token);
+      if (loginData) {
+        localStorage.setItem("token", loginData.accessToken);
         await fetchMember();
         return true;
       }
