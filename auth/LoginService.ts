@@ -4,6 +4,7 @@
  * @param method
  * @param json
  * @returns fetch() 결과
+ * @deprecated
  */
 export const authReqeust = (url: string, method: string, json: object) => {
   let headers = new Headers({
@@ -27,6 +28,7 @@ export const authReqeust = (url: string, method: string, json: object) => {
  * @param method
  * @param json
  * @returns fetch() 결과
+ * @deprecated
  */
 export const authReqeustWithOutBody = (url: string, method: string) => {
   let headers = new Headers({
@@ -50,6 +52,7 @@ export const authReqeustWithOutBody = (url: string, method: string) => {
  * @param method
  * @param files
  * @returns
+ * @deprecated
  */
 export const authReqeustFile = (
   url: string,
