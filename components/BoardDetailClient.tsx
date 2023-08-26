@@ -1,10 +1,10 @@
 "use client";
 
-import { authReqeustWithOutBody } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
 
 interface Props {
   boardId: number;
@@ -14,10 +14,14 @@ interface Props {
  * @returns
  */
 const BoardDetailClient = ({ boardId, children }: PropsWithChildren<Props>) => {
+  const userContext = useContext(UserContext);
   const router = useRouter();
 
   const deleteBoard = async () => {
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/board/${boardId}`,
       "DELETE"
     );

@@ -1,6 +1,6 @@
-import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 interface Props {
   deviceId: number;
@@ -30,6 +30,7 @@ interface FetchData {
  */
 const DeviceEditModal = (props: Props) => {
   const { deviceId, prevCategoryId, prevName, closeModal, afterEdit } = props;
+  const userContext = useContext(UserContext);
 
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);
@@ -38,7 +39,10 @@ const DeviceEditModal = (props: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await authReqeustWithOutBody(
+      if (!userContext) {
+        return;
+      }
+      const res = await userContext.authRequest(
         `${backendUrl}/admin/category/all`,
         "GET"
       );
@@ -47,7 +51,7 @@ const DeviceEditModal = (props: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [userContext]);
 
   /*
    * useEffect 실행 전에 보여줄 화면
@@ -57,14 +61,14 @@ const DeviceEditModal = (props: Props) => {
   }
 
   const editDevice = async () => {
-    if (!deviceName.current || !selectCategoryId.current) {
+    if (!deviceName.current || !selectCategoryId.current || !userContext) {
       return;
     }
     const editDevice = {
       name: deviceName.current.value,
       categoryId: selectCategoryId.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/device/${deviceId}`,
       "PATCH",
       editDevice

@@ -1,6 +1,5 @@
 "use client";
 
-import { authReqeust } from "@/auth/LoginService";
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
@@ -31,14 +30,14 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
   };
 
   const modifyBoard = async () => {
-    if (!titleRef.current || !contentRef.current) {
+    if (!titleRef.current || !contentRef.current || !userContext) {
       return;
     }
     const modifyBoard = {
       title: titleRef.current.value,
       content: contentRef.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/board/${boardId}`,
       "PATCH",
       modifyBoard

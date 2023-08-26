@@ -1,9 +1,9 @@
 "use client";
 
-import { authReqeust, authReqeustFile } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 
 interface UploadSuccess {
   imageId: number;
@@ -12,6 +12,7 @@ interface UploadSuccess {
 
 const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
   const deviceId = params.deviceId;
+  const userContext = useContext(UserContext);
 
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadFile, setUploadFile] = useState<File>();
@@ -26,11 +27,15 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
   };
 
   const uploadFileRequest = async () => {
-    if (!uploadFile) return;
+    if (!uploadFile || !userContext) return;
     const formData = new FormData();
     formData.append("imageFile", uploadFile);
 
-    const res = await authReqeustFile(`${backendUrl}/image`, "POST", formData);
+    const res = await userContext.authRequest(
+      `${backendUrl}/image`,
+      "POST",
+      formData
+    );
     if (res.ok) {
       const uploadSuccess: UploadSuccess = await res.json();
       setImageId(uploadSuccess.imageId);
@@ -41,10 +46,13 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
     }
   };
   const deviceImageSet = async () => {
+    if (!userContext) {
+      return;
+    }
     const json = {
       imageId: imageId,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/device/${deviceId}/image`,
       "POST",
       json

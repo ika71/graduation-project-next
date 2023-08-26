@@ -1,11 +1,12 @@
 "use client";
 
-import { authReqeust } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 const SignupForm = () => {
+  const userContext = useContext(UserContext);
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -28,7 +29,10 @@ const SignupForm = () => {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    const res = await authReqeust(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/member/signup`,
       "POST",
       member

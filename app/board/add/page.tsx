@@ -1,6 +1,5 @@
 "use client";
 
-import { authReqeust } from "@/auth/LoginService";
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
@@ -38,7 +37,7 @@ const BoardAddPage = ({
       content: contentRef.current.value,
     };
 
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/board?deviceId=${deviceId}`,
       "POST",
       board

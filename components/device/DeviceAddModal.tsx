@@ -1,6 +1,6 @@
-import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 interface Props {
   closeModal: () => void;
@@ -24,6 +24,7 @@ interface FetchData {
  */
 const DeviceAddModal = (props: Props) => {
   const { closeModal, afterAdd } = props;
+  const userContext = useContext(UserContext);
 
   const deviceName = useRef<HTMLInputElement>(null);
   const selectCategoryId = useRef<HTMLSelectElement>(null);
@@ -31,7 +32,10 @@ const DeviceAddModal = (props: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await authReqeustWithOutBody(
+      if (!userContext) {
+        return;
+      }
+      const res = await userContext.authRequest(
         `${backendUrl}/admin/category/all`,
         "GET"
       );
@@ -40,7 +44,7 @@ const DeviceAddModal = (props: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [userContext]);
   /*
    * useEffect 실행 전에 보여줄 화면
    */
@@ -49,14 +53,14 @@ const DeviceAddModal = (props: Props) => {
   }
 
   const createdevice = async () => {
-    if (!deviceName.current || !selectCategoryId.current) {
+    if (!deviceName.current || !selectCategoryId.current || !userContext) {
       return;
     }
     const createDevice = {
       categoryId: selectCategoryId.current.value,
       name: deviceName.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/device`,
       "POST",
       createDevice

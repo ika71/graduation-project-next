@@ -1,12 +1,12 @@
 "use client";
-import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
 import DeviceAddModal from "@/components/device/DeviceAddModal";
 import DeviceEditModal from "@/components/device/DeviceEditModal";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface Category {
   id: number;
@@ -28,6 +28,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   const currentPage = searchParams.page || 1; //현재 페이지
   const size = 10; //페이지에 보여줄 전자제품 크기
 
+  const userContext = useContext(UserContext);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [editDeviceId, setEditDeviceId] = useState<number>();
@@ -41,7 +42,10 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
    * 전자제품 페이징 요청
    */
   const fetch = async () => {
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/device?page=${currentPage}&size=${size}`,
       "GET"
     );
@@ -90,7 +94,10 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
       return;
     }
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/device/${id}`,
       "DELETE"
     );

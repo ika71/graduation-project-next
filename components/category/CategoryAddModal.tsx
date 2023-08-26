@@ -1,6 +1,6 @@
-import { authReqeust } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 interface Props {
   closeModal: () => void;
@@ -14,17 +14,18 @@ interface Props {
  */
 const CategoryAddModal = (props: Props) => {
   const { closeModal, afterAdd } = props;
+  const userContext = useContext(UserContext);
 
   const categoryName = useRef<HTMLInputElement>(null);
 
   const createCategory = async () => {
-    if (!categoryName.current) {
+    if (!categoryName.current || !userContext) {
       return;
     }
     const createCategory = {
       name: categoryName.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/category`,
       "POST",
       createCategory

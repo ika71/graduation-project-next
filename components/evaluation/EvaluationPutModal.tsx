@@ -1,8 +1,8 @@
 "use client";
 
-import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 interface Props {
   deviceId: number;
@@ -37,12 +37,16 @@ interface EvaluationPut {
  */
 const EvaluationPutModal = (props: Props) => {
   const { deviceId, closeModal, afterPut } = props;
+  const userContext = useContext(UserContext);
 
   const [evalList, setEvalList] = useState<EvaluationFind[]>();
   const scoreOption = [5, 4, 3, 2, 1, "아직 평가 하지 않았습니다."];
 
   const fetchData = async () => {
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/evaluation?deviceId=${deviceId}`,
       "GET"
     );
@@ -74,6 +78,9 @@ const EvaluationPutModal = (props: Props) => {
     return <div>로딩중</div>;
   }
   const put = async () => {
+    if (!userContext) {
+      return;
+    }
     const evaluationPutList: EvaluationPut[] = [];
     evalList.map((evaluation) => {
       if (evaluation.evalScore) {
@@ -86,7 +93,7 @@ const EvaluationPutModal = (props: Props) => {
     const evaluationPutRequest: EvaluationPutRequest = {
       evaluationPutList: evaluationPutList,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/evaluation`,
       "PUT",
       evaluationPutRequest

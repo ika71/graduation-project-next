@@ -1,10 +1,10 @@
 "use client";
 
-import { authReqeustWithOutBody } from "@/auth/LoginService";
 import EvaluationItemAddModal from "@/components/evaluationItem/EvaluationItemAddModal";
 import EvaluationItemEditModal from "@/components/evaluationItem/EvaluationItemEditModal";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface EvaluationItem {
   id: number;
@@ -17,6 +17,7 @@ interface FetchData {
 
 const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   const deviceId = params.deviceId;
+  const userContext = useContext(UserContext);
   const [evaluationItemList, setEvaluationItemList] =
     useState<EvaluationItem[]>();
 
@@ -29,7 +30,10 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
    * 평가항목 요청
    */
   const fetchData = async () => {
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/evaluationitem?deviceId=${deviceId}`,
       "GET"
     );
@@ -74,7 +78,10 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
       return;
     }
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/evaluationitem/${id}`,
       "DELETE"
     );

@@ -1,10 +1,10 @@
 "use client";
-import { authReqeustWithOutBody } from "@/auth/LoginService";
 import PaginationComponent from "@/components/PaginationComponent";
 import CategoryAddModal from "@/components/category/CategoryAddModal";
 import CategoryEditModal from "@/components/category/CategoryEditModal";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface Category {
   id: number;
@@ -20,6 +20,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   const currentPage = searchParams.page || 1; //현재 페이지
   const size = 10; //페이지에 보여줄 카테고리 크기
 
+  const userContext = useContext(UserContext);
   const [addModalShow, setAddModalShow] = useState(false); //추가모달 제어 변수
   const [editModalShow, setEditModalShow] = useState(false); //수정모달 제어 변수
   const [editCategoryId, setEditCategoryId] = useState<number>(); //수정 모달에 전달할 카테고리 id
@@ -32,7 +33,10 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
    * 카테고리 페이징 요청
    */
   const fetchData = async () => {
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
       "GET"
     );
@@ -76,7 +80,10 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
       return;
     }
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/category/${id}`,
       "DELETE"
     );

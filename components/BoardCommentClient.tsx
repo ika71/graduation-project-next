@@ -3,7 +3,6 @@
 import { backendUrl } from "@/url/backendUrl";
 import { useContext, useEffect, useRef, useState } from "react";
 import PaginationComponent from "./PaginationComponent";
-import { authReqeust, authReqeustWithOutBody } from "@/auth/LoginService";
 import UserContext from "@/context/userContext";
 
 interface Props {
@@ -46,11 +45,11 @@ const BoardCommentClient = (props: Props) => {
   };
 
   const createComment = async () => {
-    if (!commentInput.current) {
+    if (!commentInput.current || !userContext) {
       return;
     }
     const comment = commentInput.current.value;
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/board/${boardId}/comment`,
       "POST",
       { comment: comment }
@@ -67,7 +66,10 @@ const BoardCommentClient = (props: Props) => {
     if (!confirm("정말로 삭제 하시겠습니까?")) {
       return;
     }
-    const res = await authReqeustWithOutBody(
+    if (!userContext) {
+      return;
+    }
+    const res = await userContext.authRequest(
       `${backendUrl}/board/${boardId}/comment/${commentId}`,
       "DELETE"
     );

@@ -1,6 +1,6 @@
-import { authReqeust } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 interface Props {
   categoryId: number;
@@ -18,17 +18,18 @@ interface Props {
  */
 const CategoryEditModal = (props: Props) => {
   const { categoryId, prevName, closeModal, afterEdit } = props;
+  const userContext = useContext(UserContext);
 
   const categoryName = useRef<HTMLInputElement>(null);
 
   const editCategory = async () => {
-    if (!categoryName.current) {
+    if (!categoryName.current || !userContext) {
       return;
     }
     const editCategory = {
       name: categoryName.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/category/${categoryId}`,
       "PATCH",
       editCategory

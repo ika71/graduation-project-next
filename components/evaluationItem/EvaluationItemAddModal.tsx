@@ -1,6 +1,6 @@
-import { authReqeust } from "@/auth/LoginService";
+import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 interface Props {
   deviceId: number;
@@ -16,17 +16,18 @@ interface Props {
  */
 const EvaluationItemAddModal = (props: Props) => {
   const { deviceId, closeModal, afterAdd } = props;
+  const userContext = useContext(UserContext);
   const evaluationItemName = useRef<HTMLInputElement>(null);
 
   const createEvaluationItem = async () => {
-    if (!evaluationItemName.current) {
+    if (!evaluationItemName.current || !userContext) {
       return;
     }
     const evaluationItem = {
       electronicDeviceId: deviceId,
       name: evaluationItemName.current.value,
     };
-    const res = await authReqeust(
+    const res = await userContext.authRequest(
       `${backendUrl}/admin/evaluationitem`,
       "POST",
       evaluationItem
