@@ -1,3 +1,7 @@
+/**
+ * @todo 사이트에서 액세스 토큰이 계속 재발급되는 문제가 있음 나중에 고쳐야 함
+ */
+
 "use client";
 
 import { backendUrl } from "@/url/backendUrl";
@@ -49,6 +53,7 @@ export function UserContextProvider({
     const res = await authRequest(`${backendUrl}/member`, "GET");
 
     if (!res.ok) {
+      alert("유저 정보를 불러오는데 실패하였습니다.");
       return;
     }
     const memberInfo: FetchData = await res.json();
@@ -166,12 +171,11 @@ export function UserContextProvider({
 
     const res = await fetch(url, http);
     //토큰이 만료되었으면 refresh 토큰으로 액세스 토큰을 발급 후 다시 요청한다.
-    //만약 토큰 갱신에 실패하면 그냥 return한다.
+    //만약 토큰 갱신에 실패하면 그냥 response를 return한다.
     if (!res.ok && (await res.text()) === "ExpiredJwt") {
       if (await tokenRefresh()) {
-        return;
+        return authRequest(url, method, body);
       }
-      authRequest(url, method, body);
     }
     return res;
   }
