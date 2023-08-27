@@ -1,7 +1,8 @@
 "use client";
 
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useContext, useState } from "react";
 import EvaluationPutModal from "./evaluation/EvaluationPutModal";
+import UserContext from "@/context/userContext";
 
 interface Props {
   deviceId: number;
@@ -15,7 +16,11 @@ const DeviceDetailClient = ({
   children,
 }: PropsWithChildren<Props>) => {
   const [evaluationPutModalShow, setEvaluationPutModal] = useState(false);
-
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    return <></>;
+  }
+  const { isLogin } = userContext;
   const openPutModal = () => {
     setEvaluationPutModal(true);
   };
@@ -37,12 +42,14 @@ const DeviceDetailClient = ({
       )}
       {children}
       <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
-        <button
-          onClick={openPutModal}
-          className="mx-2 my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
-        >
-          평가하기
-        </button>
+        {isLogin && (
+          <button
+            onClick={openPutModal}
+            className="mx-2 my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+          >
+            평가하기
+          </button>
+        )}
       </div>
     </div>
   );
