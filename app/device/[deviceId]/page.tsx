@@ -1,3 +1,4 @@
+import DeviceBoardClient from "@/components/DeviceBoardClient";
 import DeviceBoardServer from "@/components/DeviceBoardServer";
 import DeviceDetailClient from "@/components/DeviceDetailClient";
 import DeviceDetailServer from "@/components/DeviceDetailServer";
@@ -17,7 +18,9 @@ const DeviceDetailPage = ({
       <DeviceDetailClient deviceId={deviceId}>
         <DeviceDetailServer deviceId={deviceId} />
       </DeviceDetailClient>
-      <DeviceBoardServer deviceId={deviceId} currentPage={currentPage} />
+      <DeviceBoardClient deviceId={deviceId}>
+        <DeviceBoardServer deviceId={deviceId} currentPage={currentPage} />
+      </DeviceBoardClient>
     </>
   );
 };
