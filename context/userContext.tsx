@@ -1,7 +1,3 @@
-/**
- * @todo 사이트에서 액세스 토큰이 계속 재발급되는 문제가 있음 나중에 고쳐야 함
- */
-
 "use client";
 
 import { backendUrl } from "@/url/backendUrl";
@@ -42,7 +38,7 @@ export function UserContextProvider({
     role: "anonymous",
     isLogin: false,
   });
-  let accessToken = "null";
+  const [accessToken, setAccessToken] = useState("null");
 
   /**
    * 인증 정보를 이용해 회원의 정보를 가져온 후
@@ -89,7 +85,7 @@ export function UserContextProvider({
     if (res.ok) {
       const loginData: LoginSuccess = await res.json();
       localStorage.setItem("token", loginData.refreshToken);
-      accessToken = loginData.accessToken;
+      setAccessToken(loginData.accessToken);
 
       await fetchMember();
       return true;
@@ -113,7 +109,7 @@ export function UserContextProvider({
       role: "anonymous",
       isLogin: false,
     });
-    accessToken = "null";
+    setAccessToken("null");
   };
 
   function authRequest(url: string, method: string): Promise<Response>;
@@ -139,13 +135,20 @@ export function UserContextProvider({
    * @param url 요청을 보낼 url이다.
    * @param method 대문자 문자열로 method를 표시한다.
    * @param body body는 생략할 수 있으며 생략하지 않을 시 object 또는 FormData를 쓸 수 있다. object로 사용 시 json 요청이 이루어진다.
+   * @see accessToken
    */
   async function authRequest(url: string, method: string, body?: any) {
     let headers = new Headers({});
+    //accessToken이 null(초기값)이면 액세스 토큰을 갱신 후 새로운 토큰을 헤더에 넣는다
+    //그 이외에는 accessToken 값을 헤더에 넣는다
     if (localStorage.getItem("token") && accessToken === "null") {
-      await tokenRefresh();
+      const newAccessToken = await tokenRefresh();
+      if (newAccessToken) {
+        headers.append("Authorization", "Bearer " + newAccessToken);
+      }
+    } else {
+      headers.append("Authorization", "Bearer " + accessToken);
     }
-    headers.append("Authorization", "Bearer " + accessToken);
 
     let http;
     //body에 타입에 따라 http 설정을 바꾼다.
@@ -171,16 +174,20 @@ export function UserContextProvider({
 
     const res = await fetch(url, http);
     //토큰이 만료되었으면 refresh 토큰으로 액세스 토큰을 발급 후 다시 요청한다.
-    //만약 토큰 갱신에 실패하면 그냥 response를 return한다.
+    //만약 토큰 갱신에 실패하거나 토큰 만료가 실패 원인이 아닐 시에 그냥 response를 return한다.
     if (!res.ok && (await res.text()) === "ExpiredJwt") {
-      if (await tokenRefresh()) {
-        return authRequest(url, method, body);
+      const newAccessToken = await tokenRefresh();
+      if (newAccessToken) {
+        http.headers.set("Authorization", "Bearer " + newAccessToken);
+        return await fetch(url, http);
       }
     }
     return res;
   }
   /**
    * 리프레쉬 토큰을 이용해 액세스 토큰을 발급한다.
+   * accessToken 값을 새로운 토큰으로 갱신한다.
+   * @return 새로발급된 accessToken 또는 null
    */
   const tokenRefresh = async () => {
     const headers = new Headers({});
@@ -197,14 +204,14 @@ export function UserContextProvider({
     //refresh 토큰이 만료되었으면 로그아웃한다.
     if (!res.ok && (await res.text()) === "ExpiredJwt") {
       signout();
-      return false;
+      return null;
     }
     if (!res.ok) {
-      return false;
+      return null;
     }
     const refreshTokenSucess: RefreshTokenSuccess = await res.json();
-    accessToken = refreshTokenSucess.accessToken;
-    return true;
+    setAccessToken(refreshTokenSucess.accessToken);
+    return refreshTokenSucess.accessToken;
   };
   useEffect(() => {
     if (localStorage.getItem("token")) {
