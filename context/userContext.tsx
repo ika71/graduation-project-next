@@ -34,8 +34,8 @@ export function UserContextProvider({
   children: React.ReactNode;
 }) {
   const [userContext, setUserContext] = useState({
-    userName: "anonymous",
-    role: "anonymous",
+    userName: "",
+    role: "",
     isLogin: false,
   });
   const [accessToken, setAccessToken] = useState("null");
@@ -49,7 +49,11 @@ export function UserContextProvider({
     const res = await authRequest(`${backendUrl}/member`, "GET");
 
     if (!res.ok) {
-      alert("유저 정보를 불러오는데 실패하였습니다.");
+      setUserContext({
+        userName: "anonymous",
+        role: "anonymous",
+        isLogin: false,
+      });
       return;
     }
     const memberInfo: FetchData = await res.json();
@@ -216,6 +220,12 @@ export function UserContextProvider({
   useEffect(() => {
     if (localStorage.getItem("token")) {
       fetchMember();
+    } else {
+      setUserContext({
+        userName: "anonymous",
+        role: "anonymous",
+        isLogin: false,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
