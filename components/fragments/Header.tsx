@@ -88,7 +88,7 @@ const Header = () => {
                 <span className="text-sm font-medium">검색</span>
               </div>
 
-              {!isLogin && (
+              {userName !== "" && !isLogin && (
                 <Link href={"/signin"}>
                   <button>
                     <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
@@ -98,7 +98,7 @@ const Header = () => {
                 </Link>
               )}
 
-              {!isLogin && (
+              {userName !== "" && !isLogin && (
                 <Link href={"/signup"}>
                   <button>
                     <div className="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
@@ -108,7 +108,7 @@ const Header = () => {
                 </Link>
               )}
 
-              {isLogin && (
+              {userName !== "" && isLogin && (
                 <div>
                   <span className="mx-1">{`${userName}님`}</span>
                   <button onClick={logout}>
