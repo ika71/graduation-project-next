@@ -1,7 +1,7 @@
 "use client";
 import PaginationComponent from "@/components/PaginationComponent";
-import DeviceAddModal from "@/components/device/DeviceAddModal";
-import DeviceEditModal from "@/components/device/DeviceEditModal";
+import DeviceAddModal from "@/components/modal/device/DeviceAddModal";
+import DeviceEditModal from "@/components/modal/device/DeviceEditModal";
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import Image from "next/image";

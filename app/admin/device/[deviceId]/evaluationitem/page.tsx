@@ -1,7 +1,7 @@
 "use client";
 
-import EvaluationItemAddModal from "@/components/evaluationItem/EvaluationItemAddModal";
-import EvaluationItemEditModal from "@/components/evaluationItem/EvaluationItemEditModal";
+import EvaluationItemAddModal from "@/components/modal/evaluationItem/EvaluationItemAddModal";
+import EvaluationItemEditModal from "@/components/modal/evaluationItem/EvaluationItemEditModal";
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useContext, useEffect, useState } from "react";

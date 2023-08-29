@@ -1,7 +1,7 @@
 "use client";
 import PaginationComponent from "@/components/PaginationComponent";
-import CategoryAddModal from "@/components/category/CategoryAddModal";
-import CategoryEditModal from "@/components/category/CategoryEditModal";
+import CategoryAddModal from "@/components/modal/category/CategoryAddModal";
+import CategoryEditModal from "@/components/modal/category/CategoryEditModal";
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
 import { useContext, useEffect, useState } from "react";

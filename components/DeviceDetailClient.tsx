@@ -1,7 +1,7 @@
 "use client";
 
 import { PropsWithChildren, useContext, useState } from "react";
-import EvaluationPutModal from "./evaluation/EvaluationPutModal";
+import EvaluationPutModal from "./modal/evaluation/EvaluationPutModal";
 import UserContext from "@/context/userContext";
 
 interface Props {
