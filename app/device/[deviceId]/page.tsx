@@ -1,6 +1,5 @@
 import DeviceBoardClient from "@/components/DeviceBoardClient";
 import DeviceDetailClient from "@/components/DeviceDetailClient";
-import DeviceDetailServer from "@/components/DeviceDetailServer";
 import { backendUrl } from "@/url/backendUrl";
 
 const DeviceDetailPage = async ({
@@ -15,18 +14,21 @@ const DeviceDetailPage = async ({
 
   const size = 10;
 
-  const res = await fetch(
+  const deviceBoardResponse = await fetch(
     `${backendUrl}/board?page=${currentPage}&size=${size}&deviceId=${deviceId}`,
     { cache: "no-store" }
   );
 
-  const fetchData = await res.json();
+  const fetchData = await deviceBoardResponse.json();
+
+  const deviceDetailResponse = await fetch(`${backendUrl}/device/${deviceId}`, {
+    next: { revalidate: 1 },
+  });
+  const deviceDetail = await deviceDetailResponse.json();
 
   return (
     <>
-      <DeviceDetailClient deviceId={deviceId}>
-        <DeviceDetailServer deviceId={deviceId} />
-      </DeviceDetailClient>
+      <DeviceDetailClient deviceDetail={deviceDetail} />
       <DeviceBoardClient
         currentPage={currentPage}
         deviceId={deviceId}
