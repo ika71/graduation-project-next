@@ -86,10 +86,9 @@ const BoardCommentClient = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  if (!boardCommentList || !totalCount) {
+  if (!boardCommentList || totalCount === undefined) {
     return <div>Loading...</div>;
   }
-
   if (!userContext) {
     return <></>;
   }
