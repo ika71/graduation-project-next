@@ -6,6 +6,10 @@ import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useContext, useState } from "react";
 
 interface UploadSuccess {
+  imageList: Image[];
+}
+
+interface Image {
   imageId: number;
   originName: string;
 }
@@ -38,8 +42,10 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
     );
     if (res.ok) {
       const uploadSuccess: UploadSuccess = await res.json();
-      setImageId(uploadSuccess.imageId);
-      setImageOriginName(uploadSuccess.originName);
+      uploadSuccess.imageList.map((image) => {
+        setImageId(image.imageId);
+        setImageOriginName(image.originName);
+      });
       closeUploadModal();
     } else {
       alert(await res.text());
