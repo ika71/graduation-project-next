@@ -31,11 +31,11 @@ const Header = () => {
   };
 
   return (
-    <header className="m-4 text-center">
-      <div className="inline-flex m-2">
+    <header className="grid grid-flow-row gap-8 sm:grid-cols-1 lg:grid-cols-3 m-5 items-center justify-items-center">
+      <div className="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-500"
+          className="h-6 w-6 text-red-500 inline-block my-auto"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -55,37 +55,41 @@ const Header = () => {
         </button>
       </div>
 
-      <div className="inline-flex m-2">
-        <select className="border-4 border-blue-500 outline-none">
-          <option>전자제품</option>
-          <option>카테고리</option>
-          <option>리뷰글 제목</option>
-        </select>
-        <input
-          type="text"
-          placeholder="검색어"
-          className="border-4 border-blue-500 pl-3 outline-none w-40"
-        />
-        <button className="border-4 border-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
+      <div className="">
+        <div className="inline-flex m-1">
+          <select className="border-4 border-blue-500 outline-none">
+            <option>전자제품</option>
+            <option>카테고리</option>
+            <option>리뷰글 제목</option>
+          </select>
+        </div>
+        <div className="inline-flex m-1">
+          <input
+            type="text"
+            placeholder="검색어"
+            className="border-4 border-blue-500 pl-3 outline-none w-full min-w-fit max-w-sm"
+          />
+          <button className="border-4 border-blue-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {userName !== "" && !isLogin && (
-        <div className="inline-flex">
+        <div className="flex">
           <Link href={"/signin"}>
             <button>
               <div className="mx-2 rounded-md border-2 py-2 px-4 hover:bg-gray-100">
@@ -104,7 +108,7 @@ const Header = () => {
       )}
 
       {userName !== "" && isLogin && (
-        <div className="inline-flex align-middle">
+        <div className="flex">
           <div className="mx-4 flex items-center">{`${userName}님`}</div>
           <button onClick={logout}>
             <div className="mx-2 rounded-md border-2 py-2 px-4 hover:bg-gray-100">
