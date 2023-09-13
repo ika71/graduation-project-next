@@ -4,6 +4,7 @@ import UserContext from "@/context/userContext";
 import Link from "next/link";
 import { useContext } from "react";
 import PaginationComponent from "./PaginationComponent";
+import { useRouter } from "next/navigation";
 
 interface Props {
   currentPage: number;
@@ -34,6 +35,7 @@ interface Board {
 const DeviceBoardClient = (props: Props) => {
   const { deviceId, fetchData, currentPage } = props;
   const { totalCount, boardList } = fetchData;
+  const router = useRouter();
 
   const userContext = useContext(UserContext);
   if (!userContext) {
@@ -41,15 +43,15 @@ const DeviceBoardClient = (props: Props) => {
   }
 
   return (
-    <div className="w-2/3 mx-auto">
+    <div className="mx-auto md:w-2/3">
       {userContext.isLogin && (
         <Link href={`/board/add?deviceId=${deviceId}`}>
-          <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+          <button className="md:my-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
             글쓰기
           </button>
         </Link>
       )}
-      <table className="min-w-full border-collapse block md:table my-5">
+      <table className="min-w-full border-collapse block md:table">
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
@@ -70,15 +72,14 @@ const DeviceBoardClient = (props: Props) => {
           {boardList.map((board) => (
             <tr
               key={board.id}
-              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
+              onClick={() => router.push(`/board/${board.id}`)}
+              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row hover:bg-gray-200 cursor-pointer"
             >
-              <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+              <td className="p-2 md:w-2/3 md:border md:border-grey-500 text-left block md:table-cell hover:underline">
                 <span className="inline-block w-1/4 md:hidden font-bold">
                   제목
                 </span>
-                <span className="hover:underline hover:cursor-pointer">
-                  <Link href={`/board/${board.id}`}>{board.title}</Link>
-                </span>
+                <Link href={`/board/${board.id}`}>{board.title}</Link>
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 <span className="inline-block w-1/4 md:hidden font-bold">
