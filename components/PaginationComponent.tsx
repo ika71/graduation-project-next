@@ -32,45 +32,44 @@ const PaginationComponent = (props: Props) => {
 
   return (
     <div className="flex justify-center">
-      <nav aria-label="Page navigation example">
-        <ul className="flex list-style-none">
-          <li className="page-item">
-            <Link
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href={`${url}${pages[0] - 1 > 0 ? pages[0] - 1 : 1}`}
-            >
-              &laquo;
-            </Link>
-          </li>
+      <ul className="flex list-style-none">
+        <li>
+          <Link
+            className="relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href={`${url}${pages[0] - 1 > 0 ? pages[0] - 1 : 1}`}
+          >
+            &laquo;
+          </Link>
+        </li>
 
-          {pages.map((p: number) => (
-            <li key={p} className="page-item">
-              <Link
-                className={
-                  p == currentPage
-                    ? "page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-                    : "page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                }
-                href={`${url}${p}`}
-              >
-                {p}
-              </Link>
-            </li>
-          ))}
-          <li className="page-item">
+        {pages.map((p: number) => (
+          <li key={p}>
             <Link
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href={`${url}${
-                pages[pages.length - 1] + 1 <= totalPageCount
-                  ? pages[pages.length - 1] + 1
-                  : pages[pages.length - 1] || 1
-              }`}
+              className={
+                "relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 " +
+                (p == currentPage
+                  ? "bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
+                  : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none")
+              }
+              href={`${url}${p}`}
             >
-              &raquo;
+              {p}
             </Link>
           </li>
-        </ul>
-      </nav>
+        ))}
+        <li>
+          <Link
+            className="relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href={`${url}${
+              pages[pages.length - 1] + 1 <= totalPageCount
+                ? pages[pages.length - 1] + 1
+                : pages[pages.length - 1] || 1
+            }`}
+          >
+            &raquo;
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 };
