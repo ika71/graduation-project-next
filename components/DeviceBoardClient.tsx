@@ -46,7 +46,7 @@ const DeviceBoardClient = (props: Props) => {
     <div className="mx-auto md:w-2/3">
       {userContext.isLogin && (
         <Link href={`/board/add?deviceId=${deviceId}`}>
-          <button className="md:my-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+          <button className="ml-2 md:ml-0 my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
             글쓰기
           </button>
         </Link>
