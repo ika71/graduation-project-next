@@ -69,11 +69,14 @@ const DeviceBoardClient = (props: Props) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {boardList.map((board) => (
+          {boardList.map((board, index) => (
             <tr
               key={board.id}
               onClick={() => router.push(`/board/${board.id}`)}
-              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row hover:bg-gray-200 cursor-pointer"
+              className={
+                "border border-grey-500 md:border-none block md:table-row hover:bg-amber-100 cursor-pointer " +
+                (index % 2 === 0 ? "bg-gray-300" : "bg-white")
+              }
             >
               <td className="p-2 md:w-2/3 md:border md:border-grey-500 text-left block md:table-cell hover:underline">
                 <span className="inline-block w-1/4 md:hidden font-bold">
