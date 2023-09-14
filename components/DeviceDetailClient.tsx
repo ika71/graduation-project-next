@@ -57,7 +57,7 @@ const DeviceDetailClient = (props: Props) => {
           afterPut={afterPut}
         />
       )}
-      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 m-5">
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 mt-2 md:m-5">
         <div className="text-center">
           {deviceDetail.imageId && (
             <Image
@@ -82,7 +82,7 @@ const DeviceDetailClient = (props: Props) => {
           {isLogin && (
             <button
               onClick={openPutModal}
-              className="mx-2 my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+              className="ml-2 md:ml-0 my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
             >
               평가하기
             </button>
