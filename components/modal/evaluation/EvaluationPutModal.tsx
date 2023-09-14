@@ -40,7 +40,7 @@ const EvaluationPutModal = (props: Props) => {
   const userContext = useContext(UserContext);
 
   const [evalList, setEvalList] = useState<EvaluationFind[]>();
-  const scoreOption = [5, 4, 3, 2, 1, "아직 평가 하지 않았습니다."];
+  const scoreOption = [5, 4, 3, 2, 1, "평가 없음"];
 
   const fetchData = async () => {
     if (!userContext) {
@@ -75,7 +75,7 @@ const EvaluationPutModal = (props: Props) => {
   };
 
   if (!evalList) {
-    return <div>로딩중</div>;
+    return <></>;
   }
   const put = async () => {
     if (!userContext) {
@@ -105,63 +105,53 @@ const EvaluationPutModal = (props: Props) => {
     }
   };
   return (
-    <div className="fixed z-10 inset-0 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+    <div className="fixed z-30 inset-0 flex justify-center items-center overflow-y-auto">
+      <div
+        id="backdrop"
+        onClick={closeModal}
+        className="fixed h-screen w-full left-0 top-0 bg-gray-500 opacity-75"
+      ></div>
+
+      <div className="absolute top-4 bg-white rounded shadow-lg w-10/12 md:w-1/3 transform">
+        <div className="border-b px-4 py-2">
+          <h3 className="font-semibold text-lg">평가하기</h3>
         </div>
 
-        <span
-          className="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true"
-        >
-          &#8203;
-        </span>
-
-        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div className="sm:flex sm:items-start">
-              <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                {evalList.map((evaluation) => (
-                  <div key={evaluation.evalItemId}>
-                    <label className="font-semibold text-sm text-gray-600 pb-1 block">
-                      {evaluation.evalItemName}
-                    </label>
-                    <div className="mt-1 mb-5">
-                      <select
-                        onChange={(event) => selectChange(event, evaluation)}
-                        defaultValue={
-                          evaluation.evalScore || "아직 평가 하지 않았습니다."
-                        }
-                        className="border-2 border-black"
-                      >
-                        {scoreOption.map((score) => (
-                          <option value={score} key={score}>
-                            {score}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                ))}
-                <button
-                  onClick={put}
-                  type="button"
-                  className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+        <div className="p-3 text-center">
+          {evalList.map((evaluation) => (
+            <div key={evaluation.evalItemId}>
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
+                {evaluation.evalItemName}
+              </label>
+              <div className="mt-1 mb-5">
+                <select
+                  onChange={(event) => selectChange(event, evaluation)}
+                  defaultValue={evaluation.evalScore || "평가 없음"}
+                  className="border-2 border-black text-center"
                 >
-                  <span className="inline-block mr-2">평가</span>
-                </button>
+                  {scoreOption.map((score) => (
+                    <option value={score} key={score}>
+                      {score}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-          </div>
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button
-              onClick={closeModal}
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-            >
-              Close
-            </button>
-          </div>
+          ))}
+        </div>
+        <div className="flex justify-end gap-x-5 items-center w-100 border-t p-3">
+          <button
+            onClick={put}
+            className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+          >
+            평가 저장
+          </button>
+          <button
+            onClick={closeModal}
+            className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white mr-1 close-modal"
+          >
+            닫기
+          </button>
         </div>
       </div>
     </div>
