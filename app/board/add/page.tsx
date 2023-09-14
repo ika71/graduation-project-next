@@ -19,9 +19,9 @@ const BoardAddPage = ({
   if (!userContext) {
     return <></>;
   }
-  const isLogin = userContext.isLogin;
+  const { userName, isLogin } = userContext;
 
-  if (isLogin === false) {
+  if (userName !== "" && isLogin === false) {
     alert("로그인이 필요합니다.");
     router.push("/signin");
   }
@@ -51,47 +51,30 @@ const BoardAddPage = ({
   };
 
   return (
-    <>
-      <form>
-        <div className="bg-indigo-50 min-h-screen md:px-20 pt-6">
-          <div className=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-            <h1 className="text-center text-2xl font-bold text-gray-500 mb-10">
-              ADD POST
-            </h1>
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="title" className="text-lx font-serif">
-                  Title:
-                </label>
-                <input
-                  ref={titleRef}
-                  type="text"
-                  placeholder="title"
-                  id="title"
-                  className="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
-                />
-              </div>
-              <div>
-                <textarea
-                  id="description"
-                  ref={contentRef}
-                  cols={30}
-                  rows={10}
-                  placeholder="whrite here.."
-                  className="w-full font-serif  p-4 text-gray-600 bg-indigo-50 outline-none rounded-md"
-                ></textarea>
-              </div>
-              <button
-                onClick={createBoard}
-                className=" px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600  "
-              >
-                ADD POST
-              </button>
-            </div>
-          </div>
+    <form className="py-10 md:px-40 bg-gray-100">
+      <div className="flex flex-col gap-y-5 border border-gray-500 min-h-screen py-10 px-4 md:px-20 shadow bg-white">
+        <input
+          ref={titleRef}
+          type="text"
+          placeholder="제목을 입력하세요"
+          className="border border-gray-500 pl-4 py-2 w-2/3 bg-blue-50"
+        ></input>
+        <textarea
+          ref={contentRef}
+          rows={20}
+          placeholder="내용을 입력하세요"
+          className="border border-gray-500 pl-4 pt-1 bg-blue-50"
+        ></textarea>
+        <div className="text-right">
+          <button
+            onClick={createBoard}
+            className="w-full md:w-fit md:mx-2 md:my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+          >
+            글 작성
+          </button>
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 export default BoardAddPage;
