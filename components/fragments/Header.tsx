@@ -17,12 +17,9 @@ const Header = () => {
    * 로컬 스토리지에서 토큰 제거
    *
    * login 변수 false로 변경
-   *
-   * 홈 디렉토리로 라우트
    */
   const logout = () => {
     signout();
-    router.push("/");
   };
 
   const goHome = () => {
