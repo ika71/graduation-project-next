@@ -114,12 +114,35 @@ const BoardAddPage = ({
             className="border border-gray-500 pl-4 pt-1 bg-blue-50"
           ></textarea>
           <div>
-            첨부파일:
-            {!uploadImages && <span> 없음</span>}
+            첨부이미지:
+            {uploadImages.length === 0 && <span> 없음</span>}
             {uploadImages &&
               uploadImages.map((uploadImage) => {
                 return (
-                  <p key={uploadImage.imageId}>{uploadImage.originName}</p>
+                  <p key={uploadImage.imageId}>
+                    {uploadImage.originName}
+                    <svg
+                      onClick={() => {
+                        setUploadImages((prev) =>
+                          prev.filter(
+                            (filterImage) => filterImage !== uploadImage
+                          )
+                        );
+                      }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 cursor-pointer inline-block"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </p>
                 );
               })}
           </div>
