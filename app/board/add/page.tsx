@@ -80,7 +80,7 @@ const BoardAddPage = ({
     setShowUploadModal(false);
   };
   const afterUpload = (uploadImages: Image[]) => {
-    setUploadImages(uploadImages);
+    setUploadImages((prev) => prev.concat(uploadImages));
   };
 
   return (
