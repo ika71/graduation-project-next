@@ -18,12 +18,10 @@ const BoardDetailPage = async ({
   const boardDetail = await res.json();
 
   return (
-    <div className="bg-indigo-50 min-h-screen md:px-20 pt-6">
-      <div className="bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-        <BoardDetailClient boardDetail={boardDetail} />
-        <BoardCommentClient boardId={boardId} currentPage={currentPage} />
-      </div>
-    </div>
+    <>
+      <BoardDetailClient boardDetail={boardDetail} />
+      <BoardCommentClient boardId={boardId} currentPage={currentPage} />
+    </>
   );
 };
 

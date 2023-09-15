@@ -2,6 +2,7 @@
 
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -16,6 +17,8 @@ interface BoardDetail {
   content: string;
   createdBy: string;
   createdTime: string;
+  imageList: number[];
+  view: number;
 }
 
 /**
@@ -54,63 +57,49 @@ const BoardDetailClient = (props: Props) => {
 
   return (
     <>
-      <h1 className="text-center text-2xl font-bold text-gray-500 mb-10">
-        {boardDetail.title}
-      </h1>
-      <div className="space-y-4">
-        <div>
-          <textarea
-            id="content"
-            cols={30}
-            rows={10}
-            defaultValue={boardDetail.content}
-            readOnly={true}
-            className="w-full font-serif  p-4 text-gray-600 bg-indigo-50 outline-none rounded-md"
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="name" className="text-lx font-serif">
-            작성자
-          </label>
-          <input
-            defaultValue={boardDetail.createdBy}
-            readOnly={true}
-            type="text"
-            placeholder="name"
-            id="name"
-            className="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="text-lx font-serif">
-            작성일
-          </label>
-          <input
-            defaultValue={boardDetail.createdTime}
-            readOnly={true}
-            type="text"
-            placeholder="name"
-            id="email"
-            className="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
-          />
-        </div>
-      </div>
-      {userContext.isLogin &&
-        userContext.userName === boardDetail.createdBy && (
-          <div>
-            <Link href={`/board/${boardId}/modify`}>
-              <button className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
-                수정
-              </button>
-            </Link>
-            <button
-              onClick={deleteBoard}
-              className="my-5 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-3"
-            >
-              삭제
-            </button>
+      <form className="py-10 md:px-40 bg-gray-100">
+        <div className="flex flex-col gap-y-5 border border-gray-500 min-h-screen py-10 px-4 md:px-20 shadow bg-white">
+          <div className="py-2 w-2/3 font-semibold text-xl">
+            {boardDetail.title}
           </div>
-        )}
+          <p>작성자: {boardDetail.createdBy}</p>
+          <p>작성일: {boardDetail.createdTime}</p>
+          <p>조회수: {boardDetail.view}</p>
+          <div className="bg-gray-300 h-1"></div>
+
+          {boardDetail.imageList.map((imageId) => {
+            return (
+              <div key={imageId}>
+                <Image
+                  src={`${backendUrl}/image/${imageId}`}
+                  alt={imageId.toString()}
+                  width={400}
+                  height={400}
+                  priority={true}
+                  className="w-full md:w-2/3 h-auto"
+                />
+              </div>
+            );
+          })}
+
+          <div className="pt-1">{boardDetail.content}</div>
+          {userContext.userName === boardDetail.createdBy && (
+            <div className="text-right">
+              <Link href={`/board/${boardId}/modify`}>
+                <button className="w-full md:w-fit md:mx-2 md:my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+                  수정
+                </button>
+              </Link>
+              <button
+                onClick={deleteBoard}
+                className="w-full my-4 md:w-fit md:mx-2 md:my-5 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+              >
+                삭제
+              </button>
+            </div>
+          )}
+        </div>
+      </form>
     </>
   );
 };
