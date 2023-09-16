@@ -56,6 +56,10 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
       alert("본문은 비어 있을 수 없습니다.");
       return;
     }
+    if (boardImageIds.length + uploadImages.length > 5) {
+      alert("한 게시글에 이미지는 최대 5개만 가능합니다");
+      return;
+    }
     let addImageIdList: number[] = [];
     uploadImages.forEach((uploadImage) =>
       addImageIdList.push(uploadImage.imageId)
