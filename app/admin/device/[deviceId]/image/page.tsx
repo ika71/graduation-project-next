@@ -86,7 +86,10 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
             >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+              <div
+                onClick={closeUploadModal}
+                className="absolute inset-0 bg-gray-500 opacity-75"
+              ></div>
             </div>
 
             <span
@@ -110,19 +113,19 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
                         onChange={uploadFileChange}
                       />
                     </div>
-                    <button
-                      onClick={uploadFileRequest}
-                      className="my-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    >
-                      업로드
-                    </button>
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:justify-end">
+                <button
+                  onClick={uploadFileRequest}
+                  className="my-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  업로드
+                </button>
                 <button
                   onClick={closeUploadModal}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="my-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Close
                 </button>
@@ -133,7 +136,7 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
       )}
 
       <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-        <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+        <div className="p-10 xs:p-0 w-full mx-auto md:w-full md:max-w-md">
           <h1 className="font-bold text-center text-2xl mb-5">이미지 설정</h1>
           <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
