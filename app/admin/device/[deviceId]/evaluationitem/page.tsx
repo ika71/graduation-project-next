@@ -93,7 +93,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
   };
 
   return (
-    <div>
+    <div className="md:w-2/3 md:mx-auto text-center md:text-left">
       {addModalShow && (
         <EvaluationItemAddModal
           deviceId={deviceId}
@@ -111,7 +111,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
       )}
       <button
         onClick={openAddModal}
-        className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+        className="w-4/5 md:w-fit mx-auto md:mx-0 my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
       >
         평가항목 추가
       </button>
@@ -119,7 +119,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
         <thead className="block md:table-header-group">
           <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-              Evaluation Item Name
+              Name
             </th>
             <th className="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
               Actions
@@ -127,14 +127,17 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {evaluationItemList.map((evaluationItem) => (
+          {evaluationItemList.map((evaluationItem, index) => (
             <tr
               key={evaluationItem.id}
-              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
+              className={
+                "border border-grey-500 md:border-none block md:table-row " +
+                (index % 2 === 0 ? "bg-gray-300" : "bg-white")
+              }
             >
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 <span className="inline-block w-1/3 md:hidden font-bold">
-                  Evaluation Item Names
+                  Name
                 </span>
                 {evaluationItem.name}
               </td>
@@ -146,13 +149,13 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
                   onClick={() =>
                     openEditModal(evaluationItem.id, evaluationItem.name)
                   }
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+                  className="w-full md:w-fit my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => deleteEvaluationItem(evaluationItem.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                  className="w-full md:w-fit my-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
                 >
                   Delete
                 </button>

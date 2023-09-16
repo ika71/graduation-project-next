@@ -109,7 +109,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
 
   return (
-    <div>
+    <div className="md:w-2/3 md:mx-auto text-center md:text-left">
       {addModalShow && (
         <DeviceAddModal closeModal={closeAddModal} afterAdd={afterAdd} />
       )}
@@ -146,15 +146,15 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {deviceList.map((device) => (
+          {deviceList.map((device, index) => (
             <tr
               key={device.id}
-              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
+              className={
+                "border border-grey-500 md:border-none block md:table-row " +
+                (index % 2 === 0 ? "bg-gray-300" : "bg-white")
+              }
             >
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Device Name
-                </span>
                 {device.imageId && (
                   <Image
                     src={`${backendUrl}/image/${device.imageId}`}
@@ -185,23 +185,23 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
                   onClick={() =>
                     openEditModal(device.id, device.category.id, device.name)
                   }
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+                  className="w-full md:w-fit my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
                 >
                   Edit
                 </button>
                 <Link href={`/admin/device/${device.id}/evaluationitem`}>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
+                  <button className="w-full md:w-fit my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
                     평가항목 관리
                   </button>
                 </Link>
                 <Link href={`/admin/device/${device.id}/image`}>
-                  <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 border border-orange-500 rounded mr-3">
+                  <button className="w-full md:w-fit my-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 border border-orange-500 rounded mr-3">
                     이미지 관리
                   </button>
                 </Link>
                 <button
                   onClick={() => deleteDevice(device.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                  className="w-full md:w-fit my-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
                 >
                   Delete
                 </button>
