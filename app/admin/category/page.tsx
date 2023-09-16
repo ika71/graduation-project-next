@@ -95,7 +95,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
   };
 
   return (
-    <div>
+    <div className="md:w-2/3 md:mx-auto text-center md:text-left">
       {addModalShow && (
         <CategoryAddModal closeModal={closeAddModal} afterAdd={afterAdd} />
       )}
@@ -109,7 +109,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       )}
       <button
         onClick={openAddModal}
-        className="my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+        className="w-4/5 md:w-fit mx-auto md:mx-0 my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
       >
         카테고리 추가
       </button>
@@ -125,10 +125,13 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
           </tr>
         </thead>
         <tbody className="block md:table-row-group">
-          {categoryList.map((category) => (
+          {categoryList.map((category, index) => (
             <tr
               key={category.id}
-              className="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
+              className={
+                "border border-grey-500 md:border-none block md:table-row " +
+                (index % 2 === 0 ? "bg-gray-300" : "bg-white")
+              }
             >
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 <span className="inline-block w-1/3 md:hidden font-bold">
