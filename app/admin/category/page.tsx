@@ -145,13 +145,13 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
                 </span>
                 <button
                   onClick={() => openEditModal(category.id, category.name)}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
+                  className="w-full md:w-fit my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => deleteCategory(category.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                  className="w-full md:w-fit my-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
                 >
                   Delete
                 </button>
