@@ -5,6 +5,7 @@ interface Props {
   currentPage: number;
   totalCount: number;
   size: number;
+  scroll?: boolean;
 }
 /**
  *
@@ -15,7 +16,7 @@ interface Props {
  * @returns
  */
 const PaginationComponent = (props: Props) => {
-  const { url, currentPage, totalCount, size } = props;
+  const { url, currentPage, totalCount, size, scroll = true } = props;
 
   const totalPageCount = Math.ceil(totalCount / size); //총 페이지의 수
   const showPageNumber = 5; //보여줄 페이지 칸의 수
@@ -37,6 +38,7 @@ const PaginationComponent = (props: Props) => {
           <Link
             className="relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
             href={`${url}${pages[0] - 1 > 0 ? pages[0] - 1 : 1}`}
+            scroll={scroll}
           >
             &laquo;
           </Link>
@@ -52,6 +54,7 @@ const PaginationComponent = (props: Props) => {
                   : "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none")
               }
               href={`${url}${p}`}
+              scroll={scroll}
             >
               {p}
             </Link>
@@ -65,6 +68,7 @@ const PaginationComponent = (props: Props) => {
                 ? pages[pages.length - 1] + 1
                 : pages[pages.length - 1] || 1
             }`}
+            scroll={scroll}
           >
             &raquo;
           </Link>
