@@ -1,7 +1,7 @@
 "use client";
 
 import { backendUrl } from "@/url/backendUrl";
-import { useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import PaginationComponent from "./PaginationComponent";
 import UserContext from "@/context/userContext";
 
@@ -33,7 +33,7 @@ const BoardCommentClient = (props: Props) => {
   const [totalCount, setTotalCount] = useState<number>();
   const commentInput = useRef<HTMLInputElement>(null);
   const userContext = useContext(UserContext);
-  const size = 20;
+  const size = 10;
 
   const fetchData = async () => {
     const res = await fetch(
@@ -44,8 +44,13 @@ const BoardCommentClient = (props: Props) => {
     setTotalCount(fetchData.totalCount);
   };
 
-  const createComment = async () => {
+  const createComment = async (event: FormEvent) => {
+    event.preventDefault();
     if (!commentInput.current || !userContext) {
+      return;
+    }
+    if (commentInput.current.value.trim() === "") {
+      alert("댓글을 입력하세요");
       return;
     }
     const comment = commentInput.current.value;
@@ -98,21 +103,24 @@ const BoardCommentClient = (props: Props) => {
     <>
       <div className="max-w-2xl mx-auto p-4">
         <h1 className="text-2xl font-semibold mb-4">댓글 목록</h1>
-        <table className="table-auto w-full">
-          <tbody>
+        <table className="min-w-full border-collapse block md:table">
+          <tbody className="block md:table-row-group">
             {boardCommentList.map((comment) => (
-              <tr key={comment.id} className="bg-white">
-                <td className="py-2 px-4">
-                  <p className="text-gray-600">{comment.comment}</p>
+              <tr
+                key={comment.id}
+                className={
+                  "border border-grey-500 bg-white md:border-none block md:table-row"
+                }
+              >
+                <td className="md:w-3/5 p-2 md:border-b-2 md:border-grey-500 text-left block md:table-cell">
+                  {comment.comment}
                 </td>
-                <td className="py-2 px-4">
-                  <span className="text-gray-700 font-semibold">
-                    {comment.createdBy}
-                  </span>
+                <td className="md:w-1/5 p-2 text-left md:text-center md:border-b-2 md:border-grey-500 block md:table-cell font-semibold">
+                  {comment.createdBy}
                 </td>
-                <td className="py-2 px-4">
-                  <div className="flex items-center space-x-1">
-                    <span className="text-gray-500">{comment.createdTime}</span>
+                <td className="md:w-1/5 p-2 md:border-b-2 md:border-grey-500 text-right block md:table-cell">
+                  <div className="flex justify-end">
+                    {comment.createdTime}
                     {isLogin && userName === comment.createdBy && (
                       <button onClick={() => deleteComment(comment.id)}>
                         <svg
@@ -135,34 +143,30 @@ const BoardCommentClient = (props: Props) => {
                 </td>
               </tr>
             ))}
-            {isLogin && (
-              <tr className="bg-white">
-                <td className="py-2 px-4" colSpan={3}>
-                  <div className="flex space-x-4">
-                    <input
-                      ref={commentInput}
-                      type="text"
-                      placeholder="댓글을 입력하세요"
-                      className="w-full p-2 rounded-l-md border border-gray-300"
-                    />
-                    <button
-                      onClick={createComment}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
-                    >
-                      작성
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
-
+        {isLogin && (
+          <form className="flex my-4">
+            <input
+              ref={commentInput}
+              type="text"
+              placeholder="댓글을 입력하세요"
+              className="w-full pl-2 py-4 rounded-l-md border border-gray-300"
+            />
+            <button
+              onClick={createComment}
+              className="bg-blue-500 w-20 text-white px-4 py-2 rounded-r-md"
+            >
+              작성
+            </button>
+          </form>
+        )}
         <PaginationComponent
           url="?commentPage="
           currentPage={currentPage}
           totalCount={totalCount}
           size={size}
+          scroll={false}
         />
       </div>
     </>
