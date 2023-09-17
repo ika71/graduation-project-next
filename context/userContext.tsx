@@ -7,7 +7,7 @@ interface Context {
   userName: string;
   role: string;
   isLogin: boolean;
-  signin: (email: string, password: string) => Promise<boolean>;
+  signin: (email: string, password: string) => Promise<Response>;
   signout: () => void;
   authRequest: (url: string, method: string, body?: any) => Promise<Response>;
 }
@@ -92,9 +92,8 @@ export function UserContextProvider({
       setAccessToken(loginData.accessToken);
 
       await fetchMember();
-      return true;
     }
-    return false;
+    return res;
   };
 
   /**
@@ -177,6 +176,7 @@ export function UserContextProvider({
     }
 
     const res = await fetch(url, http);
+    const resClone = res.clone();
     //토큰이 만료되었으면 refresh 토큰으로 액세스 토큰을 발급 후 다시 요청한다.
     //만약 토큰 갱신에 실패하거나 토큰 만료가 실패 원인이 아닐 시에 그냥 response를 return한다.
     if (!res.ok && (await res.text()) === "ExpiredJwt") {
@@ -186,7 +186,7 @@ export function UserContextProvider({
         return await fetch(url, http);
       }
     }
-    return res;
+    return resClone;
   }
   /**
    * 리프레쉬 토큰을 이용해 액세스 토큰을 발급한다.
