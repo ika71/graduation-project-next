@@ -44,10 +44,9 @@ const BoardDetailClient = (props: Props) => {
       alert("삭제하였습니다.");
       router.back();
       router.refresh();
-    } else if (res.status === 403) {
-      alert("본인이 작성한 글만 삭제할 수 있습니다.");
     } else {
-      alert("삭제에 실패하였습니다");
+      const resText = await res.text();
+      resText ? alert(resText) : alert("삭제에 실패하였습니다.");
     }
   };
 

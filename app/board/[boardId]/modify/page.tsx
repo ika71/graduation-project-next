@@ -79,7 +79,8 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
       router.push(`/board/${boardId}`);
       router.refresh();
     } else {
-      alert("수정에 실패하였습니다");
+      const resText = await res.text();
+      resText ? alert(resText) : alert("수정에 실패하였습니다.");
     }
   };
 

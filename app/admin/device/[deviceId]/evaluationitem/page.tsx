@@ -88,7 +88,8 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
     if (res.ok) {
       fetchData();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("평가항목 식제에 실패하였습니다.");
     }
   };
 

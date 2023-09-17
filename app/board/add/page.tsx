@@ -68,7 +68,8 @@ const BoardAddPage = ({
       router.push(`/device/${deviceId}`);
       router.refresh();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("게시글 작성에 실패하였습니다.");
     }
   };
 

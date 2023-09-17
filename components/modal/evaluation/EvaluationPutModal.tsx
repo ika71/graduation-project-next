@@ -101,7 +101,8 @@ const EvaluationPutModal = (props: Props) => {
     if (res.ok) {
       afterPut();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("평점 등록에 실패 하였습니다.");
     }
   };
   return (

@@ -80,7 +80,8 @@ const DeviceEditModal = (props: Props) => {
     if (res.ok) {
       afterEdit();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("전자제품 수정에 실패하였습니다.");
     }
   };
 

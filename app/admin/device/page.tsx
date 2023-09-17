@@ -104,7 +104,8 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
     if (res.ok) {
       fetch();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("전자제품 삭제에 실패하였습니다.");
     }
   };
 

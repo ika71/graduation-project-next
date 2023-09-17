@@ -40,7 +40,8 @@ const EvaluationItemEditModal = (props: Props) => {
     if (res.ok) {
       afterEdit();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("평가항목 수정에 실패하였습니다.");
     }
   };
 

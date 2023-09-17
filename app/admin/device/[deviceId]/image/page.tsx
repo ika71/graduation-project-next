@@ -48,7 +48,8 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
       });
       closeUploadModal();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("이미지 업로드에 실패하였습니다.");
     }
   };
   const deviceImageSet = async () => {
@@ -67,7 +68,8 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
       alert("이미지 저장에 성공하였습니다.");
       router.push("/admin/device");
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("이미지 저장에 실패하였습니다.");
     }
   };
   const openUploadModal = () => {

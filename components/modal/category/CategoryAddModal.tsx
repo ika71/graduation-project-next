@@ -37,7 +37,8 @@ const CategoryAddModal = (props: Props) => {
     if (res.ok) {
       afterAdd();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("카테고리 추가에 실패하였습니다.");
     }
   };
 

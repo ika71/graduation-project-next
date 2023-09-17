@@ -58,7 +58,8 @@ const BoardImageModal = (props: Props) => {
       afterUpload(uploadImages);
       closeModal();
     } else {
-      alert(await res.text());
+      const resText = await res.text();
+      resText ? alert(resText) : alert("이미지 업로드에 실패하였습니다.");
     }
   };
 

@@ -63,7 +63,8 @@ const BoardCommentClient = (props: Props) => {
       fetchData();
       commentInput.current.value = "";
     } else {
-      alert("댓글 작성에 실패하였습니다");
+      const resText = await res.text();
+      resText ? alert(resText) : alert("댓글 작성에 실패하였습니다.");
     }
   };
 
@@ -81,7 +82,8 @@ const BoardCommentClient = (props: Props) => {
     if (res.ok) {
       fetchData();
     } else {
-      alert("삭제 실패");
+      const resText = await res.text();
+      resText ? alert(resText) : alert("댓글 삭제에 실패하였습니다.");
     }
   };
 
