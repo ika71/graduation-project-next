@@ -32,16 +32,14 @@ const Header = () => {
       <div className="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-500 inline-block my-auto"
-          fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
+          fill="currentColor"
+          className="w-6 h-6 my-auto"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+            fillRule="evenodd"
+            d="M2.25 5.25a3 3 0 013-3h13.5a3 3 0 013 3V15a3 3 0 01-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 01-.53 1.28h-9a.75.75 0 01-.53-1.28l.621-.622a2.25 2.25 0 00.659-1.59V18h-3a3 3 0 01-3-3V5.25zm1.5 0v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5z"
+            clipRule="evenodd"
           />
         </svg>
         <button

@@ -43,7 +43,7 @@ const HomePage = async ({
             className="my-8 rounded shadow-lg shadow-gray-200 bg-white hover:scale-105 duration-500"
           >
             <Link href={`device/${device.id}`} className="cursor-pointer">
-              <figure>
+              <div>
                 {device.imageId && (
                   <Image
                     src={`${backendUrl}/image/${device.imageId}`}
@@ -54,7 +54,7 @@ const HomePage = async ({
                     priority={true}
                   />
                 )}
-                <figcaption className="p-4">
+                <div className="p-4">
                   <p className="text-lg mb-4 font-bold leading-relaxed text-gray-800">
                     {device.name}
                   </p>
@@ -72,8 +72,8 @@ const HomePage = async ({
                   <p className="leading-5 text-gray-500">
                     {"등록일: " + device.createdTime}
                   </p>
-                </figcaption>
-              </figure>
+                </div>
+              </div>
             </Link>
           </div>
         ))}

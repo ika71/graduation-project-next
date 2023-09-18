@@ -14,16 +14,11 @@ const AdminMainPage = () => {
             onClick={() => router.push("/admin/category")}
             className="cursor-pointer p-4 sm:w-1/2 lg:w-1/3 w-full hover:scale-105 duration-500"
           >
-            <div className=" flex items-center  justify-between p-4  rounded-lg bg-white shadow-indigo-50 shadow-md">
-              <div>
+            <div className=" flex items-center p-4  rounded-lg bg-white shadow-gray-300 shadow-md">
+              <div className="mx-auto h-20 mt-10">
                 <h2 className="text-gray-900 text-lg font-bold">
                   카테고리 관리
                 </h2>
-              </div>
-              <div className="bg-gradient-to-tr from-yellow-500 to-yellow-400 w-32 h-32  rounded-full shadow-2xl shadow-yellow-400 border-white  border-dashed border-2  flex justify-center items-center ">
-                <div>
-                  <h1 className="text-white text-2xl">카테고리</h1>
-                </div>
               </div>
             </div>
           </div>
@@ -31,16 +26,11 @@ const AdminMainPage = () => {
             onClick={() => router.push("/admin/device")}
             className="cursor-pointer p-4 sm:w-1/2 lg:w-1/3 w-full hover:scale-105 duration-500"
           >
-            <div className=" flex items-center  justify-between p-4  rounded-lg bg-white shadow-indigo-50 shadow-md">
-              <div>
+            <div className=" flex items-center p-4 rounded-lg bg-white shadow-gray-300 shadow-md">
+              <div className="mx-auto h-20 mt-10">
                 <h2 className="text-gray-900 text-lg font-bold">
                   전자제품 관리
                 </h2>
-              </div>
-              <div className="bg-gradient-to-tr from-orange-500 to-orange-400 w-32 h-32  rounded-full shadow-2xl shadow-orange-400 border-white  border-dashed border-2  flex justify-center items-center ">
-                <div>
-                  <h1 className="text-white text-2xl">전자제품</h1>
-                </div>
               </div>
             </div>
           </div>
