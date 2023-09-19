@@ -20,15 +20,28 @@ interface Device {
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams: { page: number };
+  searchParams: {
+    page: number;
+    deviceName?: string;
+    categoryName?: string;
+  };
 }) => {
-  const currentPage = searchParams.page || 1;
+  const { page = 1, deviceName, categoryName } = searchParams;
   const size = 8;
 
-  const res = await fetch(
-    `${backendUrl}/device?page=${currentPage}&size=${size}`,
-    { next: { revalidate: 1 } }
-  );
+  let fetchUrl = `${backendUrl}/device?page=${page}&size=${size}`;
+  let currentUrl = "?";
+  if (deviceName) {
+    fetchUrl += `&nameCondition=${deviceName}`;
+    currentUrl += `deviceName=${deviceName}`;
+  }
+  if (categoryName) {
+    fetchUrl += `&categoryCondition=${categoryName}`;
+    currentUrl += `categoryName=${categoryName}`;
+  }
+  const res = await fetch(fetchUrl, {
+    cache: "no-store",
+  });
   const fetchData: FetchData = await res.json();
   const deviceList: Device[] = fetchData.deviceList;
 
@@ -79,9 +92,9 @@ const HomePage = async ({
         ))}
       </div>
       <PaginationComponent
-        url={"?page="}
+        url={`${currentUrl}&page=`}
         size={size}
-        currentPage={currentPage}
+        currentPage={page}
         totalCount={totalCount}
       />
     </main>

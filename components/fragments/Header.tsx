@@ -2,12 +2,14 @@
 
 import UserContext from "@/context/userContext";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { FormEvent, useContext, useRef } from "react";
 
 const Header = () => {
   const userContext = useContext(UserContext);
   const router = useRouter();
+  const conditionRef = useRef<HTMLSelectElement | null>(null);
+  const searchStringRef = useRef<HTMLInputElement | null>(null);
 
   if (!userContext) {
     return <></>;
@@ -25,6 +27,18 @@ const Header = () => {
   const goHome = () => {
     router.push("/");
     router.refresh();
+  };
+
+  const search = (event: FormEvent) => {
+    event.preventDefault();
+    if (!conditionRef.current || !searchStringRef.current) {
+      return;
+    }
+    const condition = conditionRef.current.value;
+    const searchString = searchStringRef.current.value;
+    console.log(condition);
+    console.log(searchString);
+    router.push(`/?${condition}=${searchString}`);
   };
 
   return (
@@ -50,21 +64,24 @@ const Header = () => {
         </button>
       </div>
 
-      <div className="">
+      <form>
         <div className="inline-flex m-1">
-          <select className="border-4 border-blue-500 outline-none">
-            <option>전자제품</option>
-            <option>카테고리</option>
-            <option>리뷰글 제목</option>
+          <select
+            ref={conditionRef}
+            className="border-4 border-blue-500 outline-none"
+          >
+            <option value={"deviceName"}>전자제품</option>
+            <option value={"categoryName"}>카테고리</option>
           </select>
         </div>
         <div className="inline-flex m-1">
           <input
+            ref={searchStringRef}
             type="text"
             placeholder="검색어"
             className="border-4 border-blue-500 pl-3 outline-none w-full min-w-fit max-w-sm"
           />
-          <button className="border-4 border-blue-500">
+          <button onClick={search} className="border-4 border-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -81,7 +98,7 @@ const Header = () => {
             </svg>
           </button>
         </div>
-      </div>
+      </form>
 
       {userName !== "" && !isLogin && (
         <div className="flex">
