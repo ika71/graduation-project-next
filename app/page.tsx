@@ -51,40 +51,39 @@ const HomePage = async ({
     <main className="py-5 px-10 bg-gray-100">
       <div className="grid grid-flow-row gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {deviceList.map((device) => (
-          <div
-            key={device.id}
-            className="my-8 rounded shadow-lg shadow-gray-200 bg-white hover:scale-105 duration-500"
-          >
+          <div key={device.id}>
             <Link href={`device/${device.id}`} className="cursor-pointer">
-              <div>
-                {device.imageId && (
-                  <Image
-                    src={`${backendUrl}/image/${device.imageId}`}
-                    alt={device.imageId}
-                    width={300}
-                    height={300}
-                    className="rounded-t h-72 w-full"
-                    priority={true}
-                  />
-                )}
-                <div className="p-4">
-                  <p className="text-lg mb-4 font-bold leading-relaxed text-gray-800">
-                    {device.name}
-                  </p>
-                  <p className="leading-5 text-gray-500">
-                    {device.categoryName}
-                  </p>
-                  {device.evaluationItemList.map((evaluationItem) => (
-                    <span
-                      key={device.id + evaluationItem}
-                      className="leading-5 text-gray-500"
-                    >
-                      {evaluationItem + " / "}
-                    </span>
-                  ))}
-                  <p className="leading-5 text-gray-500">
-                    {"등록일: " + device.createdTime}
-                  </p>
+              <div className="my-8 rounded shadow-lg shadow-gray-200 bg-white hover:scale-105 duration-500">
+                <div>
+                  {device.imageId && (
+                    <Image
+                      src={`${backendUrl}/image/${device.imageId}`}
+                      alt={device.imageId}
+                      width={300}
+                      height={300}
+                      className="rounded-t h-72 w-full"
+                      priority={true}
+                    />
+                  )}
+                  <div className="p-4">
+                    <p className="text-lg mb-4 font-bold leading-relaxed text-gray-800">
+                      {device.name}
+                    </p>
+                    <p className="leading-5 text-gray-500">
+                      {device.categoryName}
+                    </p>
+                    {device.evaluationItemList.map((evaluationItem) => (
+                      <span
+                        key={device.id + evaluationItem}
+                        className="leading-5 text-gray-500"
+                      >
+                        {evaluationItem + " / "}
+                      </span>
+                    ))}
+                    <p className="leading-5 text-gray-500">
+                      {"등록일: " + device.createdTime}
+                    </p>
+                  </div>
                 </div>
               </div>
             </Link>
