@@ -1,6 +1,6 @@
 import UserContext from "@/context/userContext";
 import { backendUrl } from "@/url/backendUrl";
-import { useContext, useRef } from "react";
+import { FormEvent, useContext, useRef } from "react";
 
 interface Props {
   evaluationItemId: number;
@@ -21,7 +21,8 @@ const EvaluationItemEditModal = (props: Props) => {
   const userContext = useContext(UserContext);
   const evaluationItemName = useRef<HTMLInputElement>(null);
 
-  const editEvaluationItem = async () => {
+  const editEvaluationItem = async (event: FormEvent) => {
+    event.preventDefault();
     if (!evaluationItemName.current || !userContext) {
       return;
     }
@@ -65,7 +66,7 @@ const EvaluationItemEditModal = (props: Props) => {
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
-              <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+              <form className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                 <label className="font-semibold text-sm text-gray-600 pb-1 block">
                   평가항목 이름
                 </label>
@@ -76,13 +77,12 @@ const EvaluationItemEditModal = (props: Props) => {
                   className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
                 />
                 <button
-                  type="button"
                   onClick={editEvaluationItem}
                   className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                 >
                   <span className="inline-block mr-2">수정</span>
                 </button>
-              </div>
+              </form>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
