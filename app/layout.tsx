@@ -14,18 +14,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UserContextProvider>
-      <html lang="ko">
-        <body className="flex flex-col min-h-screen">
-          <div>
+    <html lang="ko">
+      <body className="flex flex-col min-h-screen">
+        <div>
+          <UserContextProvider>
             <Header />
             {children}
-          </div>
-          <div className="mt-auto">
-            <Footer />
-          </div>
-        </body>
-      </html>
-    </UserContextProvider>
+          </UserContextProvider>
+        </div>
+        <div className="mt-auto">
+          <Footer />
+        </div>
+      </body>
+    </html>
   );
 }
