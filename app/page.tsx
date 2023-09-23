@@ -62,7 +62,6 @@ const HomePage = async ({
                       width={300}
                       height={300}
                       className="rounded-t h-72 w-full"
-                      priority={true}
                     />
                   )}
                   <div className="p-4">

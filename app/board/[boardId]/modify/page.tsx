@@ -150,7 +150,6 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
                   alt={imageId.toString()}
                   width={400}
                   height={400}
-                  priority={true}
                   className="w-full md:w-2/3 h-auto inline-block"
                 />
                 <button

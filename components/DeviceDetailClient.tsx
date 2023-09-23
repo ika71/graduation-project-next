@@ -66,7 +66,6 @@ const DeviceDetailClient = (props: Props) => {
               width={240}
               height={240}
               className="w-full max-w-sm mx-auto"
-              priority={true}
             />
           )}
           <h3 className="text-xl font-medium text-gray-900">
