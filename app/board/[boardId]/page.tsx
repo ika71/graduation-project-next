@@ -1,6 +1,6 @@
 import BoardCommentClient from "@/components/BoardCommentClient";
 import BoardDetailClient from "@/components/BoardDetailClient";
-import { backendUrl } from "@/url/backendUrl";
+import { serverFetchBackendUrl } from "@/url/backendUrl";
 
 const BoardDetailPage = async ({
   params,
@@ -12,7 +12,7 @@ const BoardDetailPage = async ({
   const boardId = params.boardId;
   const currentPage = searchParams.commentPage || 1;
 
-  const res = await fetch(`${backendUrl}/board/${boardId}`, {
+  const res = await fetch(`${serverFetchBackendUrl}/board/${boardId}`, {
     cache: "no-store",
   });
   const boardDetail = await res.json();

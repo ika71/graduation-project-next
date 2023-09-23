@@ -1,5 +1,5 @@
 import PaginationComponent from "@/components/PaginationComponent";
-import { backendUrl } from "@/url/backendUrl";
+import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ const HomePage = async ({
   const { page = 1, deviceName, categoryName } = searchParams;
   const size = 8;
 
-  let fetchUrl = `${backendUrl}/device?page=${page}&size=${size}`;
+  let fetchUrl = `${serverFetchBackendUrl}/device?page=${page}&size=${size}`;
   let currentUrl = "?";
   if (deviceName) {
     fetchUrl += `&nameCondition=${deviceName}`;
