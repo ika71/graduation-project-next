@@ -3,8 +3,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
+        protocol: process.env.BACKEND_IMAGE_SERVER_PROTOCOL,
+        hostname: process.env.BACKEND_IMAGE_SERVER_HOSTNAME,
       },
     ],
   },
