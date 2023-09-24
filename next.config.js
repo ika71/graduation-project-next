@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: process.env.BACKEND_IMAGE_SERVER_PROTOCOL,
-        hostname: "**",
+        hostname: process.env.BACKEND_IMAGE_SERVER_HOSTNAME,
       },
     ],
   },
