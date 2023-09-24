@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -70,7 +70,7 @@ const BoardDetailClient = (props: Props) => {
             return (
               <div key={imageId}>
                 <Image
-                  src={`${backendUrl}/image/${imageId}`}
+                  src={`${serverFetchBackendUrl}/image/${imageId}`}
                   alt={imageId.toString()}
                   width={400}
                   height={400}

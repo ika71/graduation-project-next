@@ -57,7 +57,7 @@ const HomePage = async ({
                 <div>
                   {device.imageId && (
                     <Image
-                      src={`${backendUrl}/image/${device.imageId}`}
+                      src={`${serverFetchBackendUrl}/image/${device.imageId}`}
                       alt={device.imageId}
                       width={300}
                       height={300}

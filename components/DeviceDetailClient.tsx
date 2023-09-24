@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import EvaluationPutModal from "./modal/evaluation/EvaluationPutModal";
 import UserContext from "@/context/userContext";
 import Image from "next/image";
-import { backendUrl } from "@/url/backendUrl";
+import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
 
 interface Props {
   deviceDetail: DeviceDetail;
@@ -61,7 +61,7 @@ const DeviceDetailClient = (props: Props) => {
         <div className="text-center">
           {deviceDetail.imageId && (
             <Image
-              src={`${backendUrl}/image/${deviceDetail.imageId}`}
+              src={`${serverFetchBackendUrl}/image/${deviceDetail.imageId}`}
               alt={`${deviceDetail.imageId}`}
               width={240}
               height={240}

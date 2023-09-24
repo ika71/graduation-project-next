@@ -3,7 +3,7 @@ import PaginationComponent from "@/components/PaginationComponent";
 import DeviceAddModal from "@/components/modal/device/DeviceAddModal";
 import DeviceEditModal from "@/components/modal/device/DeviceEditModal";
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
@@ -158,7 +158,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 {device.imageId && (
                   <Image
-                    src={`${backendUrl}/image/${device.imageId}`}
+                    src={`${serverFetchBackendUrl}/image/${device.imageId}`}
                     width={300}
                     height={300}
                     alt={`${device.imageId}`}

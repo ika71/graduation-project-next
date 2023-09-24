@@ -2,7 +2,7 @@
 
 import BoardImageModal from "@/components/modal/board/BoardImageModal";
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
@@ -146,7 +146,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
             return (
               <div key={imageId} className="md:relative">
                 <Image
-                  src={`${backendUrl}/image/${imageId}`}
+                  src={`${serverFetchBackendUrl}/image/${imageId}`}
                   alt={imageId.toString()}
                   width={400}
                   height={400}
