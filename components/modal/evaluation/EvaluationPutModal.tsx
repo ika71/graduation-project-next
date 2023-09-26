@@ -40,7 +40,6 @@ const EvaluationPutModal = (props: Props) => {
   const userContext = useContext(UserContext);
 
   const [evalList, setEvalList] = useState<EvaluationFind[]>();
-  const scoreOption = [5, 4, 3, 2, 1, "평가 없음"];
 
   const fetchData = async () => {
     if (!userContext) {
@@ -58,21 +57,6 @@ const EvaluationPutModal = (props: Props) => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  /**
-   * fetch 해온 평가 List에서 값을 변경함
-   * 나중에 put 요청에 활용
-   * @param event
-   * @param evaluation
-   */
-  const selectChange = (
-    event: ChangeEvent<HTMLSelectElement>,
-    evaluation: EvaluationFind
-  ) => {
-    if (isNaN(parseInt(event.target.value))) {
-      evaluation.evalScore = null;
-    }
-    evaluation.evalScore = parseInt(event.target.value);
-  };
 
   if (!evalList) {
     return <></>;
@@ -124,18 +108,94 @@ const EvaluationPutModal = (props: Props) => {
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 {evaluation.evalItemName}
               </label>
-              <div className="mt-1 mb-5">
-                <select
-                  onChange={(event) => selectChange(event, evaluation)}
-                  defaultValue={evaluation.evalScore || "평가 없음"}
-                  className="border-2 border-black text-center"
-                >
-                  {scoreOption.map((score) => (
-                    <option value={score} key={score}>
-                      {score}
-                    </option>
-                  ))}
-                </select>
+              <div className="mt-1 mb-5 text-3xl">
+                <div className="flex flex-row-reverse justify-center">
+                  <input
+                    id={evaluation.evalItemId + "score5"}
+                    type="radio"
+                    name={evaluation.evalItemId.toString()}
+                    className="hidden peer"
+                    value={5}
+                    defaultChecked={evaluation.evalScore === 5 && true}
+                    onClick={() => {
+                      evaluation.evalScore = 5;
+                    }}
+                  />
+                  <label
+                    htmlFor={evaluation.evalItemId + "score5"}
+                    className="cursor-pointer text-gray-500 peer-hover:text-yellow-600 peer-checked:text-yellow-400"
+                  >
+                    ★
+                  </label>
+                  <input
+                    id={evaluation.evalItemId + "score4"}
+                    type="radio"
+                    name={evaluation.evalItemId.toString()}
+                    className="hidden peer"
+                    value={4}
+                    defaultChecked={evaluation.evalScore === 4 && true}
+                    onClick={() => {
+                      evaluation.evalScore = 4;
+                    }}
+                  />
+                  <label
+                    htmlFor={evaluation.evalItemId + "score4"}
+                    className="cursor-pointer text-gray-500 peer-hover:text-yellow-600 peer-checked:text-yellow-400"
+                  >
+                    ★
+                  </label>
+                  <input
+                    id={evaluation.evalItemId + "score3"}
+                    type="radio"
+                    name={evaluation.evalItemId.toString()}
+                    className="hidden peer"
+                    value={3}
+                    defaultChecked={evaluation.evalScore === 3 && true}
+                    onClick={() => {
+                      evaluation.evalScore = 3;
+                    }}
+                  />
+                  <label
+                    htmlFor={evaluation.evalItemId + "score3"}
+                    className="cursor-pointer text-gray-500 peer-hover:text-yellow-600 peer-checked:text-yellow-400"
+                  >
+                    ★
+                  </label>
+                  <input
+                    id={evaluation.evalItemId + "score2"}
+                    type="radio"
+                    name={evaluation.evalItemId.toString()}
+                    className="hidden peer"
+                    value={2}
+                    defaultChecked={evaluation.evalScore === 2 && true}
+                    onClick={() => {
+                      evaluation.evalScore = 2;
+                    }}
+                  />
+                  <label
+                    htmlFor={evaluation.evalItemId + "score2"}
+                    className="cursor-pointer text-gray-500 peer-hover:text-yellow-600 peer-checked:text-yellow-400"
+                  >
+                    ★
+                  </label>
+                  <input
+                    id={evaluation.evalItemId + "score1"}
+                    type="radio"
+                    name={evaluation.evalItemId.toString()}
+                    className="hidden peer"
+                    value={1}
+                    defaultChecked={evaluation.evalScore === 1 && true}
+                    onClick={() => {
+                      evaluation.evalScore = 1;
+                    }}
+                  />
+                  <label
+                    htmlFor={evaluation.evalItemId + "score1"}
+                    className="cursor-pointer text-gray-500 peer-hover:text-yellow-600 peer-checked:text-yellow-400"
+                  >
+                    ★
+                  </label>
+                </div>
               </div>
             </div>
           ))}
