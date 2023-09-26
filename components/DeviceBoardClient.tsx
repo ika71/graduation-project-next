@@ -79,15 +79,13 @@ const DeviceBoardClient = (props: Props) => {
               }
             >
               <td className="p-2 md:w-2/3 md:border md:border-grey-500 text-left block md:table-cell hover:underline">
-                <span className="inline-block w-1/4 md:hidden font-bold">
-                  제목
-                </span>
-                <Link href={`/board/${board.id}`}>{board.title}</Link>
+                <Link href={`/board/${board.id}`}>
+                  <span className="inline-block md:font-normal font-bold md:text-base text-lg">
+                    {board.title}
+                  </span>
+                </Link>
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/4 md:hidden font-bold">
-                  작성자
-                </span>
                 {board.nickName}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">

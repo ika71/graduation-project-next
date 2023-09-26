@@ -135,15 +135,11 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
               }
             >
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Name
+                <span className="inline-block font-bold md:font-normal">
+                  {category.name}
                 </span>
-                {category.name}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Actions
-                </span>
                 <button
                   onClick={() => openEditModal(category.id, category.name)}
                   className="w-full md:w-fit my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3"

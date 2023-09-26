@@ -167,21 +167,14 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
                 )}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Device Name
+                <span className="inline-block font-bold md:font-normal">
+                  {device.name}
                 </span>
-                {device.name}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Category Name
-                </span>
                 {device.category.name}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Actions
-                </span>
                 <button
                   onClick={() =>
                     openEditModal(device.id, device.category.id, device.name)

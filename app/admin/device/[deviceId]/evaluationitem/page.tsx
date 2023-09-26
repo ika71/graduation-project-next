@@ -137,15 +137,11 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
               }
             >
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Name
+                <span className="inline-block font-bold md:font-normal">
+                  {evaluationItem.name}
                 </span>
-                {evaluationItem.name}
               </td>
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Actions
-                </span>
                 <button
                   onClick={() =>
                     openEditModal(evaluationItem.id, evaluationItem.name)
