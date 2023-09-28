@@ -114,10 +114,10 @@ const BoardCommentClient = (props: Props) => {
                   "border border-grey-500 bg-white md:border-none block md:table-row"
                 }
               >
-                <td className="md:w-3/5 p-2 md:border-b-2 md:border-grey-500 text-left block md:table-cell">
+                <td className="break-all md:w-3/5 p-2 md:border-b-2 md:border-grey-500 text-left block md:table-cell">
                   {comment.comment}
                 </td>
-                <td className="md:w-1/5 p-2 text-left md:text-center md:border-b-2 md:border-grey-500 block md:table-cell font-semibold">
+                <td className="break-all md:w-1/5 p-2 text-left md:text-center md:border-b-2 md:border-grey-500 block md:table-cell font-semibold">
                   {comment.createdBy}
                 </td>
                 <td className="md:w-1/5 p-2 md:border-b-2 md:border-grey-500 text-right block md:table-cell">
