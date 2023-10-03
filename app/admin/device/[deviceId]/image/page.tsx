@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useContext, useState } from "react";
 
@@ -36,7 +36,7 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
     formData.append("imageFile", uploadFile);
 
     const res = await userContext.authRequest(
-      `${backendUrl}/image`,
+      `${apiUrl}/image`,
       "POST",
       formData
     );
@@ -60,7 +60,7 @@ const DeviceImageSetPage = ({ params }: { params: { deviceId: number } }) => {
       imageId: imageId,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/device/${deviceId}/image`,
+      `${apiUrl}/admin/device/${deviceId}/image`,
       "POST",
       json
     );

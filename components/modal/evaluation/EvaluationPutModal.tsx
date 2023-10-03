@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 interface Props {
@@ -46,7 +46,7 @@ const EvaluationPutModal = (props: Props) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/evaluation?deviceId=${deviceId}`,
+      `${apiUrl}/evaluation?deviceId=${deviceId}`,
       "GET"
     );
     const fetchData: FetchData = await res.json();
@@ -78,7 +78,7 @@ const EvaluationPutModal = (props: Props) => {
       evaluationPutList: evaluationPutList,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/evaluation`,
+      `${apiUrl}/evaluation`,
       "PUT",
       evaluationPutRequest
     );

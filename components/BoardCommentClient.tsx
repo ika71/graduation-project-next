@@ -1,6 +1,6 @@
 "use client";
 
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import PaginationComponent from "./PaginationComponent";
 import UserContext from "@/context/userContext";
@@ -37,7 +37,7 @@ const BoardCommentClient = (props: Props) => {
 
   const fetchData = async () => {
     const res = await fetch(
-      `${backendUrl}/board/${boardId}/comment?page=${currentPage}&size=${size}`
+      `${apiUrl}/board/${boardId}/comment?page=${currentPage}&size=${size}`
     );
     const fetchData: FetchData = await res.json();
     setBoardCommentList(fetchData.boardCommentList);
@@ -55,7 +55,7 @@ const BoardCommentClient = (props: Props) => {
     }
     const comment = commentInput.current.value;
     const res = await userContext.authRequest(
-      `${backendUrl}/board/${boardId}/comment`,
+      `${apiUrl}/board/${boardId}/comment`,
       "POST",
       { comment: comment }
     );
@@ -76,7 +76,7 @@ const BoardCommentClient = (props: Props) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/board/${boardId}/comment/${commentId}`,
+      `${apiUrl}/board/${boardId}/comment/${commentId}`,
       "DELETE"
     );
     if (res.ok) {

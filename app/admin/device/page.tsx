@@ -3,7 +3,7 @@ import PaginationComponent from "@/components/PaginationComponent";
 import DeviceAddModal from "@/components/modal/device/DeviceAddModal";
 import DeviceEditModal from "@/components/modal/device/DeviceEditModal";
 import UserContext from "@/context/userContext";
-import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
+import { apiUrl, backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
@@ -46,7 +46,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/device?page=${currentPage}&size=${size}`,
+      `${apiUrl}/admin/device?page=${currentPage}&size=${size}`,
       "GET"
     );
     const fetchData: FetchData = await res.json();
@@ -98,7 +98,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/device/${id}`,
+      `${apiUrl}/admin/device/${id}`,
       "DELETE"
     );
     if (res.ok) {
@@ -158,7 +158,7 @@ const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
               <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                 {device.imageId && (
                   <Image
-                    src={`${serverFetchBackendUrl}/image/${device.imageId}`}
+                    src={`${backendUrl}/image/${device.imageId}`}
                     width={300}
                     height={300}
                     alt={`${device.imageId}`}

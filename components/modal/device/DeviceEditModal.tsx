@@ -1,5 +1,5 @@
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 
 interface Props {
@@ -43,7 +43,7 @@ const DeviceEditModal = (props: Props) => {
         return;
       }
       const res = await userContext.authRequest(
-        `${backendUrl}/admin/category/all`,
+        `${apiUrl}/admin/category/all`,
         "GET"
       );
       const fetchData: FetchData = await res.json();
@@ -74,7 +74,7 @@ const DeviceEditModal = (props: Props) => {
       categoryId: selectCategoryId.current.value,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/device/${deviceId}`,
+      `${apiUrl}/admin/device/${deviceId}`,
       "PATCH",
       editDevice
     );

@@ -3,7 +3,7 @@
 import EvaluationItemAddModal from "@/components/modal/evaluationItem/EvaluationItemAddModal";
 import EvaluationItemEditModal from "@/components/modal/evaluationItem/EvaluationItemEditModal";
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { useContext, useEffect, useState } from "react";
 
 interface EvaluationItem {
@@ -34,7 +34,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/evaluationitem?deviceId=${deviceId}`,
+      `${apiUrl}/admin/evaluationitem?deviceId=${deviceId}`,
       "GET"
     );
     const fetchData: FetchData = await res.json();
@@ -82,7 +82,7 @@ const EvaluationitemPage = ({ params }: { params: { deviceId: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/evaluationitem/${id}`,
+      `${apiUrl}/admin/evaluationitem/${id}`,
       "DELETE"
     );
     if (res.ok) {

@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
 
@@ -34,7 +34,7 @@ const SignupForm = () => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/member/signup`,
+      `${apiUrl}/member/signup`,
       "POST",
       member
     );

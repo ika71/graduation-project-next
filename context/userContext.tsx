@@ -1,6 +1,6 @@
 "use client";
 
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { createContext, useEffect, useState } from "react";
 
 interface Context {
@@ -46,7 +46,7 @@ export function UserContextProvider({
    * @see userContext
    */
   const fetchMember = async () => {
-    const res = await authRequest(`${backendUrl}/member`, "GET");
+    const res = await authRequest(`${apiUrl}/member`, "GET");
 
     if (!res.ok) {
       setUserContext({
@@ -85,7 +85,7 @@ export function UserContextProvider({
       method: "POST",
       body: JSON.stringify(member),
     };
-    const res = await fetch(`${backendUrl}/member/signin`, http);
+    const res = await fetch(`${apiUrl}/member/signin`, http);
     if (res.ok) {
       const loginData: LoginSuccess = await res.json();
       localStorage.setItem("token", loginData.refreshToken);
@@ -204,7 +204,7 @@ export function UserContextProvider({
       headers: headers,
       method: "POST",
     };
-    const res = await fetch(`${backendUrl}/member/refresh`, http);
+    const res = await fetch(`${apiUrl}/member/refresh`, http);
     //refresh 토큰이 만료되었으면 로그아웃한다.
     if (!res.ok && (await res.text()) === "ExpiredJwt") {
       signout();

@@ -1,5 +1,5 @@
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { FormEvent, useContext, useRef } from "react";
 
 interface Props {
@@ -35,7 +35,7 @@ const CategoryEditModal = (props: Props) => {
       name: categoryName.current.value,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/category/${categoryId}`,
+      `${apiUrl}/admin/category/${categoryId}`,
       "PATCH",
       editCategory
     );

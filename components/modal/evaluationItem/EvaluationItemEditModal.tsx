@@ -1,5 +1,5 @@
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { FormEvent, useContext, useRef } from "react";
 
 interface Props {
@@ -34,7 +34,7 @@ const EvaluationItemEditModal = (props: Props) => {
       name: evaluationItemName.current.value,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/evaluationitem/${evaluationItemId}`,
+      `${apiUrl}/admin/evaluationitem/${evaluationItemId}`,
       "PATCH",
       evaluationItem
     );

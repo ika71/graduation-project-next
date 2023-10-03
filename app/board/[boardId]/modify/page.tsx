@@ -2,7 +2,7 @@
 
 import BoardImageModal from "@/components/modal/board/BoardImageModal";
 import UserContext from "@/context/userContext";
-import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
+import { apiUrl, backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
@@ -37,7 +37,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
   const [deleteBoardImages, setDeleteBoardImages] = useState<number[]>([]);
 
   const fetchData = async () => {
-    const res = await fetch(`${backendUrl}/board/${boardId}`);
+    const res = await fetch(`${apiUrl}/board/${boardId}`);
     const boardDetail: BoardDetail = await res.json();
     setBoardDetail(boardDetail);
     setBoardImageIds(boardDetail.imageList);
@@ -71,7 +71,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
       deleteImageIdList: deleteBoardImages,
     };
     const res = await userContext.authRequest(
-      `${backendUrl}/board/${boardId}`,
+      `${apiUrl}/board/${boardId}`,
       "PATCH",
       modifyBoard
     );
@@ -146,7 +146,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
             return (
               <div key={imageId} className="md:relative">
                 <Image
-                  src={`${serverFetchBackendUrl}/image/${imageId}`}
+                  src={`${backendUrl}/image/${imageId}`}
                   alt={imageId.toString()}
                   width={400}
                   height={400}

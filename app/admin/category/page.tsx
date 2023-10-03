@@ -3,7 +3,7 @@ import PaginationComponent from "@/components/PaginationComponent";
 import CategoryAddModal from "@/components/modal/category/CategoryAddModal";
 import CategoryEditModal from "@/components/modal/category/CategoryEditModal";
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { useContext, useEffect, useState } from "react";
 
 interface Category {
@@ -37,7 +37,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/category?page=${currentPage}&size=${size}`,
+      `${apiUrl}/admin/category?page=${currentPage}&size=${size}`,
       "GET"
     );
     const fetchData: FetchData = await res.json();
@@ -84,7 +84,7 @@ const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/admin/category/${id}`,
+      `${apiUrl}/admin/category/${id}`,
       "DELETE"
     );
     if (res.ok) {

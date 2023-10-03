@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl, serverFetchBackendUrl } from "@/url/backendUrl";
+import { apiUrl, backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -37,7 +37,7 @@ const BoardDetailClient = (props: Props) => {
       return;
     }
     const res = await userContext.authRequest(
-      `${backendUrl}/board/${boardId}`,
+      `${apiUrl}/board/${boardId}`,
       "DELETE"
     );
     if (res.ok) {
@@ -70,7 +70,7 @@ const BoardDetailClient = (props: Props) => {
             return (
               <div key={imageId}>
                 <Image
-                  src={`${serverFetchBackendUrl}/image/${imageId}`}
+                  src={`${backendUrl}/image/${imageId}`}
                   alt={imageId.toString()}
                   width={400}
                   height={400}

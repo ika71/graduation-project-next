@@ -2,7 +2,7 @@
 
 import BoardImageModal from "@/components/modal/board/BoardImageModal";
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useRef, useState } from "react";
 
@@ -60,7 +60,7 @@ const BoardAddPage = ({
     };
 
     const res = await userContext.authRequest(
-      `${backendUrl}/board?deviceId=${deviceId}`,
+      `${apiUrl}/board?deviceId=${deviceId}`,
       "POST",
       board
     );

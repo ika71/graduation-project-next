@@ -1,7 +1,7 @@
 "use client";
 
 import UserContext from "@/context/userContext";
-import { backendUrl } from "@/url/backendUrl";
+import { apiUrl } from "@/url/backendUrl";
 import { ChangeEvent, useContext, useState } from "react";
 
 interface Props {
@@ -48,7 +48,7 @@ const BoardImageModal = (props: Props) => {
     );
 
     const res = await userContext.authRequest(
-      `${backendUrl}/image`,
+      `${apiUrl}/image`,
       "POST",
       formData
     );
