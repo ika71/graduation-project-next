@@ -28,6 +28,7 @@ const BoardImageModal = (props: Props) => {
   const { closeModal, afterUpload } = props;
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const userContext = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   if (!userContext || userContext.userName === "") return <></>;
 
   const uploadFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +48,13 @@ const BoardImageModal = (props: Props) => {
       formData.append("imageFile", uploadFile)
     );
 
+    setLoading(true);
     const res = await userContext.authRequest(
       `${apiUrl}/image`,
       "POST",
       formData
     );
+    setLoading(false);
     if (res.ok) {
       const uploadSuccess: UploadSuccess = await res.json();
       const uploadImages = uploadSuccess.imageList;
@@ -130,6 +133,12 @@ const BoardImageModal = (props: Props) => {
           >
             업로드
           </button>
+          {loading && (
+            <div
+              className="w-8 h-8 rounded-full animate-spin
+                        border-2 border-solid border-blue-500 border-t-transparent"
+            />
+          )}
           <button
             onClick={closeModal}
             className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white mr-1 close-modal"
