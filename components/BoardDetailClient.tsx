@@ -33,6 +33,9 @@ const BoardDetailClient = (props: Props) => {
   const router = useRouter();
 
   const deleteBoard = async () => {
+    if (!confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
     if (!userContext) {
       return;
     }
@@ -43,7 +46,6 @@ const BoardDetailClient = (props: Props) => {
     if (res.ok) {
       alert("삭제하였습니다.");
       router.back();
-      router.refresh();
     } else {
       const resText = await res.text();
       resText ? alert(resText) : alert("삭제에 실패하였습니다.");

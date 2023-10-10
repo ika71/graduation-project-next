@@ -147,6 +147,7 @@ const BoardCommentClient = (props: Props) => {
             ))}
           </tbody>
         </table>
+        {boardCommentList.length === 0 && <div>등록된 댓글이 없습니다.</div>}
         {isLogin && (
           <form className="flex my-4">
             <input

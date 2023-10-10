@@ -104,6 +104,7 @@ const DeviceBoardClient = (props: Props) => {
           ))}
         </tbody>
       </table>
+      {boardList.length === 0 && <div>등록된 게시글이 없습니다.</div>}
       <div className="my-5">
         <PaginationComponent
           url={`?boardPage=`}
