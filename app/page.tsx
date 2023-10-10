@@ -1,7 +1,8 @@
 import PaginationComponent from "@/components/PaginationComponent";
-import { apiUrl, backendUrl } from "@/url/backendUrl";
+import { backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface FetchData {
   deviceList: Device[];
@@ -42,6 +43,9 @@ const HomePage = async ({
   const res = await fetch(fetchUrl, {
     cache: "no-store",
   });
+  if (!res.ok) {
+    return notFound();
+  }
   const fetchData: FetchData = await res.json();
   const deviceList: Device[] = fetchData.deviceList;
 
