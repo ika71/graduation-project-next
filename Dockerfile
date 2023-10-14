@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . /app
 
+RUN mkdir -p /app/.next/cache
+
 RUN npm run build
 
 EXPOSE 3000
