@@ -36,7 +36,7 @@ const DeviceDetailPage = async ({
   return (
     <>
       <DeviceDetailClient deviceDetail={deviceDetail} />
-      <div className="h-1 bg-blue-300 my-3"></div>
+      <hr className="h-1 bg-blue-300 my-3" />
       <DeviceBoardClient
         currentPage={currentPage}
         deviceId={deviceId}

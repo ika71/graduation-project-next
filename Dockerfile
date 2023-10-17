@@ -8,9 +8,9 @@ RUN npm install
 
 COPY . /app
 
-RUN mkdir -p /app/.next/cache
-
 RUN npm run build
+
+RUN mkdir -p /app/.next/cache
 
 EXPOSE 3000
 
