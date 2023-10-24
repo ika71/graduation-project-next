@@ -6,6 +6,7 @@ import UserContext from "@/context/userContext";
 import { apiUrl, backendUrl } from "@/url/backendUrl";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 interface Category {
@@ -24,8 +25,10 @@ interface FetchData {
   totalCount: number;
 }
 
-const DevicePage = ({ searchParams }: { searchParams: { page: number } }) => {
-  const currentPage = searchParams.page || 1; //현재 페이지
+const DevicePage = () => {
+  const searchParams = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1; //현재 페이지
   const size = 10; //페이지에 보여줄 전자제품 크기
 
   const userContext = useContext(UserContext);
