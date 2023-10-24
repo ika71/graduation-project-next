@@ -4,6 +4,7 @@ import CategoryAddModal from "@/components/modal/category/CategoryAddModal";
 import CategoryEditModal from "@/components/modal/category/CategoryEditModal";
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
+import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 interface Category {
@@ -16,8 +17,9 @@ interface FetchData {
   totalCount: number;
 }
 
-const CategoryPage = ({ searchParams }: { searchParams: { page: number } }) => {
-  const currentPage = searchParams.page || 1; //현재 페이지
+const CategoryPage = () => {
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1; //현재 페이지
   const size = 10; //페이지에 보여줄 카테고리 크기
 
   const userContext = useContext(UserContext);
