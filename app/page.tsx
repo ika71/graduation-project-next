@@ -16,7 +16,8 @@ interface Device {
   imageId: string | null;
   createdTime: string;
   evaluationItemList: string[];
-  totalAvg: number;
+  totalAvg: number | null;
+  boardCount: number;
 }
 
 const HomePage = async ({
@@ -83,6 +84,9 @@ const HomePage = async ({
                         {device.totalAvg || "평점 없음"}
                       </span>
                     </div>
+                    <span className="absolute top-2 right-2 flex items-center justify-center rounded-full bg-red-500 p-2 px-4 text-lg text-white">
+                      {device.boardCount}
+                    </span>
                   </div>
 
                   <div className="p-4">
