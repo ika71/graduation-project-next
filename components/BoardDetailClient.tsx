@@ -2,10 +2,10 @@
 
 import UserContext from "@/context/userContext";
 import { apiUrl, backendUrl } from "@/url/backendUrl";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
+import TipTapReadonly from "./tiptap/TipTapReadonly";
 
 interface Props {
   boardDetail: BoardDetail;
@@ -17,7 +17,6 @@ interface BoardDetail {
   content: string;
   createdBy: string;
   createdTime: string;
-  imageList: number[];
   view: number;
 }
 
@@ -68,21 +67,9 @@ const BoardDetailClient = (props: Props) => {
           <p>조회수: {boardDetail.view}</p>
           <div className="bg-gray-300 h-1"></div>
 
-          {boardDetail.imageList.map((imageId) => {
-            return (
-              <div key={imageId}>
-                <Image
-                  src={`${backendUrl}/image/${imageId}`}
-                  alt={imageId.toString()}
-                  width={400}
-                  height={400}
-                  className="w-full md:w-2/3 h-auto"
-                />
-              </div>
-            );
-          })}
-
-          <div className="pt-1">{boardDetail.content}</div>
+          <div className="pt-1">
+            <TipTapReadonly html={boardDetail.content} />
+          </div>
           {userContext.userName === boardDetail.createdBy && (
             <div className="text-right">
               <Link href={`/board/${boardId}/modify`}>

@@ -15,6 +15,7 @@ import { apiUrl } from "@/url/backendUrl";
 
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
+import "./imageStyle.css";
 
 interface Props {
   content: string;
@@ -54,7 +55,7 @@ const TipTap = (props: Props) => {
     content: content,
     editorProps: {
       attributes: {
-        class: "border border-gray-500 pl-4 pt-1 min-h-screen",
+        class: "border border-gray-500 pl-4 pt-1 min-h-screen content",
       },
     },
   });
