@@ -4,7 +4,7 @@ import TipTap from "@/components/tiptap/Tiptap";
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 
 const BoardAddPage = ({
   searchParams,
@@ -16,7 +16,7 @@ const BoardAddPage = ({
   const userContext = useContext(UserContext);
 
   const titleRef = useRef<HTMLInputElement>(null);
-  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const [content, setContent] = useState("");
   if (!userContext) {
     return <></>;
   }
@@ -27,23 +27,22 @@ const BoardAddPage = ({
     router.push("/signin");
   }
 
-  const createBoard = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!titleRef.current || !contentRef.current) {
+  const createBoard = async () => {
+    if (!titleRef.current) {
       return;
     }
     if (!titleRef.current.value.trim()) {
       alert("제목은 비어 있을 수 없습니다.");
       return;
     }
-    if (!contentRef.current.value.trim()) {
+    if (!content.trim()) {
       alert("본문은 비어 있을 수 없습니다.");
       return;
     }
 
     const board = {
       title: titleRef.current.value,
-      content: contentRef.current.value,
+      content: content,
     };
 
     const res = await userContext.authRequest(
@@ -72,15 +71,11 @@ const BoardAddPage = ({
               className="border border-gray-500 pl-4 py-2 w-2/3 mr-5 mb-5"
             ></input>
           </div>
-          <TipTap />
-          <div className="text-right">
-            <button
-              onClick={createBoard}
-              className="w-full md:w-fit md:mx-2 md:my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
-            >
-              글 작성
-            </button>
-          </div>
+          <TipTap
+            content={content}
+            setContent={setContent}
+            afterSetContent={createBoard}
+          />
         </div>
       </form>
     </>

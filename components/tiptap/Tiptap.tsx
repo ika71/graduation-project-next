@@ -9,19 +9,37 @@ import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import Image from "@tiptap/extension-image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import BoardImageModal from "../modal/board/BoardImageModal";
 import { apiUrl } from "@/url/backendUrl";
+
+import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
+
+interface Props {
+  content: string;
+  setContent: (content: string) => void;
+  afterSetContent: () => Promise<void>;
+}
 
 interface Image {
   imageId: number;
   originName: string;
 }
 
-const TipTap = () => {
+const TipTap = (props: Props) => {
+  const { content, setContent, afterSetContent } = props;
+  const [loading, setLoading] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
-  const content = "";
+  useEffect(() => {
+    if (loading) {
+      afterSetContent();
+    }
+    setLoading(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -33,7 +51,7 @@ const TipTap = () => {
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Image,
     ],
-    content,
+    content: content,
     editorProps: {
       attributes: {
         class: "border border-gray-500 pl-4 pt-1 min-h-screen",
@@ -59,6 +77,11 @@ const TipTap = () => {
 
       editor.chain().createParagraphNear().run();
     });
+  };
+  const write = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!editor) return;
+    setContent(editor.getHTML());
   };
 
   return (
@@ -117,6 +140,15 @@ const TipTap = () => {
       </RichTextEditor.Toolbar>
 
       <RichTextEditor.Content />
+
+      <div className="text-right">
+        <button
+          onClick={write}
+          className="w-full md:w-fit md:mx-2 md:my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+        >
+          글 작성
+        </button>
+      </div>
     </RichTextEditor>
   );
 };
