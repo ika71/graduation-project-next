@@ -1,6 +1,7 @@
 "use client";
 
 import BoardImageModal from "@/components/modal/board/BoardImageModal";
+import TipTap from "@/components/tiptap/Tiptap";
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
@@ -99,7 +100,7 @@ const BoardAddPage = ({
               ref={titleRef}
               type="text"
               placeholder="제목을 입력하세요"
-              className="border border-gray-500 pl-4 py-2 w-2/3 bg-blue-50 mr-5 mb-5"
+              className="border border-gray-500 pl-4 py-2 w-2/3 mr-5 mb-5"
             ></input>
             <button
               onClick={openUploadModal}
@@ -108,12 +109,13 @@ const BoardAddPage = ({
               이미지 업로드
             </button>
           </div>
-          <textarea
+          <TipTap />
+          {/* <textarea
             ref={contentRef}
             rows={20}
             placeholder="내용을 입력하세요"
             className="border border-gray-500 pl-4 pt-1 bg-blue-50"
-          ></textarea>
+          ></textarea> */}
           <div>
             첨부이미지:
             {uploadImages.length === 0 && <span> 없음</span>}
