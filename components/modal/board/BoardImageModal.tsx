@@ -2,7 +2,7 @@
 
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
 interface Props {
   closeModal: () => void;
@@ -41,7 +41,8 @@ const BoardImageModal = (props: Props) => {
     setUploadFiles((prev) => prev.concat(addFiles));
   };
 
-  const uploadFileRequest = async () => {
+  const uploadFileRequest = async (event: FormEvent) => {
+    event.preventDefault();
     if (uploadFiles.length === 0) return;
     const formData = new FormData();
     uploadFiles.forEach((uploadFile) =>

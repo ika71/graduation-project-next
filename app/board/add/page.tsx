@@ -1,16 +1,10 @@
 "use client";
 
-import BoardImageModal from "@/components/modal/board/BoardImageModal";
 import TipTap from "@/components/tiptap/Tiptap";
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import { FormEvent, useContext, useRef, useState } from "react";
-
-interface Image {
-  imageId: number;
-  originName: string;
-}
+import { useContext, useRef } from "react";
 
 const BoardAddPage = ({
   searchParams,
@@ -20,9 +14,6 @@ const BoardAddPage = ({
   const deviceId = searchParams.deviceId;
   const router = useRouter();
   const userContext = useContext(UserContext);
-
-  const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploadImages, setUploadImages] = useState<Image[]>([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -50,14 +41,9 @@ const BoardAddPage = ({
       return;
     }
 
-    let imageIdList: number[] = [];
-    uploadImages.forEach((uploadImage) =>
-      imageIdList.push(uploadImage.imageId)
-    );
     const board = {
       title: titleRef.current.value,
       content: contentRef.current.value,
-      imageIdList: imageIdList,
     };
 
     const res = await userContext.authRequest(
@@ -74,25 +60,8 @@ const BoardAddPage = ({
     }
   };
 
-  const openUploadModal = (event: FormEvent) => {
-    event.preventDefault();
-    setShowUploadModal(true);
-  };
-  const closeUploadModal = () => {
-    setShowUploadModal(false);
-  };
-  const afterUpload = (uploadImages: Image[]) => {
-    setUploadImages((prev) => prev.concat(uploadImages));
-  };
-
   return (
     <>
-      {showUploadModal && (
-        <BoardImageModal
-          closeModal={closeUploadModal}
-          afterUpload={afterUpload}
-        />
-      )}
       <form className="py-10 md:px-40 bg-gray-100">
         <div className="flex flex-col gap-y-5 border border-gray-500 min-h-screen py-10 px-4 md:px-20 shadow bg-white">
           <div>
@@ -102,53 +71,8 @@ const BoardAddPage = ({
               placeholder="제목을 입력하세요"
               className="border border-gray-500 pl-4 py-2 w-2/3 mr-5 mb-5"
             ></input>
-            <button
-              onClick={openUploadModal}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
-            >
-              이미지 업로드
-            </button>
           </div>
           <TipTap />
-          {/* <textarea
-            ref={contentRef}
-            rows={20}
-            placeholder="내용을 입력하세요"
-            className="border border-gray-500 pl-4 pt-1 bg-blue-50"
-          ></textarea> */}
-          <div>
-            첨부이미지:
-            {uploadImages.length === 0 && <span> 없음</span>}
-            {uploadImages &&
-              uploadImages.map((uploadImage) => {
-                return (
-                  <p key={uploadImage.imageId}>
-                    {uploadImage.originName}
-                    <svg
-                      onClick={() => {
-                        setUploadImages((prev) =>
-                          prev.filter(
-                            (filterImage) => filterImage !== uploadImage
-                          )
-                        );
-                      }}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6 cursor-pointer inline-block"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </p>
-                );
-              })}
-          </div>
           <div className="text-right">
             <button
               onClick={createBoard}
