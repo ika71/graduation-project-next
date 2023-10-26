@@ -1,7 +1,22 @@
 import DeviceBoardClient from "@/components/DeviceBoardClient";
 import DeviceDetailClient from "@/components/DeviceDetailClient";
+import DeviceDetailChart from "@/components/chart/DeviceDetailChart";
 import { backendUrl } from "@/url/backendUrl";
 import { notFound } from "next/navigation";
+
+interface DeviceDetail {
+  id: number;
+  name: string;
+  categoryName: string;
+  imageId: number | null;
+  createdTime: string;
+  evalItemAvgList: EvalItemAvg[];
+}
+interface EvalItemAvg {
+  id: number;
+  name: string;
+  avg: number | null;
+}
 
 const DeviceDetailPage = async ({
   params,
@@ -31,11 +46,14 @@ const DeviceDetailPage = async ({
   if (!deviceDetailResponse.ok) {
     return notFound();
   }
-  const deviceDetail = await deviceDetailResponse.json();
+  const deviceDetail: DeviceDetail = await deviceDetailResponse.json();
 
   return (
     <>
       <DeviceDetailClient deviceDetail={deviceDetail} />
+      <div className="md:w-3/5 mx-auto">
+        <DeviceDetailChart evalItemAvgList={deviceDetail.evalItemAvgList} />
+      </div>
       <hr className="h-1 bg-blue-300 my-3" />
       <DeviceBoardClient
         currentPage={currentPage}
