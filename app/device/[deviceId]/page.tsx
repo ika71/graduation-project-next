@@ -1,5 +1,6 @@
 import DeviceBoardClient from "@/components/DeviceBoardClient";
 import DeviceDetailClient from "@/components/DeviceDetailClient";
+import RelationDeviceComponent from "@/components/RelationDeviceComponent";
 import DeviceDetailChart from "@/components/chart/DeviceDetailChart";
 import { backendUrl } from "@/url/backendUrl";
 import { notFound } from "next/navigation";
@@ -11,11 +12,27 @@ interface DeviceDetail {
   imageId: number | null;
   createdTime: string;
   evalItemAvgList: EvalItemAvg[];
+  relationDeviceCount: number;
 }
 interface EvalItemAvg {
   id: number;
   name: string;
   avg: number | null;
+}
+
+interface FetchRelationDevice {
+  deviceList: RelationDevice[];
+}
+
+interface RelationDevice {
+  id: number;
+  name: string;
+  categoryName: string;
+  imageId: string | null;
+  createdTime: string;
+  evaluationItemList: string[];
+  totalAvg: number | null;
+  boardCount: number;
 }
 
 const DeviceDetailPage = async ({
@@ -48,6 +65,21 @@ const DeviceDetailPage = async ({
   }
   const deviceDetail: DeviceDetail = await deviceDetailResponse.json();
 
+  const relationDeviceCount = deviceDetail.relationDeviceCount;
+  const relationDevicePagingSize = 4;
+  const max = Math.ceil(relationDeviceCount / relationDevicePagingSize);
+
+  const random = Math.floor(Math.random() * max) + 1;
+
+  const relationDeviceResponse = await fetch(
+    `${backendUrl}/device?page=${random}&size=${relationDevicePagingSize}&categoryCondition=${deviceDetail.categoryName}`
+  );
+
+  const fetchRelationDevice: FetchRelationDevice =
+    await relationDeviceResponse.json();
+  const relationDeviceList = fetchRelationDevice.deviceList.filter(
+    (relationDevice) => relationDevice.id != deviceId
+  );
   return (
     <>
       <DeviceDetailClient deviceDetail={deviceDetail} />
@@ -60,6 +92,7 @@ const DeviceDetailPage = async ({
         deviceId={deviceId}
         fetchData={fetchData}
       />
+      <RelationDeviceComponent relationDeviceList={relationDeviceList} />
     </>
   );
 };
