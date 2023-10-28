@@ -72,7 +72,8 @@ const DeviceDetailPage = async ({
   const random = Math.floor(Math.random() * max) + 1;
 
   const relationDeviceResponse = await fetch(
-    `${backendUrl}/device?page=${random}&size=${relationDevicePagingSize}&categoryCondition=${deviceDetail.categoryName}`
+    `${backendUrl}/device?page=${random}&size=${relationDevicePagingSize}&categoryCondition=${deviceDetail.categoryName}`,
+    { cache: "no-store" }
   );
 
   const fetchRelationDevice: FetchRelationDevice =
