@@ -1,3 +1,10 @@
+.content ul {
+  list-style-type: disc;
+}
+.content ol {
+  list-style-type: decimal;
+}
+
 @media (min-width: 768px) {
   .content img {
     width: 66%;

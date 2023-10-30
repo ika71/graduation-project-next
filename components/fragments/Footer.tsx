@@ -7,7 +7,7 @@ const Footer = () => {
       <ul className="flex flex-wrap items-center mt-3 text-sm text-gray-400 sm:mt-0">
         <li className="mx-auto">
           <a
-            href="https://github.com/ika71"
+            href="https://github.com/ika71/graduation-project-spring"
             target="_blank"
             className="mr-4 hover:underline md:mr-6"
           >

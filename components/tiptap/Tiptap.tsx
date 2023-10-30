@@ -16,6 +16,7 @@ import { apiUrl } from "@/url/backendUrl";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 import "./imageStyle.css";
+import { randomUUID } from "crypto";
 
 interface Props {
   content: string;
@@ -32,6 +33,7 @@ const TipTap = (props: Props) => {
   const { content, setContent, afterSetContent } = props;
   const [loading, setLoading] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [effectCallFlag, setEffectCallFlag] = useState(false);
 
   useEffect(() => {
     if (loading) {
@@ -39,7 +41,11 @@ const TipTap = (props: Props) => {
     }
     setLoading(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
+  }, [content, effectCallFlag]);
+
+  const effectCall = () => {
+    setEffectCallFlag((prev) => !prev);
+  };
 
   const editor = useEditor({
     extensions: [
@@ -82,6 +88,9 @@ const TipTap = (props: Props) => {
   const write = async (event: FormEvent) => {
     event.preventDefault();
     if (!editor) return;
+    if (content === editor.getHTML()) {
+      effectCall();
+    }
     setContent(editor.getHTML());
   };
 
