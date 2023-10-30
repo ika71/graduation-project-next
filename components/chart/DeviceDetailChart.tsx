@@ -58,7 +58,7 @@ const DeviceDetailChart = (props: Props) => {
       },
     },
   };
-
+  if (evalItemAvgList.length < 3) return <></>;
   return <Radar data={data} options={options} />;
 };
 
