@@ -50,7 +50,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
     };
     const res = await userContext.authRequest(
       `${apiUrl}/board/${boardId}`,
-      "PATCH",
+      "PUT",
       modifyBoard
     );
     if (res.ok) {

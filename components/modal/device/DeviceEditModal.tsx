@@ -75,7 +75,7 @@ const DeviceEditModal = (props: Props) => {
     };
     const res = await userContext.authRequest(
       `${apiUrl}/admin/device/${deviceId}`,
-      "PATCH",
+      "PUT",
       editDevice
     );
     if (res.ok) {

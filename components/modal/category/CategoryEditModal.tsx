@@ -36,7 +36,7 @@ const CategoryEditModal = (props: Props) => {
     };
     const res = await userContext.authRequest(
       `${apiUrl}/admin/category/${categoryId}`,
-      "PATCH",
+      "PUT",
       editCategory
     );
     if (res.ok) {

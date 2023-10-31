@@ -35,7 +35,7 @@ const EvaluationItemEditModal = (props: Props) => {
     };
     const res = await userContext.authRequest(
       `${apiUrl}/admin/evaluationitem/${evaluationItemId}`,
-      "PATCH",
+      "PUT",
       evaluationItem
     );
     if (res.ok) {
