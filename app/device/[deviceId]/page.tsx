@@ -58,7 +58,7 @@ const DeviceDetailPage = async ({
   const fetchData = await deviceBoardResponse.json();
 
   const deviceDetailResponse = await fetch(`${backendUrl}/device/${deviceId}`, {
-    next: { revalidate: 1 },
+    next: { revalidate: 60 },
   });
   if (!deviceDetailResponse.ok) {
     return notFound();
@@ -87,13 +87,13 @@ const DeviceDetailPage = async ({
       <div className="md:w-3/5 mx-auto">
         <DeviceDetailChart evalItemAvgList={deviceDetail.evalItemAvgList} />
       </div>
+      <RelationDeviceComponent relationDeviceList={relationDeviceList} />
       <hr className="h-1 bg-blue-300 my-3" />
       <DeviceBoardClient
         currentPage={currentPage}
         deviceId={deviceId}
         fetchData={fetchData}
       />
-      <RelationDeviceComponent relationDeviceList={relationDeviceList} />
     </>
   );
 };
