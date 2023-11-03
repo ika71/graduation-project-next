@@ -5,7 +5,9 @@
 
 ## List of used open sources
 
-### https://github.com/relliv/my-tailwind-components/tree/main
+### https://github.com/relliv/my-tailwind-components/blob/main/src/components/responsive-card-list.html
+### https://github.com/relliv/my-tailwind-components/blob/main/src/components/spinners.html
+### https://github.com/relliv/my-tailwind-components/blob/main/src/templates/404-page-template.html
 
 MIT License
 
