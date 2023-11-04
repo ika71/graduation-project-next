@@ -13,7 +13,7 @@ import { RichTextEditor } from "@mantine/tiptap";
 
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
-import "./imageStyle.css";
+import styles from "./tiptapStyle.module.css";
 
 interface Props {
   html: string;
@@ -37,7 +37,7 @@ const TipTapReadonly = (props: Props) => {
     content: html,
     editorProps: {
       attributes: {
-        class: "border border-gray-500 pl-4 pt-1 min-h-screen content",
+        class: `border border-gray-500 pl-4 pt-1 min-h-screen ${styles.content}`,
       },
     },
   });
