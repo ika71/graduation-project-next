@@ -13,8 +13,6 @@ import { FormEvent, useEffect, useState } from "react";
 import BoardImageModal from "../modal/board/BoardImageModal";
 import { apiUrl } from "@/url/backendUrl";
 
-import "@mantine/core/styles.css";
-import "@mantine/tiptap/styles.css";
 import styles from "./tiptapStyle.module.css";
 
 interface Props {

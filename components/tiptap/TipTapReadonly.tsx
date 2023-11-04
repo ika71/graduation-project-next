@@ -11,8 +11,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import { RichTextEditor } from "@mantine/tiptap";
 
-import "@mantine/core/styles.css";
-import "@mantine/tiptap/styles.css";
 import styles from "./tiptapStyle.module.css";
 
 interface Props {

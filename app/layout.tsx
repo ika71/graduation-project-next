@@ -5,6 +5,9 @@ import { Metadata } from "next";
 import { UserContextProvider } from "@/context/userContext";
 import { MantineProvider } from "@mantine/core";
 
+import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
+
 export const metadata: Metadata = {
   title: "전자제품 리뷰사이트",
 };
