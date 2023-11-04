@@ -84,7 +84,7 @@ const DeviceDetailPage = async ({
   return (
     <>
       <DeviceDetailClient deviceDetail={deviceDetail} />
-      <div className="md:w-3/5 mx-auto">
+      <div className="md:w-2/5 mx-auto">
         <DeviceDetailChart evalItemAvgList={deviceDetail.evalItemAvgList} />
       </div>
       <RelationDeviceComponent relationDeviceList={relationDeviceList} />
