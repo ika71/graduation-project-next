@@ -70,7 +70,8 @@ const BoardDetailClient = (props: Props) => {
           <div className="pt-1">
             <TipTapReadonly html={boardDetail.content} />
           </div>
-          {userContext.userName === boardDetail.createdBy && (
+          {(userContext.role === "ADMIN" ||
+            userContext.userName === boardDetail.createdBy) && (
             <div className="text-right">
               <Link href={`/board/${boardId}/modify`}>
                 <button className="w-full md:w-fit md:mx-2 md:my-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-3">
