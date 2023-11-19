@@ -36,8 +36,6 @@ const Header = () => {
     }
     const condition = conditionRef.current.value;
     const searchString = searchStringRef.current.value;
-    console.log(condition);
-    console.log(searchString);
     router.push(`/?${condition}=${searchString}`);
   };
 
