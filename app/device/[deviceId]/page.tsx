@@ -58,7 +58,7 @@ const DeviceDetailPage = async ({
   const fetchData = await deviceBoardResponse.json();
 
   const deviceDetailResponse = await fetch(`${backendUrl}/device/${deviceId}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 1 },
   });
   if (!deviceDetailResponse.ok) {
     return notFound();
