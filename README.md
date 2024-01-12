@@ -1,12 +1,14 @@
 # graduation-project-next
 
-졸업작품-전자제품리뷰사이트-넥스트프론트엔드  
+전자제품리뷰사이트-넥스트프론트엔드  
 백엔드 https://github.com/ika71/graduation-project-spring
 
 ## List of used open sources
 
 ### https://github.com/relliv/my-tailwind-components/blob/main/src/components/responsive-card-list.html
+
 ### https://github.com/relliv/my-tailwind-components/blob/main/src/components/spinners.html
+
 ### https://github.com/relliv/my-tailwind-components/blob/main/src/templates/404-page-template.html
 
 MIT License
