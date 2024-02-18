@@ -4,7 +4,7 @@ import TipTap from "@/components/tiptap/Tiptap";
 import UserContext from "@/context/userContext";
 import { apiUrl } from "@/url/backendUrl";
 import { useRouter } from "next/navigation";
-import react from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 interface BoardDetail {
   id: number;
@@ -18,12 +18,12 @@ interface BoardDetail {
 const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
   const boardId = params.boardId;
   const router = useRouter();
-  const userContext = react.useContext(UserContext);
+  const userContext = useContext(UserContext);
 
-  const titleRef = react.useRef<HTMLInputElement>(null);
-  const [content, setContent] = react.useState("");
+  const titleRef = useRef<HTMLInputElement>(null);
+  const [content, setContent] = useState("");
 
-  const [boardDetail, setBoardDetail] = react.useState<BoardDetail>();
+  const [boardDetail, setBoardDetail] = useState<BoardDetail>();
 
   const fetchData = async () => {
     const res = await fetch(`${apiUrl}/board/${boardId}`);
@@ -62,7 +62,7 @@ const BoardModifyPage = ({ params }: { params: { boardId: number } }) => {
     }
   };
 
-  react.useEffect(() => {
+  useEffect(() => {
     fetchData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
